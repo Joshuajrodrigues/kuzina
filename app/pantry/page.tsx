@@ -13,8 +13,8 @@ export default function Pantry() {
     </div>
       <Search/>
       <div className=" px-5 mx-5 flex justify-between">
-        <Sort/>
         <Filter/>
+        
       </div>
 
       <section>
