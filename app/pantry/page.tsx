@@ -4,6 +4,7 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import Filter from "../components/Filter";
 import Search from "../components/Search";
 import { IPantryList, columns } from "./columns";
+import AddDrawer from "../components/AddDrawer";
 
 const getPantryItems = async (): Promise<IPantryList[]> => {
   const response = await import("@/app/api/pantry/route");
@@ -37,7 +38,7 @@ export default async function Pantry () {
   return (
     <>
     <div className=" px-5 mx-5 flex justify-between">
-      <h3 className=" text-xl">Food Pantry</h3> <Button> <PlusCircledIcon className="mr-2 h-4 w-4"/> Add Item</Button>
+      <h3 className=" text-xl">Food Pantry</h3> <AddDrawer/>
     </div>
       <Search/>
       <div className="px-5 mx-5 flex justify-between flex-col ">
