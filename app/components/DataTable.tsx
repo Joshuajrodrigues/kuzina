@@ -58,6 +58,7 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
@@ -84,7 +85,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 p-5 m-5 ">
+      <div className="flex items-center justify-end space-x-2 my-5 ">
         <Button
           variant="outline"
           size="sm"

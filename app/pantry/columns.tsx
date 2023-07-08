@@ -1,4 +1,4 @@
-
+"use client"
 import { ColumnDef } from "@tanstack/react-table"
 
 export interface IPantryList {
@@ -16,5 +16,10 @@ export interface IPantryList {
     {
       accessorKey: "quantity",
       header: "Quantity",
+      cell({row}) {
+        return<div className=" text-center">
+        {row.getValue("quantity")}
+        </div>
+      },
     },
   ]
