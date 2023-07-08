@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import AddItemForm from "./AddItemForm";
 
 const AddDrawer = () => {
   return (
@@ -21,9 +22,7 @@ const AddDrawer = () => {
         <SheetHeader>
           <SheetTitle>Add Item</SheetTitle>
           <SheetDescription>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi laboriosam commodi optio suscipit? Distinctio quas fuga similique excepturi saepe nemo earum hic, pariatur, temporibus minus, eius doloribus odit. Quibusdam, numquam?
-           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus quos, veniam, consequuntur quidem explicabo pariatur numquam fugit quo reprehenderit exercitationem sapiente consectetur saepe? Sed, ex unde ducimus distinctio ad aliquid?
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae rerum alias distinctio, repudiandae aspernatur beatae, atque vitae veritatis amet deserunt qui error quisquam eos. Accusantium eos autem libero? Quod, perspiciatis.
+         <AddItemForm/>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
