@@ -49,7 +49,7 @@ const Filter = () => {
           <PlusCircledIcon className="mr-2 h-4 w-4" /> Filter
           {selectedValues.length > 0 && (
             <>
-              <Separator orientation="vertical" />
+              <Separator className="mx-2 h-4" orientation="vertical" />
               <Badge
                 variant="secondary"
                 className="rounded-sm px-1 font-normal lg:hidden"
@@ -89,7 +89,8 @@ const Filter = () => {
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options?.map((option) => (
-                <div className="flex items-center">
+                <CommandItem onSelect={(value)=>console.log("value",value)
+                } >
                   <div
                     className={cn(
                       "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
@@ -100,10 +101,9 @@ const Filter = () => {
                   >
                     <CheckIcon className={cn("h-4 w-4")} />
                   </div>
-                  <CommandItem>{option.label}</CommandItem>
-                </div>
+                  {option.label}
+                </CommandItem>
               ))}
-              
             </CommandGroup>
           </CommandList>
         </Command>
