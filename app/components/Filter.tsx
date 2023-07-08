@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
-interface IFilterOptions {
+interface IFilteroptionDefaults {
   label: string;
   value: string;
 }
@@ -40,9 +40,9 @@ const optionDefaults = [
 ];
 
 const Filter = () => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [selectedValues, setSelectedValues] = useState<string[]>(["Running low"]);
   //const selectedValues = new Set<string>(["Wishlisted"]);
-  const [options, setOptions] = useState<IFilterOptions[]>(optionDefaults);
+  //const [optionDefaults, setoptionDefaults] = useState<IFilteroptionDefaults[]>(optionDefaults);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -60,7 +60,7 @@ const Filter = () => {
                     {selectedValues.length} selected
                   </Badge>
                 ) : (
-                  options
+                  optionDefaults
                     .filter((option) => selectedValues.includes(option.label))
                     .map((option) => (
                       <Badge
@@ -83,7 +83,7 @@ const Filter = () => {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {options?.map((option) => {
+              {optionDefaults?.map((option) => {
                 const isSelected = selectedValues.includes(option.label);
 
                 return (
