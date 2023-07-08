@@ -40,7 +40,8 @@ const optionDefaults = [
 ];
 
 const Filter = () => {
-  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  //const selectedValues = new Set<string>(["Wishlisted"]);
   const [options, setOptions] = useState<IFilterOptions[]>(optionDefaults);
   return (
     <Popover>
@@ -88,22 +89,40 @@ const Filter = () => {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {options?.map((option) => (
-                <CommandItem onSelect={(value)=>console.log("value",value)
-                } >
-                  <div
-                    className={cn(
-                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                      false
-                        ? "bg-primary text-primary-foreground"
-                        : "opacity-50 [&_svg]:invisible"
-                    )}
-                  >
-                    <CheckIcon className={cn("h-4 w-4")} />
-                  </div>
-                  {option.label}
-                </CommandItem>
-              ))}
+              {options?.map((option) => {
+                const isSelected = selectedValues.includes(option.label);
+
+                return (
+                  <CommandItem key={option.value} onSelect={() => {
+                    let newSelectedValues = structuredClone(selectedValues)
+                    
+                    if(isSelected){
+                      const index = newSelectedValues.indexOf(option.label)
+                      if (index > -1) { 
+                        newSelectedValues.splice(index, 1); 
+                      }
+                      
+                     setSelectedValues(newSelectedValues)
+                    }else{
+                      newSelectedValues.push(option.label)
+                      setSelectedValues(newSelectedValues)
+                    }
+                    console.log("isSelected",isSelected,selectedValues);
+                  }}>
+                    <div
+                      className={cn(
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
+                          : "opacity-50 [&_svg]:invisible"
+                      )}
+                    >
+                      <CheckIcon className={cn("h-4 w-4")} />
+                    </div>
+                    {option.label}
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           </CommandList>
         </Command>
