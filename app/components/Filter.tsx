@@ -66,7 +66,7 @@ const Filter = () => {
                   </Badge>
                 ) : (
                   options
-                    .filter((option) => selectedValues.includes(option.value))
+                    //.filter((option) => selectedValues.includes(option.value))
                     .map((option) => (
                       <Badge
                         variant="secondary"
