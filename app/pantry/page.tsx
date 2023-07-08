@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/ui/DataTable";
+import { DataTable } from "@/app/components/DataTable";
 import { Button } from "@/components/ui/button";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import Filter from "../components/Filter";
