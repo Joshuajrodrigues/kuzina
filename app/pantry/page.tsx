@@ -4,8 +4,16 @@ import Filter from "../components/Filter";
 import ItemList from "../components/ItemList";
 import Search from "../components/Search";
 import Sort from "../components/Sort";
+import { IPantryList, columns } from "./columns";
+import { DataTable } from "@/components/ui/DataTable";
 
-export default function Pantry() {
+const getPantryItems = async (): Promise<IPantryList[]> => {
+  const response = await import("@/app/api/pantry/route");
+  return await (await response.GET()).json();
+};
+export default async function Pantry () {
+  const data = await getPantryItems();
+  
   return (
     <>
     <div className=" px-5 mx-5 flex justify-between">
@@ -17,8 +25,9 @@ export default function Pantry() {
         
       </div>
 
-      <section>
-        <ItemList/>
+      <section className="px-5 m-5">
+        
+       <DataTable columns={columns} data={data}/>
       </section>
     </>
   );
