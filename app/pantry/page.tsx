@@ -1,11 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { PlusCircledIcon } from "@radix-ui/react-icons"
-import Filter from "../components/Filter";
-import ItemList from "../components/ItemList";
-import Search from "../components/Search";
-import Sort from "../components/Sort";
-import { IPantryList, columns } from "./columns";
 import { DataTable } from "@/components/ui/DataTable";
+import { Button } from "@/components/ui/button";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
+import Filter from "../components/Filter";
+import Search from "../components/Search";
+import { IPantryList, columns } from "./columns";
 
 const getPantryItems = async (): Promise<IPantryList[]> => {
   const response = await import("@/app/api/pantry/route");
@@ -22,11 +20,8 @@ export default async function Pantry () {
       <Search/>
       <div className=" px-5 mx-5 flex justify-between">
         <Filter/>
-        
       </div>
-
       <section className="px-5 m-5">
-        
        <DataTable columns={columns} data={data}/>
       </section>
     </>
