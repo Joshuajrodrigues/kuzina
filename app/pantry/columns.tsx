@@ -12,10 +12,16 @@ export interface IPantryList {
     {
       accessorKey: "ingridient",
       header: "Ingridient",
+      
     },
     {
       accessorKey: "quantity",
-      header: "Quantity",
+      header() {
+        return<div className=" text-center">
+        Quantity
+        </div>
+      },
+      
       cell({row}) {
         return<div className=" text-center">
         {row.getValue("quantity")}
