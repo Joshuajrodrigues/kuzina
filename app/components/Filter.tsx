@@ -17,37 +17,47 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import {
+  CheckIcon,
+  MinusCircledIcon,
+  PlusCircledIcon,
+} from "@radix-ui/react-icons";
 import React, { FC, useState } from "react";
 
 interface IFilteroption {
   label: string;
-
 }
 
-
-
-const Filter:FC<{
-  filterOptions:IFilteroption[],
-  filterName:string,
-  filterDefault:string
-}> = ({
-  filterDefault,
-  filterName,
-  filterOptions
-}) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([filterDefault]);
+const Filter: FC<{
+  filterOptions: IFilteroption[];
+  filterName: string;
+  filterDefault: string;
+  isRadio?: boolean;
+}> = ({ filterDefault, filterName, filterOptions, isRadio = false }) => {
+  const [selectedValues, setSelectedValues] = useState<string[]>([
+    filterDefault,
+  ]);
   //const selectedValues = new Set<string>(["Wishlisted"]);
   //const [filterOptions, setoptionDefaults] = useState<IFilteroptionDefaults[]>(filterOptions);
+  let hasSelectedValues = selectedValues.length > 0;
   return (
-    <Popover >
+    <Popover>
       <PopoverTrigger asChild>
-        <Button size={"sm"} className="h-8 w-fit my-2 border-dashed" variant={"outline"}>
-          <PlusCircledIcon className="mr-2 h-4 w-4" /> {filterName}
-          {selectedValues.length > 0 && (
-            <>
-              <Separator className="mx-2 h-4" orientation="vertical" />
-              <div className="flex space-x-1 ">
+        <Button
+          size={"sm"}
+          className="h-8 w-fit my-2 border-dashed"
+          variant={"outline"}
+        >
+          {hasSelectedValues ? (
+            <MinusCircledIcon className="mr-2 h-4 w-4" />
+          ) : (
+            <PlusCircledIcon className="mr-2 h-4 w-4" />
+          )}
+          {filterName}
+          <Separator className="mx-2 h-4" orientation="vertical" />
+          <div className="flex space-x-1 ">
+            {selectedValues.length > 0 ? (
+              <>
                 {selectedValues.length > 2 ? (
                   <Badge
                     variant="secondary"
@@ -68,9 +78,16 @@ const Filter:FC<{
                       </Badge>
                     ))
                 )}
-              </div>
-            </>
-          )}
+              </>
+            ) : (
+              <Badge
+                variant="secondary"
+                className="rounded-sm px-1 font-normal"
+              >
+                All
+              </Badge>
+            )}
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
@@ -83,22 +100,26 @@ const Filter:FC<{
                 const isSelected = selectedValues.includes(option.label);
 
                 return (
-                  <CommandItem key={option.label} onSelect={() => {
-                    let newSelectedValues = structuredClone(selectedValues)
-                    
-                    if(isSelected){
-                      const index = newSelectedValues.indexOf(option.label)
-                      if (index > -1) { 
-                        newSelectedValues.splice(index, 1); 
+                  <CommandItem
+                    key={option.label}
+                    onSelect={() => {
+                      if (!isRadio) {
+                        let newSelectedValues = structuredClone(selectedValues);
+                        if (isSelected) {
+                          const index = newSelectedValues.indexOf(option.label);
+                          if (index > -1) {
+                            newSelectedValues.splice(index, 1);
+                          }
+                          setSelectedValues(newSelectedValues);
+                        } else {
+                          newSelectedValues.push(option.label);
+                          setSelectedValues(newSelectedValues);
+                        }
+                      } else {
+                        setSelectedValues([option.label]);
                       }
-                      
-                     setSelectedValues(newSelectedValues)
-                    }else{
-                      newSelectedValues.push(option.label)
-                      setSelectedValues(newSelectedValues)
-                    }
-                    console.log("isSelected",isSelected,selectedValues);
-                  }}>
+                    }}
+                  >
                     <div
                       className={cn(
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
@@ -114,7 +135,7 @@ const Filter:FC<{
                 );
               })}
             </CommandGroup>
-            {selectedValues.length > 0 && (
+            {hasSelectedValues && !isRadio && (
               <>
                 <CommandSeparator />
                 <CommandGroup>

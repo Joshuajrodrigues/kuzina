@@ -42,7 +42,7 @@ export default async function Pantry () {
       <Search/>
       <div className="px-5 mx-5 flex justify-between flex-col ">
         <Filter filterOptions={filterOptions} filterName="Status" filterDefault={filterOptions[0].label}/>
-        <Filter filterOptions={sortOptions} filterName="Sort Order" filterDefault={sortOptions[0].label}/>
+        <Filter isRadio filterOptions={sortOptions} filterName="Sort Order" filterDefault={sortOptions[0].label}/>
       </div>
       <section className="px-5 m-5">
        <DataTable columns={columns} data={data}/>
