@@ -51,13 +51,7 @@ const Filter = () => {
           {selectedValues.length > 0 && (
             <>
               <Separator className="mx-2 h-4" orientation="vertical" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
-                {selectedValues.length}
-              </Badge>
-              <div className="hidden space-x-1 lg:flex">
+              <div className="flex space-x-1 ">
                 {selectedValues.length > 2 ? (
                   <Badge
                     variant="secondary"
@@ -67,7 +61,7 @@ const Filter = () => {
                   </Badge>
                 ) : (
                   options
-                    //.filter((option) => selectedValues.includes(option.value))
+                    .filter((option) => selectedValues.includes(option.label))
                     .map((option) => (
                       <Badge
                         variant="secondary"
