@@ -8,6 +8,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -17,37 +18,32 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 
-interface IFilteroptionDefaults {
+interface IFilteroption {
   label: string;
-  value: string;
+
 }
 
-const optionDefaults = [
-  {
-    label: "Running low",
-    value: "rl",
-  },
-  {
-    label: "Expiring soon",
-    value: "es",
-  },
-  {
-    label: "Wishlisted",
-    value: "w",
-  },
-];
 
-const Filter = () => {
-  const [selectedValues, setSelectedValues] = useState<string[]>(["Running low"]);
+
+const Filter:FC<{
+  filterOptions:IFilteroption[],
+  filterName:string,
+  filterDefault:string
+}> = ({
+  filterDefault,
+  filterName,
+  filterOptions
+}) => {
+  const [selectedValues, setSelectedValues] = useState<string[]>([filterDefault]);
   //const selectedValues = new Set<string>(["Wishlisted"]);
-  //const [optionDefaults, setoptionDefaults] = useState<IFilteroptionDefaults[]>(optionDefaults);
+  //const [filterOptions, setoptionDefaults] = useState<IFilteroptionDefaults[]>(filterOptions);
   return (
-    <Popover>
+    <Popover >
       <PopoverTrigger asChild>
-        <Button size={"sm"} className="h-8 border-dashed" variant={"outline"}>
-          <PlusCircledIcon className="mr-2 h-4 w-4" /> Filter
+        <Button size={"sm"} className="h-8 w-fit my-2 border-dashed" variant={"outline"}>
+          <PlusCircledIcon className="mr-2 h-4 w-4" /> {filterName}
           {selectedValues.length > 0 && (
             <>
               <Separator className="mx-2 h-4" orientation="vertical" />
@@ -60,12 +56,12 @@ const Filter = () => {
                     {selectedValues.length} selected
                   </Badge>
                 ) : (
-                  optionDefaults
+                  filterOptions
                     .filter((option) => selectedValues.includes(option.label))
                     .map((option) => (
                       <Badge
                         variant="secondary"
-                        key={option.value}
+                        key={option.label}
                         className="rounded-sm px-1 font-normal"
                       >
                         {option.label}
@@ -79,15 +75,15 @@ const Filter = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder={"Search filter"} />
+          <CommandInput placeholder={filterName} />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {optionDefaults?.map((option) => {
+              {filterOptions?.map((option) => {
                 const isSelected = selectedValues.includes(option.label);
 
                 return (
-                  <CommandItem key={option.value} onSelect={() => {
+                  <CommandItem key={option.label} onSelect={() => {
                     let newSelectedValues = structuredClone(selectedValues)
                     
                     if(isSelected){
@@ -118,6 +114,19 @@ const Filter = () => {
                 );
               })}
             </CommandGroup>
+            {selectedValues.length > 0 && (
+              <>
+                <CommandSeparator />
+                <CommandGroup>
+                  <CommandItem
+                    onSelect={() => setSelectedValues([])}
+                    className="justify-center text-center"
+                  >
+                    Clear filters
+                  </CommandItem>
+                </CommandGroup>
+              </>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>

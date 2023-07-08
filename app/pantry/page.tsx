@@ -9,6 +9,28 @@ const getPantryItems = async (): Promise<IPantryList[]> => {
   const response = await import("@/app/api/pantry/route");
   return await (await response.GET()).json();
 };
+
+const filterOptions = [
+  {
+    label: "Running low",
+
+  },
+  {
+    label: "Expiring soon",
+
+  },
+  {
+    label: "Wishlisted",
+  },
+];
+const sortOptions=[{
+  label:"Ascending",
+
+},
+{
+  label:"Descending"
+}
+]
 export default async function Pantry () {
   const data = await getPantryItems();
   
@@ -18,8 +40,9 @@ export default async function Pantry () {
       <h3 className=" text-xl">Food Pantry</h3> <Button> <PlusCircledIcon className="mr-2 h-4 w-4"/> Add Item</Button>
     </div>
       <Search/>
-      <div className=" px-5 mx-5 flex justify-between">
-        <Filter/>
+      <div className="px-5 mx-5 flex justify-between flex-col ">
+        <Filter filterOptions={filterOptions} filterName="Status" filterDefault={filterOptions[0].label}/>
+        <Filter filterOptions={sortOptions} filterName="Sort Order" filterDefault={sortOptions[0].label}/>
       </div>
       <section className="px-5 m-5">
        <DataTable columns={columns} data={data}/>
