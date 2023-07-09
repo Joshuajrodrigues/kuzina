@@ -42,7 +42,7 @@ const formSchema = z.object({
       .positive("Quantity must be positive")
   ),
   unit: z.string().min(1),
-  expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
+  expiryDate: z.date({ invalid_type_error: "Invalid date" }),
 });
 
 const AddItemForm = () => {
@@ -54,7 +54,7 @@ const AddItemForm = () => {
       itemName: "",
       quantity: 0,
       unit: "num",
-      expiryDate: date,
+     // expiryDate: date,
     },
   });
   // 2. Define a submit handler.
@@ -139,24 +139,24 @@ const AddItemForm = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Expiries on</FormLabel>
-              <FormControl>
+             
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
                         "w-[280px] justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        !field.value && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
                     <Select
                       onValueChange={(value) =>
-                        setDate(addDays(new Date(), parseInt(value)))
+                        field.onChange(addDays(new Date(), parseInt(value)))
                       }
                     >
                       <SelectTrigger>
@@ -172,13 +172,17 @@ const AddItemForm = () => {
                     <div className="rounded-md border">
                       <Calendar
                         mode="single"
-                        selected={date}
-                        onSelect={setDate}
+                        selected={field.value}
+                        //@ts-ignore
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date < new Date() 
+                        }
                       />
                     </div>
                   </PopoverContent>
                 </Popover>
-              </FormControl>
+            
               <FormDescription>
                 Whats the expiry date on your item?
               </FormDescription>
