@@ -137,7 +137,7 @@ const AddItemForm = () => {
           control={form.control}
           name="expiryDate"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col">
               <FormLabel>Expiries on</FormLabel>
               <FormControl>
                 <Popover>
