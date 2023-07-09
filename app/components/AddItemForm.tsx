@@ -86,7 +86,7 @@ const AddItemForm:FC<{
                 <Input placeholder="eg) Pepper" {...field} />
               </FormControl>
               <FormDescription>
-                Name of the ingridient you want to add
+                Name of the item you want to add
               </FormDescription>
               <FormMessage />
             </FormItem>

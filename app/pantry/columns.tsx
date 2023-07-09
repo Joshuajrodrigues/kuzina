@@ -1,5 +1,6 @@
 "use client"
-import { ColumnDef } from "@tanstack/react-table"
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ColumnDef } from "@tanstack/react-table";
 
 export interface IPantryList {
     id: string;
@@ -10,8 +11,18 @@ export interface IPantryList {
 
   export const columns: ColumnDef<IPantryList>[] = [
     {
+      accessorKey: "id",
+      header:"",
+      cell(){
+        return<>
+        <ChevronDownIcon/>
+        </>
+      },
+      
+    },
+    {
       accessorKey: "ingridient",
-      header: "Ingridient",
+      header: "Item",
       
     },
     {
