@@ -1,6 +1,14 @@
 "use client";
 
-import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+//@ts-ignore
+import { addDays, format } from "date-fns";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,18 +23,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { CalendarIcon } from "@radix-ui/react-icons";
 const formSchema = z.object({
   itemName: z.string().min(2).max(50),
-  quantity: z.string().min(2).max(50),
+  quantity: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ required_error: "Quantity is required" })
+      .min(1)
+      .positive("Quantity must be positive")
+  ),
+  unit: z.string().min(1),
+  expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
 const AddItemForm = () => {
+  const [date, setDate] = useState<Date>()
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       itemName: "",
-      quantity: "",
+      quantity: 0,
+      unit: "num",
+      expiryDate: date,
     },
   });
   // 2. Define a submit handler.
@@ -37,7 +65,10 @@ const AddItemForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-5 text-left"
+      >
         <FormField
           control={form.control}
           name="itemName"
@@ -54,17 +85,102 @@ const AddItemForm = () => {
             </FormItem>
           )}
         />
+        <div className="flex space-x-5">
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity</FormLabel>
+                <FormControl>
+                  <Input
+                    className=" w-full"
+                    min={0}
+                    type="number"
+                    placeholder="eg) 50"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Amount of the ingridient you have
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="unit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Unit</FormLabel>
+                <FormControl defaultValue={"num"}>
+                  <Select>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Unit" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="num">Number/s</SelectItem>
+                      <SelectItem value="g">g</SelectItem>
+                      <SelectItem value="kg">kg</SelectItem>
+                      <SelectItem value="l">l</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormDescription>Unit of the amount you have</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
-          name="quantity"
+          name="expiryDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quantity</FormLabel>
+              <FormLabel>Expiries on</FormLabel>
               <FormControl>
-                <Input placeholder="eg) 50g" {...field} />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[280px] justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+                    <Select
+                      onValueChange={(value) =>
+                        setDate(addDays(new Date(), parseInt(value)))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent position="popper">
+                        <SelectItem value="0">Today</SelectItem>
+                        <SelectItem value="1">Tomorrow</SelectItem>
+                        <SelectItem value="3">In 3 days</SelectItem>
+                        <SelectItem value="7">In a week</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <div className="rounded-md border">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </FormControl>
               <FormDescription>
-                Amount of the ingridient you have
+                Whats the expiry date on your item?
               </FormDescription>
               <FormMessage />
             </FormItem>

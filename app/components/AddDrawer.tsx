@@ -15,14 +15,16 @@ import AddItemForm from "./AddItemForm";
 const AddDrawer = () => {
   return (
     <Sheet>
-      <SheetTrigger>
-      <Button> <PlusCircledIcon className="mr-2 h-4 w-4"/> Add Item</Button>
+      <SheetTrigger asChild>
+        <Button>
+          <PlusCircledIcon className="mr-2 h-4 w-4" /> Add Item
+        </Button>
       </SheetTrigger>
       <SheetContent side={"bottom"}>
         <SheetHeader>
           <SheetTitle>Add Item</SheetTitle>
           <SheetDescription>
-         <AddItemForm/>
+            <AddItemForm />
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
