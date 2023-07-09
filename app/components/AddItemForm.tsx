@@ -1,4 +1,5 @@
 "use client";
+import { useToast } from "@/components/ui/use-toast"
 
 import {
   Select,
@@ -8,11 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 //@ts-ignore
-import { addDays, format } from "date-fns";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -23,15 +21,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
+import { addDays, format } from "date-fns";
+import { FC } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 const formSchema = z.object({
   itemName: z.string().min(2).max(50),
   quantity: z.preprocess(
@@ -42,11 +43,13 @@ const formSchema = z.object({
       .positive("Quantity must be positive")
   ),
   unit: z.string().min(1),
-  expiryDate: z.date({ invalid_type_error: "Invalid date" }),
+  expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
-const AddItemForm = () => {
-  const [date, setDate] = useState<Date>()
+const AddItemForm:FC<{
+  setIsDrawerOpen?:(value:boolean)=>void
+}> = ({setIsDrawerOpen}) => {
+  const { toast } = useToast()
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,7 +57,6 @@ const AddItemForm = () => {
       itemName: "",
       quantity: 0,
       unit: "num",
-     // expiryDate: date,
     },
   });
   // 2. Define a submit handler.
@@ -62,6 +64,11 @@ const AddItemForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    toast({
+
+      description: "Your message has been sent.",
+    })
+    setIsDrawerOpen && setIsDrawerOpen(false)
   }
   return (
     <Form {...form}>

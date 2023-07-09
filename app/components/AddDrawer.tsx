@@ -1,32 +1,36 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  SheetTrigger
 } from "@/components/ui/sheet";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 import AddItemForm from "./AddItemForm";
 
 const AddDrawer = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet onOpenChange={(isOpen)=>{
+      setIsDrawerOpen(isOpen)}} open={isDrawerOpen}>
       <SheetTrigger asChild>
-        <Button>
+        <Button onClick={() => setIsDrawerOpen(true)}>
           <PlusCircledIcon className="mr-2 h-4 w-4" /> Add Item
         </Button>
       </SheetTrigger>
       <SheetContent side={"bottom"}>
         <SheetHeader>
           <SheetTitle>Add Item</SheetTitle>
-          <SheetDescription>
-            <AddItemForm />
-          </SheetDescription>
         </SheetHeader>
+          <SheetDescription>
+            <AddItemForm setIsDrawerOpen={setIsDrawerOpen} />
+          </SheetDescription>
       </SheetContent>
     </Sheet>
   );
