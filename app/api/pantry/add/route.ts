@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import data from "@/app/api/items.json";
+import data from "@/data/items.json";
 import { z } from "zod";
 
 let addIngridientSchema = z.object({

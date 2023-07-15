@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import data from '@/app/api/items.json'
+import data from "@/data/items.json";
 
 export async function GET() {
     return NextResponse.json(data)
