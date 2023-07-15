@@ -1,5 +1,5 @@
 "use client";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Select,
@@ -34,7 +34,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 const formSchema = z.object({
-  itemName: z.string().min(2).max(50),
+  ingridient: z.string().min(2).max(50),
   quantity: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
@@ -46,29 +46,46 @@ const formSchema = z.object({
   expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
-const AddItemForm:FC<{
-  setIsDrawerOpen?:(value:boolean)=>void
-}> = ({setIsDrawerOpen}) => {
-  const { toast } = useToast()
+const AddItemForm: FC<{
+  setIsDrawerOpen?: (value: boolean) => void;
+}> = ({ setIsDrawerOpen }) => {
+  const { toast } = useToast();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      itemName: "",
+      ingridient: "",
       quantity: 0,
       unit: "num",
     },
   });
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    toast({
-
-      description: "Your message has been sent.",
+    fetch("/api/pantry/add", {
+      method: "POST",
+      headers:{
+        'Content-Type': 'application/json',
+        // Add any other required headers
+      },
+      body: JSON.stringify(values),
     })
-    setIsDrawerOpen && setIsDrawerOpen(false)
+      .then((res) => {
+        toast({
+          description: "Your message has been sent.",
+        });
+      })
+      .catch((err) => {
+        toast({
+          description: "Something went wrong.",
+        });
+        console.log(err);
+      })
+      .finally(() => {
+        setIsDrawerOpen && setIsDrawerOpen(false);
+      });
   }
   return (
     <Form {...form}>
@@ -78,7 +95,7 @@ const AddItemForm:FC<{
       >
         <FormField
           control={form.control}
-          name="itemName"
+          name="ingridient"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -146,50 +163,52 @@ const AddItemForm:FC<{
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Expiries on</FormLabel>
-             
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[280px] justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
-                    <Select
-                      onValueChange={(value) =>
-                        field.onChange(addDays(new Date(), parseInt(value)))
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="0">Today</SelectItem>
-                        <SelectItem value="1">Tomorrow</SelectItem>
-                        <SelectItem value="3">In 3 days</SelectItem>
-                        <SelectItem value="7">In a week</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <div className="rounded-md border">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        //@ts-ignore
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date < new Date() 
-                        }
-                      />
-                    </div>
-                  </PopoverContent>
-                </Popover>
-            
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-[280px] justify-start text-left font-normal",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {field.value ? (
+                      format(field.value, "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+                  <Select
+                    onValueChange={(value) =>
+                      field.onChange(addDays(new Date(), parseInt(value)))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="0">Today</SelectItem>
+                      <SelectItem value="1">Tomorrow</SelectItem>
+                      <SelectItem value="3">In 3 days</SelectItem>
+                      <SelectItem value="7">In a week</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <div className="rounded-md border">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      //@ts-ignore
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date()}
+                    />
+                  </div>
+                </PopoverContent>
+              </Popover>
+
               <FormDescription>
                 Whats the expiry date on your item?
               </FormDescription>
