@@ -15,7 +15,7 @@ export interface IPantryList {
       header:"",
       cell(){
         return<>
-        <ChevronDownIcon/>
+            
         </>
       },
       
