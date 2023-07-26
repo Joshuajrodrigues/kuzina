@@ -5,6 +5,9 @@ import Filter from "../components/Filter";
 import Search from "../components/Search";
 import { IPantryList, columns } from "./columns";
 import AddDrawer from "../components/AddDrawer";
+import CardItem from "../components/CardItem";
+
+
 
 const getPantryItems = async (): Promise<IPantryList[]> => {
   const response = await import("@/app/api/pantry/route");
@@ -54,7 +57,8 @@ export default async function Pantry() {
         />
       </div>
       <section className="px-5 m-5">
-        <DataTable columns={columns} data={data} />
+        <CardItem/>
+        {/* <DataTable columns={columns} data={data} /> */}
       </section>
     </>
   );
