@@ -7,11 +7,18 @@ const CardItem = () => {
   const [active, handleActive] = useState(false);
   return (
     <Card
-      className=" relative border-none shadow-none"
-      style={{
-        height:active ? "132px":"44px",
-        transition: "0.9s",
-      }}
+      className=" mb-5 relative border-none shadow-none"
+      style={
+        active
+          ? {
+              transition: "1s",
+              height: "132px",
+            }
+          : {
+              transition: "1.5s",
+              height: "44px",
+            }
+      }
       onClick={() => {
         handleActive(!active);
       }}
@@ -20,7 +27,7 @@ const CardItem = () => {
         <Card
           id="top"
           className={
-            "w-full bg-slate-500 absolute h-11 flex duration-150 origin-bottom justify-center items-center"
+            "w-full bg-black text-white absolute h-11 flex duration-150 origin-bottom justify-center items-center"
           }
           style={
             active
@@ -49,7 +56,7 @@ const CardItem = () => {
         <Card
           id="under-top-one"
           className={
-            "w-full absolute bg-slate-400  h-11 flex duration-150 origin-bottom justify-center items-center"
+            "w-full absolute bg-gray-400 h-11 flex duration-150 origin-bottom justify-center items-center"
           }
         >
           Under card top
@@ -58,7 +65,7 @@ const CardItem = () => {
           <Card
             id="top"
             className={
-              "w-full  relative bg-slate-200  h-11 flex duration-150 origin-bottom justify-center items-center"
+              "w-full  relative  bg-gray-500  h-11 flex duration-150 origin-bottom justify-center items-center"
             }
             style={
               active
@@ -84,7 +91,7 @@ const CardItem = () => {
             <Card
               id="top"
               className={
-                "w-full  absolute bg-slate-100  h-11 flex duration-150 origin-top justify-center items-center"
+                "w-full  absolute  bg-gray-600  h-11 flex duration-150 origin-top justify-center items-center"
               }
               style={
                 active
