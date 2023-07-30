@@ -58,7 +58,7 @@ export default async function Pantry() {
       </div>
       <section className="px-5 m-5">
         <CardItem/>
-        
+        <CardItem/>
         {/* <DataTable columns={columns} data={data} /> */}
       </section>
     </>

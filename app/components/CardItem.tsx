@@ -7,8 +7,9 @@ const CardItem = () => {
   const [active, handleActive] = useState(false);
   return (
     <Card
-      className="relative border-none shadow-none"
+      className=" relative border-none shadow-none"
       style={{
+        height:active ? "132px":"44px",
         transition: "0.9s",
       }}
       onClick={() => {
@@ -28,7 +29,7 @@ const CardItem = () => {
                   zIndex: "10",
                 }
               : {
-                transitionDelay:"0.3s",
+                  transitionDelay: "0.3s",
                   transform: "rotate3d(1,0,0,0deg)",
                   zIndex: "30",
                 }
@@ -44,7 +45,7 @@ const CardItem = () => {
           </div>
         </Card>
       </div>
-      <div className="absolute w-full">
+      <div className="inline-block relative w-full">
         <Card
           id="under-top-one"
           className={
@@ -57,7 +58,7 @@ const CardItem = () => {
           <Card
             id="top"
             className={
-              "w-full relative bg-slate-200  h-11 flex duration-150 origin-bottom justify-center items-center"
+              "w-full  relative bg-slate-200  h-11 flex duration-150 origin-bottom justify-center items-center"
             }
             style={
               active
@@ -66,7 +67,7 @@ const CardItem = () => {
                     zIndex: "30",
                   }
                 : {
-                  transitionDelay:"0.3s",
+                    transitionDelay: "0.3s",
                     transform: "rotate3d(1,0,0,0deg)",
                     zIndex: "10",
                   }
@@ -83,12 +84,12 @@ const CardItem = () => {
             <Card
               id="top"
               className={
-                "w-full absolute bg-slate-100  h-11 flex duration-150 origin-top justify-center items-center"
+                "w-full  absolute bg-slate-100  h-11 flex duration-150 origin-top justify-center items-center"
               }
               style={
                 active
                   ? {
-                      transitionDelay:"0.3s",
+                      transitionDelay: "0.3s",
                       transform: "rotate3d(1,0,0,-180deg)",
                       zIndex: "10",
                     }
