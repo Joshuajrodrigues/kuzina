@@ -28,6 +28,7 @@ const CardItem = () => {
                   zIndex: "10",
                 }
               : {
+                transitionDelay:"0.3s",
                   transform: "rotate3d(1,0,0,0deg)",
                   zIndex: "30",
                 }
@@ -47,7 +48,7 @@ const CardItem = () => {
         <Card
           id="under-top-one"
           className={
-            "w-full absolute bg-slate-300  h-11 flex duration-150 origin-bottom justify-center items-center"
+            "w-full absolute bg-slate-400  h-11 flex duration-150 origin-bottom justify-center items-center"
           }
         >
           Under card top
@@ -56,7 +57,7 @@ const CardItem = () => {
           <Card
             id="top"
             className={
-              "w-full relative bg-slate-100  h-11 flex duration-150 origin-bottom justify-center items-center"
+              "w-full relative bg-slate-200  h-11 flex duration-150 origin-bottom justify-center items-center"
             }
             style={
               active
@@ -65,6 +66,7 @@ const CardItem = () => {
                     zIndex: "30",
                   }
                 : {
+                  transitionDelay:"0.3s",
                     transform: "rotate3d(1,0,0,0deg)",
                     zIndex: "10",
                   }
@@ -86,6 +88,7 @@ const CardItem = () => {
               style={
                 active
                   ? {
+                      transitionDelay:"0.3s",
                       transform: "rotate3d(1,0,0,-180deg)",
                       zIndex: "10",
                     }
