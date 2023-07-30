@@ -59,6 +59,12 @@ export default async function Pantry() {
       <section className="px-5 m-5">
         <CardItem/>
         <CardItem/>
+        <CardItem/>
+        <CardItem/>
+        <CardItem/>
+        <CardItem/>
+        <CardItem/>
+        <CardItem/>
         {/* <DataTable columns={columns} data={data} /> */}
       </section>
     </>
