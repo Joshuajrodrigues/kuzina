@@ -8,8 +8,8 @@ export interface IPantryList {
     image: string;
     quantity:string;
     unit:string;
-    expiryDate:string | undefined
-    updatedOn:string | undefined
+    expiryDate?:string
+    updatedOn?:string
   }
 
   export const columns: ColumnDef<IPantryList>[] = [
