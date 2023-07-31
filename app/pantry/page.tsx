@@ -58,7 +58,7 @@ export default async function Pantry() {
       <section className="px-5 m-5">
         {data?.map((item) => (
           <CardItem
-            topCard={<TopCard />}
+            topCard={<TopCard name={item.ingridient} quantity={ item.quantity } unit={item.unit} />}
             firstCard={<FirstCard />}
             middleCard={<MiddleCard />}
             lastCard={<LastCard />}

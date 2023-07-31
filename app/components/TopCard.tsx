@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const TopCard = () => {
+const TopCard:FC<{
+    name:string,
+    quantity:string
+    unit:string
+}> = ({name,quantity,unit}) => {
   return (
-    <div>TopCard</div>
+    <div className={"flex px-2 w-full justify-between items-center text-center"}>
+        <p>
+            {name}
+        </p>
+        <p>
+            {quantity} {unit}
+        </p>
+    </div>
   )
 }
 

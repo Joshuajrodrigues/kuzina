@@ -56,6 +56,7 @@ const CardItem:FC<{
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateX(0deg)",
+              width:"100%"
             }}
           >
             {topCard}

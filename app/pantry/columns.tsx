@@ -6,7 +6,8 @@ export interface IPantryList {
     id: string;
     ingridient: string;
     image: string;
-    quantity:string
+    quantity:string;
+    unit:string;
   }
 
   export const columns: ColumnDef<IPantryList>[] = [
