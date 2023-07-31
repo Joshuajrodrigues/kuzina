@@ -1,13 +1,12 @@
-import { DataTable } from "@/app/components/DataTable";
-import { Button } from "@/components/ui/button";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
-import Filter from "../components/Filter";
-import Search from "../components/Search";
-import { IPantryList, columns } from "./columns";
 import AddDrawer from "../components/AddDrawer";
 import CardItem from "../components/CardItem";
-
-
+import Filter from "../components/Filter";
+import FirstCard from "../components/FirstCard";
+import LastCard from "../components/LastCard";
+import MiddleCard from "../components/MiddleCard";
+import Search from "../components/Search";
+import TopCard from "../components/TopCard";
+import { IPantryList } from "./columns";
 
 const getPantryItems = async (): Promise<IPantryList[]> => {
   const response = await import("@/app/api/pantry/route");
@@ -39,7 +38,7 @@ export default async function Pantry() {
   return (
     <>
       <div className=" px-5 mx-5 flex justify-between">
-        <h3 className=" text-xl">Food Pantry</h3> 
+        <h3 className=" text-xl">Food Pantry</h3>
         <AddDrawer />
       </div>
       <Search />
@@ -57,14 +56,22 @@ export default async function Pantry() {
         />
       </div>
       <section className="px-5 m-5">
+        {data?.map((item) => (
+          <CardItem
+            topCard={<TopCard />}
+            firstCard={<FirstCard />}
+            middleCard={<MiddleCard />}
+            lastCard={<LastCard />}
+          />
+        ))}
+        {/* 
         <CardItem/>
         <CardItem/>
         <CardItem/>
         <CardItem/>
         <CardItem/>
         <CardItem/>
-        <CardItem/>
-        <CardItem/>
+        <CardItem/> */}
         {/* <DataTable columns={columns} data={data} /> */}
       </section>
     </>

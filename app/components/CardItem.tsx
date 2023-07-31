@@ -1,22 +1,32 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { useState } from "react";
+import React, { FC, ReactNode, useState } from "react";
 
-const CardItem = () => {
+const CardItem:FC<{
+  topCard:ReactNode,
+  firstCard:ReactNode
+  middleCard:ReactNode,
+  lastCard:ReactNode
+}> = ({
+  topCard,
+  firstCard,
+  middleCard,
+  lastCard
+}) => {
   const [active, handleActive] = useState(false);
   return (
     <Card
-      className=" mb-5 relative border-none shadow-none"
+      className="mb-12 relative border-none shadow-none cursor-pointer"
       style={
         active
           ? {
               transition: "1s",
-              height: "132px",
+              height: "200px",
             }
           : {
               transition: "1.5s",
-              height: "44px",
+              height: "40px",
             }
       }
       onClick={() => {
@@ -27,7 +37,7 @@ const CardItem = () => {
         <Card
           id="top"
           className={
-            "w-full bg-black text-white absolute h-11 flex duration-150 origin-bottom justify-center items-center"
+            "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center "
           }
           style={
             active
@@ -48,7 +58,7 @@ const CardItem = () => {
               transform: "rotateX(0deg)",
             }}
           >
-            <p>topmost card</p>
+            {topCard}
           </div>
         </Card>
       </div>
@@ -56,16 +66,16 @@ const CardItem = () => {
         <Card
           id="under-top-one"
           className={
-            "w-full absolute bg-gray-400 h-11 flex duration-150 origin-bottom justify-center items-center"
+            "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center"
           }
         >
-          Under card top
+          {firstCard}
         </Card>
         <div>
           <Card
             id="top"
             className={
-              "w-full  relative  bg-gray-500  h-11 flex duration-150 origin-bottom justify-center items-center"
+              "w-full relative h-20 flex duration-150 origin-bottom justify-center items-center"
             }
             style={
               active
@@ -86,12 +96,12 @@ const CardItem = () => {
                 transform: "rotateX(180deg)",
               }}
             >
-              <p>under fliped topmost card</p>
+              {middleCard}
             </div>
             <Card
               id="top"
               className={
-                "w-full  absolute  bg-gray-600  h-11 flex duration-150 origin-top justify-center items-center"
+                "w-full  absolute h-20 flex duration-150 origin-top justify-center items-center"
               }
               style={
                 active
@@ -112,7 +122,7 @@ const CardItem = () => {
                   transform: "rotateX(0deg)",
                 }}
               >
-                <p>last</p>
+                {lastCard}
               </div>
             </Card>
           </Card>
