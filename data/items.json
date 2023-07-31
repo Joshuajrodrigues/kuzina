@@ -4,7 +4,8 @@
     "ingridient": "Chocolate Bar - Coffee Crisp",
     "unit":"g",
     "quantity": 75,
-    "expiryDate":"12-3-2023"
+    "expiryDate":"12-3-2023",
+    "updatedOn":null
   },
   {
     "id": "2",
@@ -19,7 +20,8 @@
     "ingridient": "French fries",
     "unit":"nos",
     "quantity":50,
-    "expiryDate":"12-7-2023"
+    "expiryDate":"12-7-2023",
+    "updatedOn":null
   },
   {
     "id": "4",

@@ -8,6 +8,7 @@ let addIngridientSchema = z.object({
   quantity: z.number(),
   unit: z.string(),
   expiryDate: z.string().optional(),
+  updatedOn:z.string().optional()
 });
 
 type ingridient = z.infer<typeof addIngridientSchema>;
@@ -19,6 +20,7 @@ export async function POST(request: NextRequest) {
   const isValid = addIngridientSchema.safeParse(req).success;
 
   if (isValid) {
+    //@ts-ignore
     data.push(req);
     return NextResponse.json(data);
   } else {
