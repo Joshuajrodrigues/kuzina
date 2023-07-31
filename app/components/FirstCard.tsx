@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const FirstCard = () => {
+const FirstCard:FC<{
+    expiryDate?:string
+    updatedOn?:string
+}> = ({expiryDate,updatedOn}) => {
   return (
-    <div>FirstCard</div>
+    <div className={"flex px-2 w-full justify-between items-center text-center"}>
+        <span className='flex flex-col text-left'>
+            <h6 className=' font-extralight text-sm'>Expiry date</h6>
+            {expiryDate || "-"}
+        </span>
+        <span className='flex flex-col text-right'>
+            <h6 className=' font-extralight text-sm'>Last updated on</h6>
+            {updatedOn || "-"}
+        </span>
+    </div>
   )
 }
 

@@ -67,7 +67,7 @@ const CardItem:FC<{
         <Card
           id="under-top-one"
           className={
-            "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center"
+            "w-full  border-2 absolute h-20 flex duration-150 origin-bottom justify-center items-center"
           }
         >
           {firstCard}
@@ -76,7 +76,7 @@ const CardItem:FC<{
           <Card
             id="top"
             className={
-              "w-full relative h-20 flex duration-150 origin-bottom justify-center items-center"
+              "w-full  border-2 relative h-20 flex duration-150 origin-bottom justify-center items-center"
             }
             style={
               active
@@ -95,6 +95,7 @@ const CardItem:FC<{
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateX(180deg)",
+                width:"100%"
               }}
             >
               {middleCard}
@@ -102,7 +103,7 @@ const CardItem:FC<{
             <Card
               id="top"
               className={
-                "w-full  absolute h-20 flex duration-150 origin-top justify-center items-center"
+                "w-full border-2  absolute h-20 flex duration-150 origin-top justify-center items-center"
               }
               style={
                 active
@@ -121,6 +122,7 @@ const CardItem:FC<{
                 style={{
                   backfaceVisibility: "hidden",
                   transform: "rotateX(0deg)",
+                  width:"100%"
                 }}
               >
                 {lastCard}

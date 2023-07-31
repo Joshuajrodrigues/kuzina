@@ -3,30 +3,38 @@
     "id": "1",
     "ingridient": "Chocolate Bar - Coffee Crisp",
     "unit":"g",
-    "quantity": 75
+    "quantity": 75,
+    "expiryDate":"12-3-2023"
   },
   {
     "id": "2",
     "ingridient": "Oil - Truffle, White",
     "unit":"l",
-    "quantity":44
+    "quantity":44,
+    "expiryDate":"12-12-2023",
+    "updatedOn":"31-7-2023"
   },
   {
     "id": "3",
     "ingridient": "French fries",
     "unit":"nos",
-    "quantity":50
+    "quantity":50,
+    "expiryDate":"12-7-2023"
   },
   {
     "id": "4",
     "ingridient": "Carrots",
     "unit":"kg",
-    "quantity":2
+    "quantity":2,
+    "expiryDate":"12-9-2023",
+    "updatedOn":"31-7-2023"
   },
   {
     "id": "5",
     "ingridient": "Strawberry Ice Cream - Amul",
     "unit":"l",
-    "quantity": 5
+    "quantity": 5,
+    "expiryDate":"12-9-2023",
+    "updatedOn":"31-7-2023"
   }
 ]
