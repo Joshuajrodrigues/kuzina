@@ -15,7 +15,7 @@ const MiddleCard: FC<{
         {price || ""}
       </span>
       <span className="flex flex-col text-right">
-        <Button onClick={(e)=>e.preventDefault()} variant={"outline"} className=" font-extralight text-sm">
+        <Button onClick={(e)=>e.stopPropagation()} variant={"outline"} className=" font-extralight text-sm">
          {
           isInList ? "Remove from list" :"Add to shopping list"
          } 

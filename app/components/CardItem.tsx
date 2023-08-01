@@ -29,13 +29,16 @@ const CardItem:FC<{
               height: "40px",
             }
       }
-      onClick={() => {
-        handleActive(!active);
-      }}
+    
     >
       <div>
         <Card
           id="top"
+          onClick={(e) => {
+            if(!active){
+              handleActive(!active);
+            }
+          }}
           className={
             "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center "
           }
@@ -66,6 +69,11 @@ const CardItem:FC<{
       <div className="inline-block relative w-full">
         <Card
           id="under-top-one"
+          onClick={(e) => {
+            if(active){
+              handleActive(!active);
+            }
+          }}
           className={
             "w-full  border-2 absolute h-20 flex duration-150 origin-bottom justify-center items-center"
           }
@@ -75,6 +83,11 @@ const CardItem:FC<{
         <div>
           <Card
             id="top"
+            onClick={(e) => {
+              if(active){
+                handleActive(!active);
+              }
+            }}
             className={
               "w-full  border-2 relative h-20 flex duration-150 origin-bottom justify-center items-center"
             }
@@ -102,6 +115,11 @@ const CardItem:FC<{
             </div>
             <Card
               id="top"
+              onClick={(e) => {
+                if(active){
+                  handleActive(!active);
+                }
+              }}
               className={
                 "w-full border-2  absolute h-20 flex duration-150 origin-top justify-center items-center"
               }
