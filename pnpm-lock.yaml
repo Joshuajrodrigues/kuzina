@@ -10,6 +10,7 @@ specifiers:
   '@radix-ui/react-separator': ^1.0.3
   '@radix-ui/react-slot': ^1.0.2
   '@radix-ui/react-toast': ^1.1.4
+  '@supabase/auth-helpers-nextjs': ^0.7.3
   '@supabase/supabase-js': ^2.31.0
   '@tanstack/react-table': ^8.9.3
   '@types/node': 20.3.1
@@ -43,6 +44,7 @@ dependencies:
   '@radix-ui/react-separator': 1.0.3_v7nsckbnkip4ww4dqloamsmv6y
   '@radix-ui/react-slot': 1.0.2_kipdvjt52frzxcrtuwg5whlwdi
   '@radix-ui/react-toast': 1.1.4_v7nsckbnkip4ww4dqloamsmv6y
+  '@supabase/auth-helpers-nextjs': 0.7.3_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/supabase-js': 2.31.0
   '@tanstack/react-table': 8.9.3_biqbaboplfbrettd7655fr4n2y
   '@types/node': 20.3.1
@@ -1042,6 +1044,25 @@ packages:
       '@babel/runtime': 7.22.6
     dev: false
 
+  /@supabase/auth-helpers-nextjs/0.7.3_f72unsjcqshcjlx5jvu5j5cz5m:
+    resolution: {integrity: sha512-ikuBGHFnvyfneToj0Y2EfiqUnEr1bdqR6JZiFydPnzACQ2Q7TkcOhkoUSc9/sMEeG7EKX5PhH8riAz42oPdKRg==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.4.1_f72unsjcqshcjlx5jvu5j5cz5m
+      '@supabase/supabase-js': 2.31.0
+      set-cookie-parser: 2.6.0
+    dev: false
+
+  /@supabase/auth-helpers-shared/0.4.1_f72unsjcqshcjlx5jvu5j5cz5m:
+    resolution: {integrity: sha512-IEDX9JzWkIjQiLUaP4Qy5YDiG0jFQatWfS+jw8cCQs6QfbNdEPd2Y3qonwGHnM90CZom9SvjuylBv2pFVAL7Lw==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
+      '@supabase/supabase-js': 2.31.0
+      jose: 4.14.4
+    dev: false
+
   /@supabase/functions-js/2.1.2:
     resolution: {integrity: sha512-QCR6pwJs9exCl37bmpMisUd6mf+0SUBJ6mUpiAjEkSJ/+xW8TCuO14bvkWHADd5hElJK9MxNlMQXxSA4DRz9nQ==}
     dependencies:
@@ -1603,6 +1624,10 @@ packages:
     hasBin: true
     dev: false
 
+  /jose/4.14.4:
+    resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
+    dev: false
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
     dev: false
@@ -2063,6 +2088,10 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
+
+  /set-cookie-parser/2.6.0:
+    resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
     dev: false
 
   /signal-exit/4.0.2:
