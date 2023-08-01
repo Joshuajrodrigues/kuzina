@@ -11,6 +11,8 @@ specifiers:
   '@radix-ui/react-slot': ^1.0.2
   '@radix-ui/react-toast': ^1.1.4
   '@supabase/auth-helpers-nextjs': ^0.7.3
+  '@supabase/auth-ui-react': ^0.4.2
+  '@supabase/auth-ui-shared': ^0.1.6
   '@supabase/supabase-js': ^2.31.0
   '@tanstack/react-table': ^8.9.3
   '@types/node': 20.3.1
@@ -27,7 +29,7 @@ specifiers:
   react-day-picker: ^8.8.0
   react-dom: 18.2.0
   react-hook-form: ^7.45.1
-  supabase: ^1.77.9
+  supabase: ^1.8.1
   tailwind-merge: ^1.13.2
   tailwindcss: 3.3.2
   tailwindcss-animate: ^1.0.6
@@ -45,6 +47,8 @@ dependencies:
   '@radix-ui/react-slot': 1.0.2_kipdvjt52frzxcrtuwg5whlwdi
   '@radix-ui/react-toast': 1.1.4_v7nsckbnkip4ww4dqloamsmv6y
   '@supabase/auth-helpers-nextjs': 0.7.3_f72unsjcqshcjlx5jvu5j5cz5m
+  '@supabase/auth-ui-react': 0.4.2_f72unsjcqshcjlx5jvu5j5cz5m
+  '@supabase/auth-ui-shared': 0.1.6_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/supabase-js': 2.31.0
   '@tanstack/react-table': 8.9.3_biqbaboplfbrettd7655fr4n2y
   '@types/node': 20.3.1
@@ -1044,6 +1048,10 @@ packages:
       '@babel/runtime': 7.22.6
     dev: false
 
+  /@stitches/core/1.2.8:
+    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
+    dev: false
+
   /@supabase/auth-helpers-nextjs/0.7.3_f72unsjcqshcjlx5jvu5j5cz5m:
     resolution: {integrity: sha512-ikuBGHFnvyfneToj0Y2EfiqUnEr1bdqR6JZiFydPnzACQ2Q7TkcOhkoUSc9/sMEeG7EKX5PhH8riAz42oPdKRg==}
     peerDependencies:
@@ -1061,6 +1069,27 @@ packages:
     dependencies:
       '@supabase/supabase-js': 2.31.0
       jose: 4.14.4
+    dev: false
+
+  /@supabase/auth-ui-react/0.4.2_f72unsjcqshcjlx5jvu5j5cz5m:
+    resolution: {integrity: sha512-NLP1udNtbteWDZYUoJKD/sDzi1BeZpS+CvUk1D0FwHevlVDT1fUf27sVLtrAgchSIQxHwZHTiUPJC9auCF3Zyw==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.21.0
+    dependencies:
+      '@stitches/core': 1.2.8
+      '@supabase/auth-ui-shared': 0.1.6_f72unsjcqshcjlx5jvu5j5cz5m
+      '@supabase/supabase-js': 2.31.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@supabase/auth-ui-shared/0.1.6_f72unsjcqshcjlx5jvu5j5cz5m:
+    resolution: {integrity: sha512-dBlP2XR5KSSCBMgkWJMkc2UVA21V5AobKmekwIiHVvyVtzAiFqE5XWJiPV+kMlnRLzFXDeA0Z/CqdKTL/Kbs4A==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.21.0
+    dependencies:
+      '@supabase/supabase-js': 2.31.0
     dev: false
 
   /@supabase/functions-js/2.1.2:
@@ -1931,6 +1960,14 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: false
@@ -1962,6 +1999,10 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-is/16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
   /react-remove-scroll-bar/2.3.4_kipdvjt52frzxcrtuwg5whlwdi:

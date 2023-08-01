@@ -1,8 +1,12 @@
 import React from 'react'
+import AuthForm from '../_components/AuthForm'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div className='m-5 p-5'>
+          <h3 className=" text-xl">Sign in</h3>
+        <AuthForm />
+    </div>
   )
 }
 
