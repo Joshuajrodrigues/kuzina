@@ -17,7 +17,7 @@ const CardItem:FC<{
   const [active, handleActive] = useState(false);
   return (
     <Card
-      className="mb-12 relative border-none shadow-none cursor-pointer"
+      className="mb-12 relative bg-transparent border-none shadow-none cursor-pointer"
       style={
         active
           ? {
