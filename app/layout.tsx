@@ -1,8 +1,7 @@
 import { Header } from "./_components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Image from "next/image";
-import food from "../public/testbg2.jpg";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -18,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className=" fixed -z-10 overflow-hidden h-full w-full">
+        {/* <div className=" fixed -z-10 overflow-hidden h-full w-full">
           <Image
             alt="Background"
             src={food}
@@ -30,7 +29,7 @@ export default function RootLayout({
               objectFit: "cover",
             }}
           />
-        </div>
+        </div> */}
 
         <Header />
         {children}
