@@ -10,6 +10,8 @@ export interface IPantryList {
     unit:string;
     expiryDate?:string
     updatedOn?:string
+    isInList?:boolean,
+    price?: string
   }
 
   export const columns: ColumnDef<IPantryList>[] = [

@@ -5,7 +5,7 @@ const FirstCard:FC<{
     updatedOn?:string
 }> = ({expiryDate,updatedOn}) => {
   return (
-    <div className={"flex px-2 w-full justify-between items-center text-center"}>
+    <div className={"flex px-4 w-full justify-between items-center text-center"}>
         <span className='flex flex-col text-left'>
             <h6 className=' font-extralight text-sm'>Expiry date</h6>
             {expiryDate || "-"}

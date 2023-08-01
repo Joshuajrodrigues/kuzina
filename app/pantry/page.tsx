@@ -59,8 +59,8 @@ export default async function Pantry() {
         {data?.map((item) => (
           <CardItem
             topCard={<TopCard name={item.ingridient} quantity={ item.quantity } unit={item.unit} />}
-            firstCard={<TopCard name={item.ingridient} quantity={ item.quantity } unit={item.unit} />}
-            middleCard={<FirstCard expiryDate={item.expiryDate} updatedOn={item?.updatedOn} />}
+            firstCard={<FirstCard expiryDate={item.expiryDate} updatedOn={item?.updatedOn} />}
+            middleCard={<MiddleCard isInList={item.isInList} price={item?.price}/>}
             lastCard={<LastCard />}
           />
         ))}

@@ -6,7 +6,7 @@ const TopCard:FC<{
     unit:string
 }> = ({name,quantity,unit}) => {
   return (
-    <div className={"flex px-2 w-full justify-between items-center text-center"}>
+    <div className={"flex px-4 w-full justify-between items-center text-center"}>
         <span className='flex flex-col text-left'>
             <h6 className=' font-extralight text-sm'>Item name</h6>
             {name}
