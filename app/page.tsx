@@ -28,6 +28,12 @@ export default function Home() {
             objectFit: "cover",
           }}
         />
+        <a
+          className="text-xs"
+          href="https://www.freepik.com/free-vector/female-chef-concept-illustration_31197290.htm#query=kitchen&position=38&from_view=search&track=sph"
+        >
+          <small>Image by storyset on Freepik</small>
+        </a>
       </section>
       <section className="flex flex-col justify-center items-center">
         <Link href={"/auth"}>
