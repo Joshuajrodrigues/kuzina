@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default function Home() {
@@ -16,7 +17,9 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col justify-center items-center">
-        <Button className="py-5 my-5">Lets get started</Button>
+        <Link href={'/auth'}>
+        <Button  className="py-5 my-5">Lets get started</Button>
+        </Link>
       </section>
 
       <section className=" py-5 my-5 flex flex-col ">
