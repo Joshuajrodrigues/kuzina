@@ -1,17 +1,31 @@
 import { Button } from "@/components/ui/button";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import React from "react";
+import { cookies } from "next/headers";
+import { Database } from "../../types/supabase";
+export const dynamic = 'force-dynamic'
+export const Header = async () => {
+  const supabase = createServerComponentClient<Database>({ cookies });
 
-export const Header = () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
   return (
     <header className="mx-5 mb-5 p-5 flex justify-between">
-      <Link href={'/'} >
-      <h1 className="text-3xl text-black">KUZINA</h1>
+      <Link href={"/"}>
+        <h1 className="text-3xl text-black">KUZINA</h1>
       </Link>
-      {/* <section className="flex">
-        <Link href={'/signup'} className="mr-2 bg-primary text-sm p-2 text-white rounded-lg text-center flex items-center justify-center" >Sign up</Link>
-        <Link href={'/signin'}  className="bg-primary text-sm p-2 text-white rounded-lg text-center flex items-center justify-center"  >Sign in</Link>
-      </section> */}
+      <section className="flex">
+        {user && (
+          <form action="api/auth/signout" method="post">
+            <Button className="button block" type="submit">
+              Sign out
+            </Button>
+          </form>
+        )}
+      </section>
     </header>
   );
 };
