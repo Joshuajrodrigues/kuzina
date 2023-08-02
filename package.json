@@ -44,6 +44,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "encoding": "^0.1.13",
     "supabase": "^1.8.1"
   }
 }

@@ -23,6 +23,7 @@ specifiers:
   clsx: ^1.2.1
   cmdk: ^0.2.0
   date-fns: ^2.30.0
+  encoding: ^0.1.13
   next: ~13.4.9
   postcss: 8.4.24
   react: 18.2.0
@@ -49,7 +50,7 @@ dependencies:
   '@supabase/auth-helpers-nextjs': 0.7.3_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/auth-ui-react': 0.4.2_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/auth-ui-shared': 0.1.6_f72unsjcqshcjlx5jvu5j5cz5m
-  '@supabase/supabase-js': 2.31.0
+  '@supabase/supabase-js': 2.31.0_encoding@0.1.13
   '@tanstack/react-table': 8.9.3_biqbaboplfbrettd7655fr4n2y
   '@types/node': 20.3.1
   '@types/react': 18.2.13
@@ -72,6 +73,7 @@ dependencies:
   zod: 3.21.4
 
 devDependencies:
+  encoding: 0.1.13
   supabase: 1.77.9
 
 packages:
@@ -1058,7 +1060,7 @@ packages:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
       '@supabase/auth-helpers-shared': 0.4.1_f72unsjcqshcjlx5jvu5j5cz5m
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.31.0_encoding@0.1.13
       set-cookie-parser: 2.6.0
     dev: false
 
@@ -1067,7 +1069,7 @@ packages:
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.31.0_encoding@0.1.13
       jose: 4.14.4
     dev: false
 
@@ -1078,7 +1080,7 @@ packages:
     dependencies:
       '@stitches/core': 1.2.8
       '@supabase/auth-ui-shared': 0.1.6_f72unsjcqshcjlx5jvu5j5cz5m
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.31.0_encoding@0.1.13
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -1089,29 +1091,29 @@ packages:
     peerDependencies:
       '@supabase/supabase-js': ^2.21.0
     dependencies:
-      '@supabase/supabase-js': 2.31.0
+      '@supabase/supabase-js': 2.31.0_encoding@0.1.13
     dev: false
 
-  /@supabase/functions-js/2.1.2:
+  /@supabase/functions-js/2.1.2_encoding@0.1.13:
     resolution: {integrity: sha512-QCR6pwJs9exCl37bmpMisUd6mf+0SUBJ6mUpiAjEkSJ/+xW8TCuO14bvkWHADd5hElJK9MxNlMQXxSA4DRz9nQ==}
     dependencies:
-      cross-fetch: 3.1.8
+      cross-fetch: 3.1.8_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@supabase/gotrue-js/2.46.1:
+  /@supabase/gotrue-js/2.46.1_encoding@0.1.13:
     resolution: {integrity: sha512-tebFX3XvPqEJKHOVgkXTN20g9iUhLx6tebIYQvTggYTrqOT2af8oTpSBdgYzbwJ291G6P6CSpR6KY0cT9ade5A==}
     dependencies:
-      cross-fetch: 3.1.8
+      cross-fetch: 3.1.8_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@supabase/postgrest-js/1.7.2:
+  /@supabase/postgrest-js/1.7.2_encoding@0.1.13:
     resolution: {integrity: sha512-GK80JpRq8l6Qll85erICypAfQCied8tdlXfsDN14W844HqXCSOisk8AaE01DAwGJanieaoN5fuqhzA2yKxDvEQ==}
     dependencies:
-      cross-fetch: 3.1.8
+      cross-fetch: 3.1.8_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -1126,23 +1128,23 @@ packages:
       - supports-color
     dev: false
 
-  /@supabase/storage-js/2.5.1:
+  /@supabase/storage-js/2.5.1_encoding@0.1.13:
     resolution: {integrity: sha512-nkR0fQA9ScAtIKA3vNoPEqbZv1k5B5HVRYEvRWdlP6mUpFphM9TwPL2jZ/ztNGMTG5xT6SrHr+H7Ykz8qzbhjw==}
     dependencies:
-      cross-fetch: 3.1.8
+      cross-fetch: 3.1.8_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@supabase/supabase-js/2.31.0:
+  /@supabase/supabase-js/2.31.0_encoding@0.1.13:
     resolution: {integrity: sha512-W9/4s+KnSUX67wJKBn/3yLq+ieycnMzVjK3nNTLX5Wko3ypNT/081l2iFYrf+nsLQ1CiT4mA92I3dxCy6CmxTg==}
     dependencies:
-      '@supabase/functions-js': 2.1.2
-      '@supabase/gotrue-js': 2.46.1
-      '@supabase/postgrest-js': 1.7.2
+      '@supabase/functions-js': 2.1.2_encoding@0.1.13
+      '@supabase/gotrue-js': 2.46.1_encoding@0.1.13
+      '@supabase/postgrest-js': 1.7.2_encoding@0.1.13
       '@supabase/realtime-js': 2.7.3
-      '@supabase/storage-js': 2.5.1
-      cross-fetch: 3.1.8
+      '@supabase/storage-js': 2.5.1_encoding@0.1.13
+      cross-fetch: 3.1.8_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -1381,10 +1383,10 @@ packages:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: false
 
-  /cross-fetch/3.1.8:
+  /cross-fetch/3.1.8_encoding@0.1.13:
     resolution: {integrity: sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==}
     dependencies:
-      node-fetch: 2.6.12
+      node-fetch: 2.6.12_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -1444,6 +1446,11 @@ packages:
   /electron-to-chromium/1.4.435:
     resolution: {integrity: sha512-B0CBWVFhvoQCW/XtjRzgrmqcgVWg6RXOEM/dK59+wFV93BFGR6AeNKc4OyhM+T3IhJaOOG8o/V+33Y2mwJWtzw==}
     dev: false
+
+  /encoding/0.1.13:
+    resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
+    dependencies:
+      iconv-lite: 0.6.3
 
   /es5-ext/0.10.62:
     resolution: {integrity: sha512-BHLqn0klhEpnOKSrzn/Xsz2UIW8j+cGmo9JLzr8BiUapV8hPL9+FliFqjwr9ngW7jWdnxv6eO+/LqyhJVqgrjA==}
@@ -1591,6 +1598,12 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: false
+
+  /iconv-lite/0.6.3:
+    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      safer-buffer: 2.1.2
 
   /imurmurhash/0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -1792,7 +1805,7 @@ packages:
     engines: {node: '>=10.5.0'}
     dev: true
 
-  /node-fetch/2.6.12:
+  /node-fetch/2.6.12_encoding@0.1.13:
     resolution: {integrity: sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==}
     engines: {node: 4.x || >=6.0.0}
     peerDependencies:
@@ -1801,6 +1814,7 @@ packages:
       encoding:
         optional: true
     dependencies:
+      encoding: 0.1.13
       whatwg-url: 5.0.0
     dev: false
 
@@ -2124,6 +2138,9 @@ packages:
     dependencies:
       queue-microtask: 1.2.3
     dev: false
+
+  /safer-buffer/2.1.2:
+    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
   /scheduler/0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
