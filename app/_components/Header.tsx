@@ -5,7 +5,7 @@ import React from "react";
 import { cookies } from "next/headers";
 import { Database } from "../../types/supabase";
 
-export const dynamic = "force-dynamic";
+
 
 export const Header = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });

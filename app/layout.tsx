@@ -8,7 +8,7 @@ export const metadata = {
   title: "Kuzina",
   description: "Your kitchen management",
 };
-
+export const dynamic = "force-dynamic";
 export default function RootLayout({
   children,
 }: {
