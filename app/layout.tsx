@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "./_components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -8,7 +9,7 @@ export const metadata = {
   title: "Kuzina",
   description: "Your kitchen management",
 };
-export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: {
@@ -17,21 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <div className=" fixed -z-10 overflow-hidden h-full w-full">
-          <Image
-            alt="Background"
-            src={food}
-            placeholder="blur"
-            quality={100}
-            fill
-            sizes="100vw"
-            style={{
-              objectFit: "cover",
-            }}
-          />
-        </div> */}
-
-        <Header />
+        <header className="mx-5 mb-5 p-5 flex justify-between">
+          <Link href={"/"}>
+            <h1 className="text-3xl text-black">KUZINA</h1>
+          </Link>
+        </header>
         {children}
       </body>
     </html>
