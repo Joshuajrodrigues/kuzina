@@ -1,129 +1,134 @@
-'use client'
-import { useCallback, useEffect, useState } from 'react'
-import { Database } from '../../types/supabase'
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Session,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { useCallback, useEffect, useState } from "react";
+import { Database } from "../../types/supabase";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 export const revalidate = 0;
 export default function AccountForm({ session }: { session: Session | null }) {
-  const supabase = createClientComponentClient<Database>()
-  const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState<string | null>(null)
-  const [username, setUsername] = useState<string | null>(null)
-  const [website, setWebsite] = useState<string | null>(null)
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null)
-  const user = session?.user
+  const supabase = createClientComponentClient<Database>();
+  const [loading, setLoading] = useState(true);
+  const [fullname, setFullname] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
+  const user = session?.user;
+  const router = useRouter()
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true)
+      setLoading(true);
 
       let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`full_name, username, website, avatar_url`)
-        .eq('id', user?.id)
-        .single()
+        .from("profiles")
+        .select(`full_name, username`)
+        .eq("id", user?.id)
+        .single();
 
       if (error && status !== 406) {
-        throw error
+        throw error;
       }
 
       if (data) {
-        setFullname(data.full_name)
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        setFullname(data.full_name);
+        setUsername(data.username);
+     
       }
     } catch (error) {
-      alert('Error loading user data!')
+      console.log(error)
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [user, supabase])
+  }, [user, supabase]);
 
   useEffect(() => {
-    getProfile()
-  }, [user, getProfile])
+    getProfile();
+  }, [user, getProfile]);
 
   async function updateProfile({
     username,
-    website,
-    avatar_url,
+
+    
   }: {
-    username: string | null
-    fullname: string | null
-    website: string | null
-    avatar_url: string | null
+    username: string | null;
+    fullname: string | null;
+    
   }) {
     try {
-      setLoading(true)
+      setLoading(true);
 
-      let { error } = await supabase.from('profiles').upsert({
+      let { error } = await supabase.from("profiles").upsert({
         id: user?.id as string,
         full_name: fullname,
         username,
-        website,
-        avatar_url,
+      
         updated_at: new Date().toISOString(),
-      })
-      if (error) throw error
-      alert('Profile updated!')
+      });
+      if (error) throw error;
+      //alert("Profile updated!");
     } catch (error) {
-      alert('Error updating the data!')
+      console.log(error);
+      
+     // alert("Error updating the data!");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
-    <div className="form-widget">
+    <div className="p-5 m-5">
       <div>
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user.email} disabled />
+        <Input id="email" type="text" value={session?.user.email} disabled />
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
-        <input
+        <label htmlFor="fullName">Name</label>
+        <Input
           id="fullName"
           type="text"
-          value={fullname || ''}
+          value={fullname || ""}
           onChange={(e) => setFullname(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="username">Username</label>
-        <input
+        <label htmlFor="username">Nickname</label>
+        <Input
           id="username"
           type="text"
-          value={username || ''}
+          value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
+      <section className="py-5 flex justify-between">
+        <div>
+          <form action="api/auth/signout" method="post">
+            <Button variant={"destructive"} className="button block" type="submit">
+              Sign out
+            </Button>
+          </form>
+        </div>
+        <div className="flex flex-col">
+          <Button
+            className="button primary block"
+            onClick={() => updateProfile({ fullname, username })}
+            disabled={loading}
+          >
+            {loading ? "Loading ..." : "Update"}
+          </Button>
+          <Button
+          variant={"link"}
+          className="my-5"
+           onClick={()=>router.back()}
+          >
+            Back
+          </Button>
+        </div>
 
-      <div>
-        <form action="api/auth/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
-        </form>
-      </div>
+      </section>
     </div>
-  )
+  );
 }
