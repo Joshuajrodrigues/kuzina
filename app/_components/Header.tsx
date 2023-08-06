@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import React from "react";
 import { cookies } from "next/headers";
 import { Database } from "../../types/supabase";
+import UserProfileMenu from "./UserProfileMenu";
 
 
 
@@ -19,13 +19,7 @@ export const Header = async () => {
         <h1 className="text-3xl text-black">KUZINA</h1>
       </Link>
       <section className="flex">
-        {user && (
-          <form action="api/auth/signout" method="post">
-            <Button className="button block" type="submit">
-              Sign out
-            </Button>
-          </form>
-        )}
+        <UserProfileMenu session={session} />
       </section>
     </header>
   );
