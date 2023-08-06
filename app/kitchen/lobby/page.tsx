@@ -1,6 +1,7 @@
+import CreateKitchenForm from "@/app/_components/CreateKitchenForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import React from "react";
+
 
 const page = () => {
   return (
@@ -11,10 +12,15 @@ const page = () => {
         You are currently not part of any kitchen :(
       </Card>
       <section className="flex flex-col my-5 text-white">
-        <Button variant={"default"} type="button" className=" text-l">
-          Create a new kitchen{" "}
-        </Button>
-        <Button disabled variant={"default"} type="button" className=" my-5 text-l">
+   
+   <CreateKitchenForm/>
+
+        <Button
+          disabled
+          variant={"default"}
+          type="button"
+          className=" my-5 text-l"
+        >
           Join an existing kitchen{" "}
         </Button>
       </section>
