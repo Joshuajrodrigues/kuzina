@@ -11,5 +11,5 @@ export async function GET(req: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code)
   }
 
-  return NextResponse.redirect(new URL('/pantry', req.url))
+  return NextResponse.redirect(new URL('/kitchen/lobby', req.url))
 }

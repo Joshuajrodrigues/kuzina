@@ -10,6 +10,7 @@ export const metadata = {
   description: "Your kitchen management",
 };
 
+export const dynamic = 'force-dynamic'
 export default function RootLayout({
   children,
 }: {
@@ -18,11 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="mx-5 mb-5 p-5 flex justify-between">
-          <Link href={"/"}>
-            <h1 className="text-3xl text-black">KUZINA</h1>
-          </Link>
-        </header>
+       <Header/>
         {children}
       </body>
     </html>
