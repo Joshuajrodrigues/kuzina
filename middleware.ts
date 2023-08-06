@@ -8,16 +8,7 @@ export async function middleware(req: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  //const { searchParams } = new URL(req.url)
-  // const code = searchParams.get('code')
 
-  // if(code){
-   
-  //   console.log("found code:",code);
-  //     await supabase.auth.exchangeCodeForSession(code)
-    
-  //   return NextResponse.redirect(new URL('/kitchen/lobby', req.url))
-  // }
 
   // if user is signed in and the current path is / redirect the user to /pantry
   if (user && noAuthPaths.includes(req.nextUrl.pathname )) {
