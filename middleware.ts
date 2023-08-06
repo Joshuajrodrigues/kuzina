@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
 
   // if user is signed in and the current path is / redirect the user to /pantry
-  if (user && noAuthPaths.includes(req.nextUrl.pathname )) {
+  if (user && noAuthPaths.includes(req.nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/kitchen/lobby", req.url));
   }
 
