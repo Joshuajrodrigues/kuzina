@@ -9,6 +9,34 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      kitchens: {
+        Row: {
+          created_at: string | null
+          creator: string | null
+          id: string
+          kitchenName: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          creator?: string | null
+          id?: string
+          kitchenName?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          creator?: string | null
+          id?: string
+          kitchenName?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kitchens_creator_fkey"
+            columns: ["creator"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -16,7 +44,6 @@ export interface Database {
           id: string
           updated_at: string | null
           username: string | null
-          website: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -24,7 +51,6 @@ export interface Database {
           id: string
           updated_at?: string | null
           username?: string | null
-          website?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -32,7 +58,6 @@ export interface Database {
           id?: string
           updated_at?: string | null
           username?: string | null
-          website?: string | null
         }
         Relationships: [
           {

@@ -1,5 +1,12 @@
 "use client";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -9,28 +16,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { BASE_URL } from "@/lib/constants";
+import { Database } from "@/types/supabase";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Session,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { revalidatePath } from "next/cache";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+
 
 export const addKitchenSchema = z.object({
   kitchenName: z.string().min(2).max(50),
 });
 
-const CreateKitchenForm = () => {
+const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,fetchKitchens:()=>void }) => {
+  const supabase = createClientComponentClient<Database>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { toast } = useToast();
+  const user = session?.user;
   const form = useForm<z.infer<typeof addKitchenSchema>>({
     resolver: zodResolver(addKitchenSchema),
     defaultValues: {
@@ -39,23 +46,23 @@ const CreateKitchenForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof addKitchenSchema>) {
-    console.log("values", values);
-    fetch("/api/kitchen/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
-      .then((res) => {
-        toast({
-          description: "Your kitchen has been created ",
-        });
-        form.reset();
-      })
-      .finally(() => {
-        setIsDialogOpen(false);
-      });
+    try {
+      const { data, error, status } = await supabase
+        .from("kitchens")
+        .insert([{ kitchenName: values.kitchenName, creator: user?.id }])
+        .select();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    finally{
+      form.reset()
+      setIsDialogOpen(false)
+      fetchKitchens()
+    }
   }
 
   return (

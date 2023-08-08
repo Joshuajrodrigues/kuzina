@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# node_modules/supabase/bin/supabase gen types typescript --project-id "fjeatmfhimniovxrydsa" --schema public > types/supabase.ts    
