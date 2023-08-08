@@ -2,7 +2,7 @@
 
 const loading = () => {
   return (
-    <div>loading</div>
+    <div className=" w-full h-full flex justify-center items-center ">Loading...</div>
   )
 }
 

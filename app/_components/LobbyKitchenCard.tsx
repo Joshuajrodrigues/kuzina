@@ -24,7 +24,7 @@ const LobbyKitchenCard = ({dataSource, session,daleteKitchen }: { dataSource:sta
 
   return dataSource && dataSource?.length > 0
     ? dataSource?.map((item) => (
-        <Card className="h-24 cursor-pointer flex justify-between items-center p-5 my-5 focus:border-double">
+        <Card key={item.id} className="h-24 cursor-pointer flex justify-between items-center p-5 my-5 focus:border-double">
           <div className="flex flex-col justify-start">
             <span>Name : {item.kitchenName}</span>
             <section className="flex justify-between items-center">
