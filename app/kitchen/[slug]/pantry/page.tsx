@@ -1,11 +1,11 @@
-import AddDrawer from "../_components/AddDrawer";
-import CardItem from "../_components/CardItem";
-import Filter from "../_components/Filter";
-import FirstCard from "../_components/FirstCard";
-import LastCard from "../_components/LastCard";
-import MiddleCard from "../_components/MiddleCard";
-import Search from "../_components/Search";
-import TopCard from "../_components/TopCard";
+import AddDrawer from "../../../_components/AddDrawer";
+import CardItem from "../../../_components/CardItem";
+import Filter from "../../../_components/Filter";
+import FirstCard from "../../../_components/FirstCard";
+import LastCard from "../../../_components/LastCard";
+import MiddleCard from "../../../_components/MiddleCard";
+import Search from "../../../_components/Search";
+import TopCard from "../../../_components/TopCard";
 import { IPantryList } from "./columns";
 
 const getPantryItems = async (): Promise<IPantryList[]> => {
