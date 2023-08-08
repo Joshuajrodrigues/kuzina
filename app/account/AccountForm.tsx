@@ -5,53 +5,54 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Database } from "../../types/supabase";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 export const revalidate = 0;
+
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
+  const user = session?.user;
+
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
 
-  const user = session?.user;
   const router = useRouter()
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
 
+  const getProfile = useCallback(async () => {
+
+    try {
+
+      setLoading(true);
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`full_name, username`)
         .eq("id", user?.id)
         .single();
-
       if (error && status !== 406) {
         throw error;
       }
-
       if (data) {
         setFullname(data.full_name);
         setUsername(data.username);
-     
       }
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false);
-    }
-  }, [user, supabase]);
 
-  useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
+    } catch (error) {
+
+      console.log(error)
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  }, [user, supabase]);
 
   async function updateProfile({
     username,
-
-    
+    fullname
   }: {
     username: string | null;
     fullname: string | null;
@@ -64,19 +65,22 @@ export default function AccountForm({ session }: { session: Session | null }) {
         id: user?.id as string,
         full_name: fullname,
         username,
-      
         updated_at: new Date().toISOString(),
       });
       if (error) throw error;
-      //alert("Profile updated!");
     } catch (error) {
       console.log(error);
-      
-     // alert("Error updating the data!");
     } finally {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    getProfile();
+  }, [user, getProfile]);
+ 
+
+  
 
   return (
     <div className="p-5 m-5">
