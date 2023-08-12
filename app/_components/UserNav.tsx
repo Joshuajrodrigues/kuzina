@@ -101,13 +101,14 @@ const UserNav = ({ session }: { session: Session | null }) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link href={"/account"}>Account</Link>
+            <Link className="w-full" href={"/account"}>Account</Link>
             {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem> */}
+          <DropdownMenuItem>
+          <Link className="w-full" href={"/kitchen/lobby"}>Lobby</Link>
+            
+            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
+          </DropdownMenuItem>
           {/* <DropdownMenuItem>
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

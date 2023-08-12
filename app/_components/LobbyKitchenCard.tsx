@@ -26,7 +26,7 @@ const LobbyKitchenCard = ({
   }
 
   return dataSource?.map((item) => (
-    <Link href={`/kitchen/${item.id}`}>
+    <Link key={item.id} href={`/kitchen/${item.id}`}>
 
     <Card
       key={item.id}
