@@ -14,13 +14,13 @@ export async function middleware(req: NextRequest) {
 
   // magic link bullshit
   if (code) {
-    return NextResponse.redirect(`${BASE_URL}api/auth/callback?code=${code}`)
+    return NextResponse.redirect(`${BASE_URL}auth/?code=${code}`)
   }
 
 
   // if user is signed in and the current path is / redirect the user to /lobby
   if (user && noAuthPaths.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL("/kitchen/lobby", req.url));
+    return NextResponse.redirect(new URL("/lobby", req.url));
   }
 
   // if user is not signed in and the current path is not / or /auth redirect the user to /auth
@@ -31,5 +31,5 @@ export async function middleware(req: NextRequest) {
   return res;
 }
 export const config = {
-  matcher: ["/",'/auth',"/kitchen/:path*", "/account"],
+  matcher: ["/",'/auth',"/kitchen/:path*",'/lobby', "/account"],
 };

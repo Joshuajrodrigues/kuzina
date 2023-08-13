@@ -110,7 +110,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
             {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
           </DropdownMenuItem>
           <DropdownMenuItem>
-          <Link className="w-full" href={"/kitchen/lobby"}>Lobby</Link>
+          <Link className="w-full" href={"/lobby"}>Lobby</Link>
             
             {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
           </DropdownMenuItem>
