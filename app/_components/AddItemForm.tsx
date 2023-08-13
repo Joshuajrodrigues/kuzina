@@ -1,5 +1,4 @@
 "use client";
-import { useToast } from "@/components/ui/use-toast";
 
 import {
   Select,
@@ -27,14 +26,25 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Database } from "@/types/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { addDays, format } from "date-fns";
-import { FC } from "react";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
 const formSchema = z.object({
-  ingridient: z.string().min(2).max(50),
+  itemName: z.string().min(2).max(50),
+  price: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number()
+      .min(0)
+      .positive("Price must be positive")
+      .optional()
+  ),
   quantity: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
@@ -46,47 +56,42 @@ const formSchema = z.object({
   expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
-const AddItemForm: FC<{
-  setIsDrawerOpen?: (value: boolean) => void;
-}> = ({ setIsDrawerOpen }) => {
-  const { toast } = useToast();
-  // 1. Define your form.
+const AddItemForm = () => {
+  const supabase = createClientComponentClient<Database>();
+
+  const path = useParams()
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ingridient: "",
-      quantity: 0,
+      itemName: "",
+      quantity: 1,
       unit: "num",
+      price:0
     },
   });
-  // 2. Define a submit handler.
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    fetch("/api/pantry/add", {
-      method: "POST",
-      headers:{
-        'Content-Type': 'application/json',
-        // Add any other required headers
-      },
-      body: JSON.stringify(values),
-    })
-      .then((res) => {
-        toast({
-          description: "Your message has been sent.",
-        });
-      })
-      .catch((err) => {
-        toast({
-          description: "Something went wrong.",
-        });
-        console.log(err);
-      })
-      .finally(() => {
-        setIsDrawerOpen && setIsDrawerOpen(false);
-      });
+    try {
+      const { data, error } = await supabase
+        .from("pantry")
+        .insert([
+          {
+            item_name: values.itemName,
+            quantity: values.quantity,
+            belongs_to: path.slug,
+            expiry_date: values.expiryDate,
+            price: values.price,
+            unit:values.unit
+          },
+        ])
+        .select();
+      if (error) throw error;
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   return (
     <Form {...form}>
       <form
@@ -95,7 +100,7 @@ const AddItemForm: FC<{
       >
         <FormField
           control={form.control}
-          name="ingridient"
+          name="itemName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -103,7 +108,23 @@ const AddItemForm: FC<{
                 <Input placeholder="eg) Pepper" {...field} />
               </FormControl>
               <FormDescription>
-                Name of the item you want to add
+                What should we call this item ?
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+           <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input min={0} type="number" placeholder="" {...field} />
+              </FormControl>
+              <FormDescription>
+                How much did this item cost you ?
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -145,9 +166,9 @@ const AddItemForm: FC<{
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="num">Number/s</SelectItem>
-                      <SelectItem value="g">g</SelectItem>
-                      <SelectItem value="kg">kg</SelectItem>
-                      <SelectItem value="l">l</SelectItem>
+                      <SelectItem value="g">Grams</SelectItem>
+                      <SelectItem value="kg">Kilograms</SelectItem>
+                      <SelectItem value="l">Liter</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>

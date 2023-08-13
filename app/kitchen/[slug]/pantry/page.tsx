@@ -39,7 +39,7 @@ export default async function Pantry() {
     <>
       <div className=" px-5 mx-5 flex justify-between">
         <h3 className=" text-xl">Food Pantry</h3>
-        <AddDrawer />
+        <AddDrawer  />
       </div>
       <Search />
       <div className="px-5 mx-5 flex justify-between flex-col ">

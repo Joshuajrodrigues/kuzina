@@ -13,7 +13,7 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import AddItemForm from "./AddItemForm";
 
-const AddDrawer = () => {
+const AddDrawer = ( ) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -29,7 +29,7 @@ const AddDrawer = () => {
           <SheetTitle>Add Item</SheetTitle>
         </SheetHeader>
           <SheetDescription>
-            <AddItemForm setIsDrawerOpen={setIsDrawerOpen} />
+            <AddItemForm />
           </SheetDescription>
       </SheetContent>
     </Sheet>
