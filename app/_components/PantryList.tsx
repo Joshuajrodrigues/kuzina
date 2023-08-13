@@ -11,7 +11,7 @@ import MiddleCard from "./MiddleCard";
 import Search from "./Search";
 import TopCard from "./TopCard";
 import useSWR from "swr";
-import { getPantryList } from "@/services/Pantry";
+import { getPantryList } from "@/services/PantryService";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -19,7 +19,7 @@ const PantryList = () => {
   const kitchenid = useParams().slug;
   const [page, setPage] = useState(0);
   const { data, error, isLoading } = useSWR(
-    ["/pantry/list", kitchenid,page],
+    ["[pantry]-list", kitchenid,page],
     ([url, kitchenid,page]) => getPantryList(url, kitchenid,page)
   );
 

@@ -35,7 +35,7 @@ import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import useSWR, { useSWRConfig } from "swr";
-import { getPantryList } from "@/services/Pantry";
+import { getPantryList } from "@/services/PantryService";
 
 const formSchema = z.object({
   itemName: z.string().min(2).max(50),
@@ -87,7 +87,7 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
         .select();
       if (error) throw error;
       if (data) {
-        mutate("/pantry/list", () => getPantryList("/pantry/list", kitchenId,0), {
+        mutate("[pantry]-list", () => getPantryList("[pantry]-list", kitchenId,0), {
           optimisticData: (pantry) => ({ ...pantry, data }),
           rollbackOnError: true,
         });
