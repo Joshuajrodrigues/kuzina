@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
 
   // magic link bullshit
   if (code) {
-    return NextResponse.redirect(`${BASE_URL}auth/?code=${code}`)
+    return NextResponse.redirect(`${BASE_URL}api/auth/callback?code=${code}`)
   }
 
 

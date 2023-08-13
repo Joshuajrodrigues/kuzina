@@ -14,7 +14,7 @@ export default function AuthForm() {
       theme="dark"
       showLinks={false}
       providers={[]}
-      redirectTo="api/auth/callback"
+      redirectTo="/auth"
     />
   )
 }
