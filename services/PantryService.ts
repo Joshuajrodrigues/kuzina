@@ -9,7 +9,7 @@ export const pantryItemSchema = z.object({
   itemName: z.string().min(2).max(50),
   price: z.preprocess(
     (args) => (args === "" ? undefined : args),
-    z.coerce.number().min(0).positive("Price must be positive").optional()
+    z.coerce.number().min(0).optional()
   ),
   quantity: z.preprocess(
     (args) => (args === "" ? undefined : args),

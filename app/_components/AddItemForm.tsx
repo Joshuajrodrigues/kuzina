@@ -40,10 +40,9 @@ import { useSWRConfig } from "swr";
 import * as z from "zod";
 
 const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const { mutate,cache } = useSWRConfig();
+  const { mutate, cache } = useSWRConfig();
   const kitchenId = useParams().slug;
 
-  
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
@@ -66,14 +65,7 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
       if (data) {
         console.log("i ran");
         try {
-          await mutate(
-            "[pantry]-list",
-            getPantryList("[pantry]-list", kitchenId, 0),
-            {
-              optimisticData: (pantry) => ({ ...pantry, data }),
-              rollbackOnError: true,
-            }
-          );
+          mutate(["[pantry]-list", kitchenId, 0]);
         } catch (error) {
           console.log(error);
         }
