@@ -26,21 +26,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { addToPantry, getPantryList, pantryItemSchema } from "@/services/PantryService";
+import {
+  addToPantry,
+  getPantryList,
+  pantryItemSchema,
+} from "@/services/PantryService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import useSWR, { useSWRConfig } from "swr";
+import { useSWRConfig } from "swr";
 import * as z from "zod";
-
-;
 
 const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
- 
 
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
@@ -54,14 +55,28 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     try {
-      const {data,error} = useSWR(["[pantry]-add",values,kitchenId],([url,values,kitchenId])=>addToPantry(url,values,kitchenId))
-      
+      const { data, error } = await addToPantry(
+        "[pantry]-add",
+        values,
+        kitchenId
+      );
+
       if (error) throw error;
       if (data) {
-        mutate("[pantry]-list", () => getPantryList("[pantry]-list", kitchenId,0), {
-          optimisticData: (pantry) => ({ ...pantry, data }),
-          rollbackOnError: true,
-        });
+        console.log("i ran");
+        try {
+          await mutate(
+            "[pantry]-list",
+            getPantryList("[pantry]-list", kitchenId, 0),
+            {
+              optimisticData: (pantry) => ({ ...pantry, data }),
+              rollbackOnError: true,
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+
         closeDrawer();
       }
     } catch (error) {

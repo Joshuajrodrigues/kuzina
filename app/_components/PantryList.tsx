@@ -13,15 +13,17 @@ import LastCard from "./LastCard";
 import MiddleCard from "./MiddleCard";
 import Search from "./Search";
 import TopCard from "./TopCard";
+import { IPantryList } from "@/types/pantry";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const { data, error, isLoading } = useSWR(
     ["[pantry]-list", kitchenid, page],
     ([url, kitchenid, page]) => getPantryList(url, kitchenid, page)
   );
-
+  let count:number = data?.count!
+  let res:IPantryList[] = data?.data!
   if (error) return "Error loading list";
 
   if (isLoading) {
@@ -45,7 +47,7 @@ const PantryList = () => {
         />
       </div>
       <section className="px-5 m-5">
-        {data?.map((item) => (
+        {res?.map((item) => (
           <CardItem
             key={item.id}
             topCard={
@@ -68,9 +70,9 @@ const PantryList = () => {
           />
         ))}
       </section>
-      {data&&data?.length > 5 && (
+      {count&&count > 5 && (
         <section className=" m-5 p-5 flex justify-evenly  bottom-3">
-          <Button disabled={page === 0} onClick={() => setPage(() => page - 5)}>
+          <Button disabled={page === 1} onClick={() => setPage(() => page - 4)}>
             Prev Page
           </Button>
           <Button onClick={() => setPage(() => page + 5)}>Next Page</Button>

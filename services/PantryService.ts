@@ -1,5 +1,7 @@
 import { clientSupabase } from "@/lib/constants";
 import { extractTableName } from "@/lib/utils";
+import { IPantryList } from "@/types/pantry";
+import { PostgrestError } from "@supabase/supabase-js";
 import { z } from "zod";
 
 
@@ -27,21 +29,26 @@ export const getPantryList = async (
   page: number
 ) => {
 
-  let rangeEnd = page + 5;
+  let rangeEnd = page + 4;
   let tableName = extractTableName(url) || ""
-  let { data, error } = await clientSupabase
+  let { data ,count, error } = await clientSupabase
     .from(tableName)
-    .select("*")
+    .select("*",{ count: 'exact' })
 
     // Filters
     .eq("belongs_to", kitchenid)
     .order('created_at', { ascending: false })
     .range(page, rangeEnd);
   if (error) throw error;
-  return data;
+  console.log("count",count);
+  
+  return {data,count};
 };
 
-export const addToPantry= async(url:string,values:z.infer<typeof pantryItemSchema>,kitchenId:string)=>{
+export const addToPantry= async(url:string,values:z.infer<typeof pantryItemSchema>,kitchenId:string):Promise<{
+  data: any[] | null;
+  error: PostgrestError | null;
+}> =>{
   let tableName = extractTableName(url) || ""
   const { data, error } = await clientSupabase
   .from(tableName)
@@ -56,4 +63,6 @@ export const addToPantry= async(url:string,values:z.infer<typeof pantryItemSchem
     },
   ])
   .select();
+
+  return {data,error}
 }
