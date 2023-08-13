@@ -1,17 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { clientSupabase } from "@/lib/constants";
 import {
-  Session,
-  createClientComponentClient,
+  Session
 } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Database } from "../../types/supabase";
 export const revalidate = 0;
 
 export default function AccountForm({ session }: { session: Session | null }) {
-  const supabase = createClientComponentClient<Database>();
+
   const user = session?.user;
 
   const [loading, setLoading] = useState(true);
@@ -25,7 +24,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
     try {
 
       setLoading(true);
-      let { data, error, status } = await supabase
+      let { data, error, status } = await clientSupabase
         .from("profiles")
         .select(`full_name, username`)
         .eq("id", user?.id)
@@ -48,7 +47,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
 
     }
 
-  }, [user, supabase]);
+  }, [user, clientSupabase]);
 
   async function updateProfile({
     username,
@@ -61,7 +60,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
     try {
       setLoading(true);
 
-      let { error } = await supabase.from("profiles").upsert({
+      let { error } = await clientSupabase.from("profiles").upsert({
         id: user?.id as string,
         full_name: fullname,
         username,

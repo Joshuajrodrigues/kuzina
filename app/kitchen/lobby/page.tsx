@@ -1,11 +1,10 @@
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import KitchenListing from "./KitchenListing";
-import { Database } from "@/types/supabase";
+import { serverSupabase } from "@/lib/constants";
 import { cookies } from "next/headers";
+import KitchenListing from "./KitchenListing";
 export const dynamic = "force-dynamic"
 const page = async () => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = serverSupabase(cookies);
   const {
     data: { session },
   } = await supabase.auth.getSession();

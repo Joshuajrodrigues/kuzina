@@ -2,23 +2,22 @@
 
 import { LobbyKitchenCardCollection } from "@/app/_components/LobbyKitchenCard";
 import { Button } from "@/components/ui/button";
-import { Database } from "@/types/supabase";
 import {
-  Session,
-  createClientComponentClient,
+  Session
 } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 
 import CreateKitchenForm from "@/app/_components/CreateKitchenForm";
 import LobbyKitchenCard from "@/app/_components/LobbyKitchenCard";
+import { clientSupabase } from "@/lib/constants";
 
 const KitchenListing = ({ session }: { session: Session | null }) => {
-  const supabase = createClientComponentClient<Database>();
+ 
   const [dataSource, setDataSource] = useState<LobbyKitchenCardCollection>([]);
   const user = session?.user;
   const daleteKitchen = async (id: string) => {
     try {
-      const { error } = await supabase.from("kitchens").delete().eq("id", id);
+      const { error } = await clientSupabase.from("kitchens").delete().eq("id", id);
 
       if (error) {
         throw error;
@@ -31,7 +30,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   };
   const fetchKitchens = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await clientSupabase
         .from("kitchens")
         .select(`*`)
         .eq("creator", user?.id);

@@ -1,5 +1,7 @@
 import { Database } from "@/types/supabase";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+
 
 export const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -7,7 +9,7 @@ export const BASE_URL =
     : "http://localhost:3000/";
 
 export const clientSupabase = createClientComponentClient<Database>();
-
+export const serverSupabase=(cookies:()=>ReadonlyRequestCookies)=> createServerComponentClient<Database>({ cookies });
 export const filterOptions = [
   {
     label: "Running low",

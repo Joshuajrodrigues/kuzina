@@ -1,8 +1,11 @@
 "use client";
 
-import { clientSupabase, filterOptions, sortOptions } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+import { filterOptions, sortOptions } from "@/lib/constants";
+import { getPantryList } from "@/services/PantryService";
 import { useParams } from "next/navigation";
-import { IPantryList } from "../kitchen/[slug]/pantry/columns";
+import { useState } from "react";
+import useSWR from "swr";
 import CardItem from "./CardItem";
 import Filter from "./Filter";
 import FirstCard from "./FirstCard";
@@ -10,10 +13,6 @@ import LastCard from "./LastCard";
 import MiddleCard from "./MiddleCard";
 import Search from "./Search";
 import TopCard from "./TopCard";
-import useSWR from "swr";
-import { getPantryList } from "@/services/PantryService";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;

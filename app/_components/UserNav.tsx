@@ -11,7 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, clientSupabase } from "@/lib/constants";
 import { Database } from "@/types/supabase";
 import { EnterIcon, ExitIcon } from "@radix-ui/react-icons";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -22,7 +22,7 @@ import { useCallback, useEffect, useState } from "react";
 const UserNav = ({ session }: { session: Session | null }) => {
   const pathname = usePathname();
   const user = session?.user;
-  const supabase = createClientComponentClient<Database>();
+
 
   const [fullname, setFullname] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
@@ -37,7 +37,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
   const getProfile = useCallback(async () => {
     try {
 
-      // let { data, error, status } = await supabase
+      // let { data, error, status } = await clientSupabase
       //   .from('profiles')
       //   .select(`full_name, username, avatar_url`)
       //   .eq('id', user?.id)
@@ -59,7 +59,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
         
       //alert('Error loading user data!')
     }
-  }, [user, supabase])
+  }, [user, clientSupabase])
 
   useEffect(() => {
     getProfile()
