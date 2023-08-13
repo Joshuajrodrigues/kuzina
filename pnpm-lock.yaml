@@ -16,7 +16,6 @@ specifiers:
   '@supabase/auth-ui-react': ^0.4.2
   '@supabase/auth-ui-shared': ^0.1.6
   '@supabase/supabase-js': ^2.31.0
-  '@tanstack/react-table': ^8.9.3
   '@types/node': 20.3.1
   '@types/react': 18.2.13
   '@types/react-dom': 18.2.6
@@ -33,6 +32,7 @@ specifiers:
   react-dom: 18.2.0
   react-hook-form: ^7.45.1
   supabase: '>=1.8.1'
+  swr: ^2.2.1
   tailwind-merge: ^1.13.2
   tailwindcss: 3.3.2
   tailwindcss-animate: ^1.0.6
@@ -55,7 +55,6 @@ dependencies:
   '@supabase/auth-ui-react': 0.4.2_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/auth-ui-shared': 0.1.6_f72unsjcqshcjlx5jvu5j5cz5m
   '@supabase/supabase-js': 2.31.0_encoding@0.1.13
-  '@tanstack/react-table': 8.9.3_biqbaboplfbrettd7655fr4n2y
   '@types/node': 20.3.1
   '@types/react': 18.2.13
   '@types/react-dom': 18.2.6
@@ -70,6 +69,7 @@ dependencies:
   react-day-picker: 8.8.0_kzhlcyde2l6xjiirkbg7jzhosa
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.45.1_react@18.2.0
+  swr: 2.2.1_react@18.2.0
   tailwind-merge: 1.13.2
   tailwindcss: 3.3.2
   tailwindcss-animate: 1.0.6_tailwindcss@3.3.2
@@ -1278,23 +1278,6 @@ packages:
       tslib: 2.5.3
     dev: false
 
-  /@tanstack/react-table/8.9.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Ng9rdm3JPoSCi6cVZvANsYnF+UoGVRxflMb270tVj0+LjeT/ZtZ9ckxF6oLPLcKesza6VKBqtdF9mQ+vaz24Aw==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/table-core': 8.9.3
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@tanstack/table-core/8.9.3:
-    resolution: {integrity: sha512-NpHZBoHTfqyJk0m/s/+CSuAiwtebhYK90mDuf5eylTvgViNOujiaOaxNDxJkQQAsVvHWZftUGAx1EfO1rkKtLg==}
-    engines: {node: '>=12'}
-    dev: false
-
   /@types/node/20.3.1:
     resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
     dev: false
@@ -2336,6 +2319,16 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
+  /swr/2.2.1_react@18.2.0:
+    resolution: {integrity: sha512-KJVA7dGtOBeZ+2sycEuzUfVIP5lZ/cd0xjevv85n2YG0x1uHJQicjAtahVZL6xG3+TjqhbBqimwYzVo3saeVXQ==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
   /tailwind-merge/1.13.2:
     resolution: {integrity: sha512-R2/nULkdg1VR/EL4RXg4dEohdoxNUJGLMnWIQnPKL+O9Twu7Cn3Rxi4dlXkDzZrEGtR+G+psSXFouWlpTyLhCQ==}
     dev: false
@@ -2484,6 +2477,14 @@ packages:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.5.3
+    dev: false
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /utf-8-validate/5.0.10:
