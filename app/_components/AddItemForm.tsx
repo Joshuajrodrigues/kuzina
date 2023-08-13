@@ -26,42 +26,24 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Database } from "@/types/supabase";
+import { addToPantry, getPantryList, pantryItemSchema } from "@/services/PantryService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { addDays, format } from "date-fns";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import useSWR, { useSWRConfig } from "swr";
-import { getPantryList } from "@/services/PantryService";
+import * as z from "zod";
 
-const formSchema = z.object({
-  itemName: z.string().min(2).max(50),
-  price: z.preprocess(
-    (args) => (args === "" ? undefined : args),
-    z.coerce.number().min(0).positive("Price must be positive").optional()
-  ),
-  quantity: z.preprocess(
-    (args) => (args === "" ? undefined : args),
-    z.coerce
-      .number({ required_error: "Quantity is required" })
-      .min(1)
-      .positive("Quantity must be positive")
-  ),
-  unit: z.string().min(1),
-  expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
-});
+;
 
 const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const supabase = createClientComponentClient<Database>();
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
-  const path = useParams();
+ 
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof pantryItemSchema>>({
+    resolver: zodResolver(pantryItemSchema),
     defaultValues: {
       itemName: "",
       quantity: 1,
@@ -70,21 +52,10 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     try {
-      const { data, error } = await supabase
-        .from("pantry")
-        .insert([
-          {
-            item_name: values.itemName,
-            quantity: values.quantity,
-            belongs_to: path.slug,
-            expiry_date: values.expiryDate,
-            price: values.price,
-            unit: values.unit,
-          },
-        ])
-        .select();
+      const {data,error} = useSWR(["[pantry]-add",values,kitchenId],([url,values,kitchenId])=>addToPantry(url,values,kitchenId))
+      
       if (error) throw error;
       if (data) {
         mutate("[pantry]-list", () => getPantryList("[pantry]-list", kitchenId,0), {

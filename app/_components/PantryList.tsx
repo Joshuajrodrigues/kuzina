@@ -19,8 +19,8 @@ const PantryList = () => {
   const kitchenid = useParams().slug;
   const [page, setPage] = useState(0);
   const { data, error, isLoading } = useSWR(
-    ["[pantry]-list", kitchenid,page],
-    ([url, kitchenid,page]) => getPantryList(url, kitchenid,page)
+    ["[pantry]-list", kitchenid, page],
+    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page)
   );
 
   if (error) return "Error loading list";
@@ -69,14 +69,14 @@ const PantryList = () => {
           />
         ))}
       </section>
-      <section className="m-5 p-5 flex justify-evenly">
-        <Button disabled={page===0} onClick={()=>setPage(()=>page-5)}>
+      {data&&data?.length > 5 && (
+        <section className=" m-5 p-5 flex justify-evenly  bottom-3">
+          <Button disabled={page === 0} onClick={() => setPage(() => page - 5)}>
             Prev Page
-        </Button>
-        <Button onClick={()=>setPage(()=>page+5)}>
-            Next Page
-        </Button>
-      </section>
+          </Button>
+          <Button onClick={() => setPage(() => page + 5)}>Next Page</Button>
+        </section>
+      )}
     </div>
   );
 };
