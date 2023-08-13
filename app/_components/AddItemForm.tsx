@@ -40,9 +40,10 @@ import { useSWRConfig } from "swr";
 import * as z from "zod";
 
 const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const { mutate } = useSWRConfig();
+  const { mutate,cache } = useSWRConfig();
   const kitchenId = useParams().slug;
 
+  
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {

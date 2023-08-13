@@ -17,19 +17,25 @@ import { IPantryList } from "@/types/pantry";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+
   const { data, error, isLoading } = useSWR(
     ["[pantry]-list", kitchenid, page],
-    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page)
+    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page),{
+      revalidateOnFocus:false,
+
+    }
   );
   let count:number = data?.count!
+
   let res:IPantryList[] = data?.data!
   if (error) return "Error loading list";
 
   if (isLoading) {
     return "Loading....";
   }
-
+  console.log("pagination",{page,count});
+  
   return (
     <div>
       <Search />
@@ -72,10 +78,10 @@ const PantryList = () => {
       </section>
       {count&&count > 5 && (
         <section className=" m-5 p-5 flex justify-evenly  bottom-3">
-          <Button disabled={page === 1} onClick={() => setPage(() => page - 4)}>
+          <Button disabled={page === 0} onClick={() => setPage(() => page - 5)}>
             Prev Page
           </Button>
-          <Button onClick={() => setPage(() => page + 5)}>Next Page</Button>
+          <Button disabled={page+5>=count} onClick={() => setPage(() => page + 5)}>Next Page</Button>
         </section>
       )}
     </div>
