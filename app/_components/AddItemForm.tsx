@@ -41,8 +41,10 @@ import * as z from "zod";
 import { IPantryList } from "@/types/pantry";
 
 const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,prefillData?:IPantryList |null|undefined}) => {
-  const { mutate, cache } = useSWRConfig();
+  const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
+  const prefiledExpiryDate = prefillData?.expiry_date ? new Date(prefillData?.expiry_date) : undefined;
+
 
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
@@ -51,7 +53,9 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
       quantity: parseInt(prefillData?.quantity||'1')|| 1,
       unit: prefillData?.unit||"num",
       price:parseInt(prefillData?.price||'0')|| 0,
+      expiryDate:prefiledExpiryDate || undefined
     },
+    
   });
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
@@ -180,7 +184,7 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {field.value ? (
-                      format(field.value, "PPP")
+                      format(field.value, "PP")
                     ) : (
                       <span>Pick a date</span>
                     )}

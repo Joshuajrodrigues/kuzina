@@ -32,9 +32,10 @@ const AddDrawer = ({
   editItemId?: string;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [itemEditData, setItemEditData] = useState<IPantryList | null|undefined>(null);
+  const [itemEditData, setItemEditData] = useState<
+    IPantryList | null | undefined
+  >(null);
   const kitchenId = useParams().slug;
-
 
   const handleGetItemDetails = async (
     editItemId: string,
@@ -44,7 +45,6 @@ const AddDrawer = ({
       const { data, error } = await getPantryItem(editItemId, kitchenId);
       if (error) throw error;
       if (data) {
-        console.log("call to get item details", data);
         setItemEditData(data);
         setIsDrawerOpen(true);
       }
@@ -56,21 +56,19 @@ const AddDrawer = ({
   return (
     <Sheet
       onOpenChange={(isOpen) => {
-        setIsDrawerOpen(isOpen);
+        if (!isOpen) setIsDrawerOpen(isOpen);
       }}
       open={isDrawerOpen}
     >
       <SheetTrigger asChild>
         <Button
-          onClick={async(e) => {
+          onClick={async (e) => {
             e.stopPropagation();
             if (editItemId) {
-             await handleGetItemDetails(editItemId, kitchenId);
-             
-            }else{
+              await handleGetItemDetails(editItemId, kitchenId);
+            } else {
               setIsDrawerOpen(true);
             }
-           
           }}
         >
           {triggerName}
@@ -84,6 +82,7 @@ const AddDrawer = ({
           <AddItemForm
             closeDrawer={() => {
               setIsDrawerOpen(false);
+              setItemEditData(null);
             }}
             prefillData={itemEditData}
           />
