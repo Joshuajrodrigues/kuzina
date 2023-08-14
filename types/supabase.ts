@@ -37,25 +37,68 @@ export interface Database {
           }
         ]
       }
+      pantry: {
+        Row: {
+          belongs_to: string | null
+          created_at: string
+          expiry_date: string | null
+          id: number
+          item_name: string | null
+          last_updated: string | null
+          price: number | null
+          quantity: number | null
+          unit: string | null
+        }
+        Insert: {
+          belongs_to?: string | null
+          created_at?: string
+          expiry_date?: string | null
+          id?: number
+          item_name?: string | null
+          last_updated?: string | null
+          price?: number | null
+          quantity?: number | null
+          unit?: string | null
+        }
+        Update: {
+          belongs_to?: string | null
+          created_at?: string
+          expiry_date?: string | null
+          id?: number
+          item_name?: string | null
+          last_updated?: string | null
+          price?: number | null
+          quantity?: number | null
+          unit?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pantry_belongs_to_fkey"
+            columns: ["belongs_to"]
+            referencedRelation: "kitchens"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
-          avatar_url: string | null
           full_name: string | null
           id: string
+          kitchen: string | null
           updated_at: string | null
           username: string | null
         }
         Insert: {
-          avatar_url?: string | null
           full_name?: string | null
           id: string
+          kitchen?: string | null
           updated_at?: string | null
           username?: string | null
         }
         Update: {
-          avatar_url?: string | null
           full_name?: string | null
           id?: string
+          kitchen?: string | null
           updated_at?: string | null
           username?: string | null
         }
@@ -65,36 +108,51 @@ export interface Database {
             columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_kitchen_fkey"
+            columns: ["kitchen"]
+            referencedRelation: "kitchens"
+            referencedColumns: ["id"]
           }
         ]
       }
-      todos: {
+      shopping: {
         Row: {
+          createdAt: string
           id: number
-          inserted_at: string
-          is_complete: boolean | null
-          task: string | null
-          user_id: string
+          modifiedBy: string | null
+          note: string | null
+          pantryId: number | null
+          status: boolean | null
         }
         Insert: {
+          createdAt?: string
           id?: number
-          inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
-          user_id: string
+          modifiedBy?: string | null
+          note?: string | null
+          pantryId?: number | null
+          status?: boolean | null
         }
         Update: {
+          createdAt?: string
           id?: number
-          inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
-          user_id?: string
+          modifiedBy?: string | null
+          note?: string | null
+          pantryId?: number | null
+          status?: boolean | null
         }
         Relationships: [
           {
-            foreignKeyName: "todos_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
+            foreignKeyName: "shopping_modifiedBy_fkey"
+            columns: ["modifiedBy"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shopping_pantryId_fkey"
+            columns: ["pantryId"]
+            referencedRelation: "pantry"
             referencedColumns: ["id"]
           }
         ]
