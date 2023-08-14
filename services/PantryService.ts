@@ -68,7 +68,7 @@ export const addToPantry = async (
   return { data, error };
 };
 
-export const deletePantryItem = async (id: string,kitchenId:string) => {
+export const deletePantryItem = async (id: string, kitchenId: string) => {
   const { error } = await clientSupabase
     .from("pantry")
     .delete()
@@ -76,4 +76,17 @@ export const deletePantryItem = async (id: string,kitchenId:string) => {
     .eq("id", id);
 
   return error;
+};
+
+export const getPantryItem = async (id: string, kitchenId: string):Promise<{
+  data: IPantryList | null;
+  error: PostgrestError | null;
+}> => {
+  const { data, error } = await clientSupabase
+    .from("pantry")
+    .select("*")
+    .eq("belongs_to", kitchenId)
+    .eq("id", id)
+    //.update({ other_column: "otherValue" })
+    return { data:data?.[0], error }
 };

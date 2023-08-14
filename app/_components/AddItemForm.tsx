@@ -38,18 +38,19 @@ import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import * as z from "zod";
+import { IPantryList } from "@/types/pantry";
 
-const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
+const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,prefillData?:IPantryList |null|undefined}) => {
   const { mutate, cache } = useSWRConfig();
   const kitchenId = useParams().slug;
 
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
-      itemName: "",
-      quantity: 1,
-      unit: "num",
-      price: 0,
+      itemName: prefillData?.item_name||"",
+      quantity: parseInt(prefillData?.quantity||'1')|| 1,
+      unit: prefillData?.unit||"num",
+      price:parseInt(prefillData?.price||'0')|| 0,
     },
   });
 
@@ -90,7 +91,7 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="eg) Pepper" {...field} />
+                <Input  placeholder="eg) Pepper" {...field} />
               </FormControl>
               <FormDescription>What should we call this item ?</FormDescription>
               <FormMessage />
