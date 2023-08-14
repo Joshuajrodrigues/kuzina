@@ -39,7 +39,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
 
       let { data, error, status } = await clientSupabase
         .from('profiles')
-        .select(`full_name, username, avatar_url`)
+        .select(`full_name, username`)
         .eq('id', user?.id)
         .single()
 
