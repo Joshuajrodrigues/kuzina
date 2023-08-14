@@ -39,9 +39,9 @@ import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import * as z from "zod";
-import { IPantryList } from "@/types/pantry";
+import {Pantry } from "@/types/pantry";
 
-const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,prefillData?:IPantryList |null|undefined}) => {
+const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,prefillData?:Pantry |null|undefined}) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
   const prefiledExpiryDate = prefillData?.expiry_date ? new Date(prefillData?.expiry_date) : undefined;
@@ -51,9 +51,9 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
       item_name: prefillData?.item_name||"",
-      quantity: parseInt(prefillData?.quantity||'1')|| 1,
+      quantity: prefillData?.quantity|| 1,
       unit: prefillData?.unit||"num",
-      price:parseInt(prefillData?.price||'0')|| 0,
+      price:prefillData?.price|| 0,
       expiry_date:prefiledExpiryDate || undefined
     },
     

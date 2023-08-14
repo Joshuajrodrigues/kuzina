@@ -14,7 +14,7 @@ import { ReactNode, useEffect, useState } from "react";
 import AddItemForm from "./AddItemForm";
 import { getPantryItem } from "@/services/PantryService";
 import { useParams } from "next/navigation";
-import { IPantryList } from "@/types/pantry";
+import { Pantry } from "@/types/pantry";
 
 const AddDrawer = ({
   title = "Add item",
@@ -29,16 +29,16 @@ const AddDrawer = ({
 }: {
   title?: string;
   triggerName?: string | ReactNode;
-  editItemId?: string;
+  editItemId?: number;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [itemEditData, setItemEditData] = useState<
-    IPantryList | null | undefined
+    Pantry | null | undefined
   >(null);
   const kitchenId = useParams().slug;
 
   const handleGetItemDetails = async (
-    editItemId: string,
+    editItemId: number,
     kitchenId: string
   ) => {
     try {

@@ -7,7 +7,7 @@ import React from "react";
 import { mutate } from "swr";
 import AddDrawer from "./AddDrawer";
 
-const LastCard = ({ id }: { id: string }) => {
+const LastCard = ({ id }: { id: number }) => {
   const kitchenId = useParams().slug;
 
   const handleDelete = async (

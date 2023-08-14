@@ -4,7 +4,7 @@ import { HeartFilledIcon, HeartIcon, SketchLogoIcon } from "@radix-ui/react-icon
 import React, { FC } from "react";
 
 const MiddleCard: FC<{
-  price?: string;
+  price?: number;
   isInList?: boolean;
 }> = ({ price, isInList }) => {
   return (

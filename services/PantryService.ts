@@ -1,6 +1,6 @@
 import { clientSupabase } from "@/lib/constants";
 import { extractTableName } from "@/lib/utils";
-import { IPantryList } from "@/types/pantry";
+import {  Pantry } from "@/types/pantry";
 import { PostgrestError } from "@supabase/supabase-js";
 import { z } from "zod";
 
@@ -68,7 +68,7 @@ export const addToPantry = async (
   return { data, error };
 };
 
-export const deletePantryItem = async (id: string, kitchenId: string) => {
+export const deletePantryItem = async (id: number, kitchenId: string) => {
   const { error } = await clientSupabase
     .from("pantry")
     .delete()
@@ -79,10 +79,10 @@ export const deletePantryItem = async (id: string, kitchenId: string) => {
 };
 
 export const getPantryItem = async (
-  id: string,
+  id: number,
   kitchenId: string
 ): Promise<{
-  data: IPantryList | null;
+  data: Pantry | null;
   error: PostgrestError | null;
 }> => {
   const { data, error } = await clientSupabase
@@ -94,15 +94,19 @@ export const getPantryItem = async (
   return { data: data?.[0], error };
 };
 
-export const updatePantryItem = async (id: string, kitchenId: string,updateObject:IPantryList): Promise<{
-  data: IPantryList | null;
+export const updatePantryItem = async (
+  id: number,
+  kitchenId: string,
+  updateObject: Pantry
+): Promise<{
+  data: Pantry | null;
   error: PostgrestError | null;
 }> => {
   const { data, error } = await clientSupabase
     .from("pantry")
-    .update(updateObject)
+    .update(updateObject!)
     .eq("belongs_to", kitchenId)
     .eq("id", id)
     .select();
-    return { data: data?.[0], error };
+  return { data: data?.[0], error };
 };

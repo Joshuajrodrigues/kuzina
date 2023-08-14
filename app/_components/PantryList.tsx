@@ -13,7 +13,7 @@ import LastCard from "./LastCard";
 import MiddleCard from "./MiddleCard";
 import Search from "./Search";
 import TopCard from "./TopCard";
-import { IPantryList } from "@/types/pantry";
+import { Pantry } from "@/types/pantry";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
@@ -28,7 +28,7 @@ const PantryList = () => {
   );
   let count:number = data?.count!
 
-  let res:IPantryList[] = data?.data!
+  let res:Pantry[] = data?.data!
   if (error) return "Error loading list";
 
   if (isLoading) {
@@ -55,24 +55,24 @@ const PantryList = () => {
       <section className="px-5 m-5">
         {res?.map((item) => (
           <CardItem
-            key={item.id}
+            key={item?.id}
             topCard={
               <TopCard
-                name={item.item_name}
-                quantity={item.quantity}
-                unit={item.unit}
+                name={item?.item_name!}
+                quantity={item?.quantity!}
+                unit={item?.unit!}
               />
             }
             firstCard={
               <FirstCard
-                expiryDate={item.expiry_date}
-                updatedOn={item?.last_updated}
+                expiryDate={item?.expiry_date!}
+                updatedOn={item?.last_updated!}
               />
             }
             middleCard={
-              <MiddleCard isInList={item.isInList} price={item?.price} />
+              <MiddleCard price={item?.price!} />
             }
-            lastCard={<LastCard id={item.id} />}
+            lastCard={<LastCard id={item?.id!} />}
           />
         ))}
       </section>
