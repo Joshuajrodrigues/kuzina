@@ -143,7 +143,7 @@ const AddItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
               <FormItem>
                 <FormLabel>Unit</FormLabel>
                 <FormControl defaultValue={"num"}>
-                  <Select>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Unit" />
                     </SelectTrigger>
