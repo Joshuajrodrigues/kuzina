@@ -46,6 +46,7 @@ const AddDrawer = ({
       if (data) {
         console.log("call to get item details", data);
         setItemEditData(data);
+        setIsDrawerOpen(true);
       }
     } catch (error) {
       console.log(error);
@@ -65,8 +66,11 @@ const AddDrawer = ({
             e.stopPropagation();
             if (editItemId) {
              await handleGetItemDetails(editItemId, kitchenId);
+             
+            }else{
+              setIsDrawerOpen(true);
             }
-            setIsDrawerOpen(true);
+           
           }}
         >
           {triggerName}
