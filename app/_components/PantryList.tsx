@@ -72,7 +72,7 @@ const PantryList = () => {
             middleCard={
               <MiddleCard isInList={item.isInList} price={item?.price} />
             }
-            lastCard={<LastCard />}
+            lastCard={<LastCard id={item.id} />}
           />
         ))}
       </section>

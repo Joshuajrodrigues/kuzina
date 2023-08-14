@@ -13,7 +13,7 @@ const MiddleCard: FC<{
     >
       <span className="flex flex-col text-left">
         <h6 className="flex items-center justify-center font-extralight text-sm"> <SketchLogoIcon className="mr-1" /> Price</h6>
-        {price || ""}
+        {price || "-"}
       </span>
       <span className="flex flex-col text-right">
         <Button

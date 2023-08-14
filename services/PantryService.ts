@@ -67,3 +67,13 @@ export const addToPantry = async (
 
   return { data, error };
 };
+
+export const deletePantryItem = async (id: string,kitchenId:string) => {
+  const { error } = await clientSupabase
+    .from("pantry")
+    .delete()
+    .eq("belongs_to", kitchenId)
+    .eq("id", id);
+
+  return error;
+};
