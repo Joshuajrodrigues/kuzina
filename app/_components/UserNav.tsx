@@ -37,16 +37,16 @@ const UserNav = ({ session }: { session: Session | null }) => {
   const getProfile = useCallback(async () => {
     try {
 
-      // let { data, error, status } = await clientSupabase
-      //   .from('profiles')
-      //   .select(`full_name, username, avatar_url`)
-      //   .eq('id', user?.id)
-      //   .single()
+      let { data, error, status } = await clientSupabase
+        .from('profiles')
+        .select(`full_name, username, avatar_url`)
+        .eq('id', user?.id)
+        .single()
 
-      // if (error && status !== 406) {
-      //   throw error
-      // }
-      let data = testData
+      if (error && status !== 406) {
+        throw error
+      }
+     
       if (data) {
         let name = data.full_name
         let initials = name?.split(' ') || ""
