@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 
 const TopCard:FC<{
     name:string,
-    quantity:string
+    quantity:number
     unit:string
 }> = ({name,quantity,unit}) => {
   return (
