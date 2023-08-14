@@ -3,7 +3,7 @@ import { extractTableName } from "@/lib/utils";
 import {  Pantry } from "@/types/pantry";
 import { PostgrestError } from "@supabase/supabase-js";
 import { z } from "zod";
-
+//-------------------------------------------------------------------------
 export const pantryItemSchema = z.object({
   item_name: z.string().min(2).max(50),
   price: z.preprocess(
@@ -20,6 +20,11 @@ export const pantryItemSchema = z.object({
   unit: z.string().min(1),
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
+
+
+
+//--------------------------------------------------------------------------
+
 
 export const getPantryList = async (
   url: string,
