@@ -3,8 +3,8 @@ export interface IPantryList {
     item_name:string
     quantity:string;
     unit:string;
-    expiryDate?:string
-    updatedOn?:string
+    expiry_date?:string
+    last_updated?:string
     isInList?:boolean,
     price?: string
   }

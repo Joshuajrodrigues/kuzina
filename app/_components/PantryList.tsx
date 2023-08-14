@@ -65,8 +65,8 @@ const PantryList = () => {
             }
             firstCard={
               <FirstCard
-                expiryDate={item.expiryDate}
-                updatedOn={item?.updatedOn}
+                expiryDate={item.expiry_date}
+                updatedOn={item?.last_updated}
               />
             }
             middleCard={

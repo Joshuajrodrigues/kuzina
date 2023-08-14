@@ -3,6 +3,7 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa,ThemeMinimal,ThemeVariables,Theme } from '@supabase/auth-ui-shared'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '../../types/supabase'
+import { BASE_URL } from '@/lib/constants'
 export default function AuthForm() {
   const supabase = createClientComponentClient<Database>()
 
@@ -14,7 +15,8 @@ export default function AuthForm() {
       theme="dark"
       showLinks={false}
       providers={[]}
-      redirectTo="/auth"
+      redirectTo={`${BASE_URL}auth`}
+      
     />
   )
 }
