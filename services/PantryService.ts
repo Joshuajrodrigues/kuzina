@@ -5,7 +5,7 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { z } from "zod";
 
 export const pantryItemSchema = z.object({
-  itemName: z.string().min(2).max(50),
+  item_name: z.string().min(2).max(50),
   price: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce.number().min(0).optional()
@@ -18,7 +18,7 @@ export const pantryItemSchema = z.object({
       .positive("Quantity must be positive")
   ),
   unit: z.string().min(1),
-  expiryDate: z.date({ invalid_type_error: "Invalid date" }).optional(),
+  expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
 export const getPantryList = async (
@@ -55,10 +55,10 @@ export const addToPantry = async (
     .from(tableName)
     .insert([
       {
-        item_name: values.itemName,
+        item_name: values.item_name,
         quantity: values.quantity,
         belongs_to: kitchenId,
-        expiry_date: values.expiryDate,
+        expiry_date: values.expiry_date,
         price: values.price,
         unit: values.unit,
       },
@@ -78,7 +78,10 @@ export const deletePantryItem = async (id: string, kitchenId: string) => {
   return error;
 };
 
-export const getPantryItem = async (id: string, kitchenId: string):Promise<{
+export const getPantryItem = async (
+  id: string,
+  kitchenId: string
+): Promise<{
   data: IPantryList | null;
   error: PostgrestError | null;
 }> => {
@@ -86,7 +89,20 @@ export const getPantryItem = async (id: string, kitchenId: string):Promise<{
     .from("pantry")
     .select("*")
     .eq("belongs_to", kitchenId)
+    .eq("id", id);
+  //.update({ other_column: "otherValue" })
+  return { data: data?.[0], error };
+};
+
+export const updatePantryItem = async (id: string, kitchenId: string,updateObject:IPantryList): Promise<{
+  data: IPantryList | null;
+  error: PostgrestError | null;
+}> => {
+  const { data, error } = await clientSupabase
+    .from("pantry")
+    .update(updateObject)
+    .eq("belongs_to", kitchenId)
     .eq("id", id)
-    //.update({ other_column: "otherValue" })
-    return { data:data?.[0], error }
+    .select();
+    return { data: data?.[0], error };
 };

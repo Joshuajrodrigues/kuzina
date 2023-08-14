@@ -30,6 +30,7 @@ import {
   addToPantry,
   getPantryList,
   pantryItemSchema,
+  updatePantryItem,
 } from "@/services/PantryService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
@@ -49,33 +50,55 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
-      itemName: prefillData?.item_name||"",
+      item_name: prefillData?.item_name||"",
       quantity: parseInt(prefillData?.quantity||'1')|| 1,
       unit: prefillData?.unit||"num",
       price:parseInt(prefillData?.price||'0')|| 0,
-      expiryDate:prefiledExpiryDate || undefined
+      expiry_date:prefiledExpiryDate || undefined
     },
     
   });
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     try {
-      const { data, error } = await addToPantry(
-        "[pantry]-add",
-        values,
-        kitchenId
-      );
+     let request= Object.assign(values)
+     request.id = prefillData?.id
 
-      if (error) throw error;
-      if (data) {
-        console.log("i ran");
-        try {
-          mutate(["[pantry]-list", kitchenId, 0]);
-        } catch (error) {
-          console.log(error);
-        }
+      if(prefillData){
 
-        closeDrawer();
+        const {data,error} = await updatePantryItem(prefillData.id,kitchenId,request)
+        if (error) throw error;
+        if (data) {
+          console.log("i ran");
+          try {
+            mutate(["[pantry]-list", kitchenId, 0]);
+          } catch (error) {
+            console.log(error);
+          }
+  
+          closeDrawer();
+
+      }
+      }else{
+        const { data, error } = await addToPantry(
+          "[pantry]-add",
+          values,
+          kitchenId
+        );
+  
+        if (error) throw error;
+        if (data) {
+          console.log("i ran");
+          try {
+            mutate(["[pantry]-list", kitchenId, 0]);
+          } catch (error) {
+            console.log(error);
+          }
+  
+          closeDrawer();
+
+      }
+
       }
     } catch (error) {
       console.log(error);
@@ -90,7 +113,7 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
       >
         <FormField
           control={form.control}
-          name="itemName"
+          name="item_name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -168,7 +191,7 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
         </div>
         <FormField
           control={form.control}
-          name="expiryDate"
+          name="expiry_date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Expiries on</FormLabel>
