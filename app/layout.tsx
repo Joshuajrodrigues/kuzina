@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Toaster } from "@/components/ui/toaster";
+
 import { Header } from "./_components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -10,7 +11,7 @@ export const metadata = {
   description: "Your kitchen management",
 };
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 export default function RootLayout({
   children,
 }: {
@@ -19,8 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-       <Header/>
+        <Header />
         {children}
+        <Toaster />
       </body>
     </html>
   );

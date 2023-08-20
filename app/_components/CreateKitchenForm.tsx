@@ -17,14 +17,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { BASE_URL } from "@/lib/constants";
+import { useToast } from "@/components/ui/use-toast";
 import { Database } from "@/types/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import { revalidatePath } from "next/cache";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -36,6 +35,7 @@ export const addKitchenSchema = z.object({
 
 const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,fetchKitchens:()=>void }) => {
   const supabase = createClientComponentClient<Database>();
+  const {toast} = useToast()
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const user = session?.user;
   const form = useForm<z.infer<typeof addKitchenSchema>>({
@@ -54,6 +54,12 @@ const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,
 
       if (error && status !== 406) {
         throw error;
+      }
+      if(data){
+        toast({
+          title: "Kitchen created",
+          duration: 2000,
+        });
       }
     } catch (error) {
       console.log(error);

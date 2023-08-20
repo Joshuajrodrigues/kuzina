@@ -39,66 +39,80 @@ import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import * as z from "zod";
-import {Pantry } from "@/types/pantry";
+import { Pantry } from "@/types/pantry";
+import { useToast } from "@/components/ui/use-toast";
 
-const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,prefillData?:Pantry |null|undefined}) => {
+const AddItemForm = ({
+  closeDrawer,
+  prefillData,
+}: {
+  closeDrawer: () => void;
+  prefillData?: Pantry | null | undefined;
+}) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
-  const prefiledExpiryDate = prefillData?.expiry_date ? new Date(prefillData?.expiry_date) : undefined;
-
+  const {toast} = useToast()
+  const prefiledExpiryDate = prefillData?.expiry_date
+    ? new Date(prefillData?.expiry_date)
+    : undefined;
 
   const form = useForm<z.infer<typeof pantryItemSchema>>({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
-      item_name: prefillData?.item_name||"",
-      quantity: prefillData?.quantity|| 1,
-      unit: prefillData?.unit||"num",
-      price:prefillData?.price|| 0,
-      expiry_date:prefiledExpiryDate || undefined
+      item_name: prefillData?.item_name || "",
+      quantity: prefillData?.quantity || 1,
+      unit: prefillData?.unit || "num",
+      price: prefillData?.price || 0,
+      expiry_date: prefiledExpiryDate || undefined,
     },
-    
   });
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     try {
-     let request= Object.assign(values)
-     request.id = prefillData?.id
+      let request = Object.assign(values);
+      request.id = prefillData?.id;
 
-      if(prefillData){
-
-        const {data,error} = await updatePantryItem(prefillData.id,kitchenId,request)
+      if (prefillData) {
+        const { data, error } = await updatePantryItem(
+          prefillData.id,
+          kitchenId,
+          request
+        );
         if (error) throw error;
         if (data) {
-          console.log("i ran");
+          toast({
+            title: "Item updated",
+            duration: 2000,
+          });
           try {
             mutate(["[pantry]-list", kitchenId, 0]);
           } catch (error) {
             console.log(error);
           }
-  
-          closeDrawer();
 
-      }
-      }else{
+          closeDrawer();
+        }
+      } else {
         const { data, error } = await addToPantry(
           "[pantry]-add",
           values,
           kitchenId
         );
-  
+
         if (error) throw error;
         if (data) {
-          console.log("i ran");
+          toast({
+            title: "Item added",
+            duration: 2000,
+          });
           try {
             mutate(["[pantry]-list", kitchenId, 0]);
           } catch (error) {
             console.log(error);
           }
-  
+
           closeDrawer();
-
-      }
-
+        }
       }
     } catch (error) {
       console.log(error);
@@ -118,7 +132,7 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input  placeholder="eg) Pepper" {...field} />
+                <Input placeholder="eg) Pepper" {...field} />
               </FormControl>
               <FormDescription>What should we call this item ?</FormDescription>
               <FormMessage />
@@ -171,7 +185,10 @@ const AddItemForm = ({ closeDrawer,prefillData }: { closeDrawer: () => void,pref
               <FormItem>
                 <FormLabel>Unit</FormLabel>
                 <FormControl defaultValue={"num"}>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Unit" />
                     </SelectTrigger>

@@ -1,6 +1,6 @@
 import { clientSupabase } from "@/lib/constants";
 import { extractTableName } from "@/lib/utils";
-import {  Pantry } from "@/types/pantry";
+import { Pantry } from "@/types/pantry";
 import { PostgrestError } from "@supabase/supabase-js";
 import { z } from "zod";
 //-------------------------------------------------------------------------
@@ -21,10 +21,7 @@ export const pantryItemSchema = z.object({
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
 });
 
-
-
 //--------------------------------------------------------------------------
-
 
 export const getPantryList = async (
   url: string,
@@ -73,14 +70,19 @@ export const addToPantry = async (
   return { data, error };
 };
 
-export const deletePantryItem = async (id: number, kitchenId: string) => {
+export const deletePantryItem = async (
+  id: number,
+  kitchenId: string
+): Promise<{
+  error: PostgrestError | null;
+}> => {
   const { error } = await clientSupabase
     .from("pantry")
     .delete()
     .eq("belongs_to", kitchenId)
     .eq("id", id);
 
-  return error;
+  return {error};
 };
 
 export const getPantryItem = async (
