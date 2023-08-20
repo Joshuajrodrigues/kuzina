@@ -34,7 +34,7 @@ const PantryList = () => {
   if (isLoading) {
     return "Loading....";
   }
-  console.log("pagination",{page,count});
+ 
   
   return (
     <div>
@@ -76,7 +76,7 @@ const PantryList = () => {
           />
         ))}
       </section>
-      {count&&count > 5 && (
+      {!!count&&count > 5 && (
         <section className=" m-5 p-5 flex justify-evenly  bottom-3">
           <Button disabled={page === 0} onClick={() => setPage(() => page - 5)}>
             Prev Page

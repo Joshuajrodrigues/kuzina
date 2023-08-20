@@ -29,7 +29,7 @@ const AddDrawer = ({
 }: {
   title?: string;
   triggerName?: string | ReactNode;
-  editItemId?: number;
+  editItemId?: string;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [itemEditData, setItemEditData] = useState<
@@ -38,7 +38,7 @@ const AddDrawer = ({
   const kitchenId = useParams().slug;
 
   const handleGetItemDetails = async (
-    editItemId: number,
+    editItemId: string,
     kitchenId: string
   ) => {
     try {

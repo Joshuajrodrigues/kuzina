@@ -39,10 +39,13 @@ export interface Database {
       }
       pantry: {
         Row: {
+          addedToCart: boolean | null
           belongs_to: string | null
+          buyingDescription: string | null
           created_at: string
+          description: string | null
           expiry_date: string | null
-          id: number
+          id: string
           item_name: string | null
           last_updated: string | null
           price: number | null
@@ -50,10 +53,13 @@ export interface Database {
           unit: string | null
         }
         Insert: {
+          addedToCart?: boolean | null
           belongs_to?: string | null
+          buyingDescription?: string | null
           created_at?: string
+          description?: string | null
           expiry_date?: string | null
-          id?: number
+          id?: string
           item_name?: string | null
           last_updated?: string | null
           price?: number | null
@@ -61,10 +67,13 @@ export interface Database {
           unit?: string | null
         }
         Update: {
+          addedToCart?: boolean | null
           belongs_to?: string | null
+          buyingDescription?: string | null
           created_at?: string
+          description?: string | null
           expiry_date?: string | null
-          id?: number
+          id?: string
           item_name?: string | null
           last_updated?: string | null
           price?: number | null
@@ -84,21 +93,18 @@ export interface Database {
         Row: {
           full_name: string | null
           id: string
-          kitchen: string | null
           updated_at: string | null
           username: string | null
         }
         Insert: {
           full_name?: string | null
           id: string
-          kitchen?: string | null
           updated_at?: string | null
           username?: string | null
         }
         Update: {
           full_name?: string | null
           id?: string
-          kitchen?: string | null
           updated_at?: string | null
           username?: string | null
         }
@@ -108,51 +114,39 @@ export interface Database {
             columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "profiles_kitchen_fkey"
-            columns: ["kitchen"]
-            referencedRelation: "kitchens"
-            referencedColumns: ["id"]
           }
         ]
       }
-      shopping: {
+      recipies: {
         Row: {
-          createdAt: string
+          belongs_to_kitchen: string | null
+          created_at: string
+          description: string | null
           id: number
-          modifiedBy: string | null
-          note: string | null
-          pantryId: number | null
-          status: boolean | null
+          steps: string[] | null
+          title: string
         }
         Insert: {
-          createdAt?: string
+          belongs_to_kitchen?: string | null
+          created_at?: string
+          description?: string | null
           id?: number
-          modifiedBy?: string | null
-          note?: string | null
-          pantryId?: number | null
-          status?: boolean | null
+          steps?: string[] | null
+          title: string
         }
         Update: {
-          createdAt?: string
+          belongs_to_kitchen?: string | null
+          created_at?: string
+          description?: string | null
           id?: number
-          modifiedBy?: string | null
-          note?: string | null
-          pantryId?: number | null
-          status?: boolean | null
+          steps?: string[] | null
+          title?: string
         }
         Relationships: [
           {
-            foreignKeyName: "shopping_modifiedBy_fkey"
-            columns: ["modifiedBy"]
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "shopping_pantryId_fkey"
-            columns: ["pantryId"]
-            referencedRelation: "pantry"
+            foreignKeyName: "recipies_belongs_to_kitchen_fkey"
+            columns: ["belongs_to_kitchen"]
+            referencedRelation: "kitchens"
             referencedColumns: ["id"]
           }
         ]

@@ -9,7 +9,7 @@ import AddDrawer from "./AddDrawer";
 import DeleteConfirm from "./DeleteConfirm";
 import { useToast } from "@/components/ui/use-toast";
 
-const LastCard = ({ id }: { id: number }) => {
+const LastCard = ({ id }: { id: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const kitchenId = useParams().slug;
   const { toast } = useToast();

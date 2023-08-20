@@ -71,7 +71,7 @@ export const addToPantry = async (
 };
 
 export const deletePantryItem = async (
-  id: number,
+  id: string,
   kitchenId: string
 ): Promise<{
   error: PostgrestError | null;
@@ -86,7 +86,7 @@ export const deletePantryItem = async (
 };
 
 export const getPantryItem = async (
-  id: number,
+  id: string,
   kitchenId: string
 ): Promise<{
   data: Pantry | null;
@@ -102,7 +102,7 @@ export const getPantryItem = async (
 };
 
 export const updatePantryItem = async (
-  id: number,
+  id: string,
   kitchenId: string,
   updateObject: Pantry
 ): Promise<{
