@@ -70,7 +70,7 @@ const PantryList = () => {
               />
             }
             middleCard={
-              <MiddleCard price={item?.price!} />
+              <MiddleCard price={item?.price!} id={item?.id!} isInList={item?.addedToCart||false} />
             }
             lastCard={<LastCard id={item?.id!} />}
           />

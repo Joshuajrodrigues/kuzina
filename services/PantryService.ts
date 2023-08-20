@@ -19,7 +19,8 @@ export const pantryItemSchema = z.object({
   ),
   unit: z.string().min(1),
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
-  description:z.string().optional()
+  description: z.string().optional(),
+  addedToCart: z.boolean().optional(),
 });
 
 //--------------------------------------------------------------------------
@@ -83,7 +84,7 @@ export const deletePantryItem = async (
     .eq("belongs_to", kitchenId)
     .eq("id", id);
 
-  return {error};
+  return { error };
 };
 
 export const getPantryItem = async (
@@ -117,4 +118,18 @@ export const updatePantryItem = async (
     .eq("id", id)
     .select();
   return { data: data?.[0], error };
+};
+
+export const addToCart = async (
+  id: string,
+  kitchenId: string,
+  value: boolean
+) => {
+  const { data, error } = await clientSupabase
+    .from("pantry")
+    .update({ addedToCart: value })
+    .eq("belongs_to", kitchenId)
+    .eq("id", id)
+    .select();
+  return {data,error}
 };

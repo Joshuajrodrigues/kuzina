@@ -11,7 +11,8 @@ import AddToShoppingButton from "./AddToShoppingButton";
 const MiddleCard: FC<{
   price?: number;
   isInList?: boolean;
-}> = ({ price, isInList }) => {
+  id:string
+}> = ({ price, isInList,id }) => {
   return (
     <div
       className={"flex px-4 w-full justify-between items-center text-center"}
@@ -24,7 +25,7 @@ const MiddleCard: FC<{
         {price || "-"}
       </span>
       <span className="flex flex-col text-right">
-        <AddToShoppingButton isInList={isInList || false} />
+        <AddToShoppingButton id={id} isInList={isInList || false} />
       </span>
     </div>
   );

@@ -10,6 +10,7 @@ export type Pantry =
       price: number | null;
       quantity: number | null;
       unit: string | null;
-      description:string|null
+      description:string|null;
+      addedToCart:boolean|null
     }
   | undefined;
