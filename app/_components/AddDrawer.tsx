@@ -45,6 +45,8 @@ const AddDrawer = ({
       const { data, error } = await getPantryItem(editItemId, kitchenId);
       if (error) throw error;
       if (data) {
+        console.log("data",data);
+        
         setItemEditData(data);
         setIsDrawerOpen(true);
       }

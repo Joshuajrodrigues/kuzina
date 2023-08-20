@@ -41,6 +41,7 @@ import { useSWRConfig } from "swr";
 import * as z from "zod";
 import { Pantry } from "@/types/pantry";
 import { useToast } from "@/components/ui/use-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 const AddItemForm = ({
   closeDrawer,
@@ -51,7 +52,7 @@ const AddItemForm = ({
 }) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
-  const {toast} = useToast()
+  const { toast } = useToast();
   const prefiledExpiryDate = prefillData?.expiry_date
     ? new Date(prefillData?.expiry_date)
     : undefined;
@@ -64,10 +65,13 @@ const AddItemForm = ({
       unit: prefillData?.unit || "num",
       price: prefillData?.price || 0,
       expiry_date: prefiledExpiryDate || undefined,
+      description: prefillData?.description || "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
+    console.log("values",values);
+    
     try {
       let request = Object.assign(values);
       request.id = prefillData?.id;
@@ -139,12 +143,13 @@ const AddItemForm = ({
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="price"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Price</FormLabel>
+              <FormLabel>Price (Optional)</FormLabel>
               <FormControl>
                 <Input min={0} type="number" placeholder="" {...field} />
               </FormControl>
@@ -155,6 +160,7 @@ const AddItemForm = ({
             </FormItem>
           )}
         />
+
         <div className="flex space-x-5">
           <FormField
             control={form.control}
@@ -208,10 +214,25 @@ const AddItemForm = ({
         </div>
         <FormField
           control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description (Optional)</FormLabel>
+              <FormControl defaultValue={""}>
+                <Textarea {...field} />
+              </FormControl>
+              <FormDescription>Add any note here if you like</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="expiry_date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Expiries on</FormLabel>
+              <FormLabel>Expiries on (Optional)</FormLabel>
 
               <Popover>
                 <PopoverTrigger asChild>

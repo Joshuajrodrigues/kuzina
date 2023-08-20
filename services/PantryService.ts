@@ -19,6 +19,7 @@ export const pantryItemSchema = z.object({
   ),
   unit: z.string().min(1),
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
+  description:z.string().optional()
 });
 
 //--------------------------------------------------------------------------
