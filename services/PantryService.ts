@@ -133,3 +133,5 @@ export const addToCart = async (
     .select();
   return {data,error}
 };
+
+

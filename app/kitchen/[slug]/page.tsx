@@ -7,7 +7,7 @@ const page = ({ params }: { params: { slug: string } }) => {
   return (
     <div className='m-5 p-5 flex flex-col items-center text-center'>
         <LinkButton href={`/kitchen/${params.slug}/pantry`} text='Pantry 📦'/>
-        <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipies 📔'/>
+        {/* <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipies 📔'/> */}
         <LinkButton href={`/kitchen/${params.slug}/shoppinglist`} text='Shopping List 📃'/>
         <Image alt='kitchen' src={hero} width={500} height={600} />
     </div>

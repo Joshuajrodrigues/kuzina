@@ -14,6 +14,7 @@ import MiddleCard from "./MiddleCard";
 import Search from "./Search";
 import TopCard from "./TopCard";
 import { Pantry } from "@/types/pantry";
+import ListRenderer from "./ListRenderer";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
@@ -52,7 +53,8 @@ const PantryList = () => {
           filterDefault={sortOptions[0].label}
         />
       </div>
-      <section className="px-5 m-5">
+      <ListRenderer setPage={setPage} page={page} res={res} count={count}/>
+      {/* <section className="px-5 m-5">
         {res?.map((item) => (
           <CardItem
             key={item?.id}
@@ -83,7 +85,7 @@ const PantryList = () => {
           </Button>
           <Button disabled={page+5>=count} onClick={() => setPage(() => page + 5)}>Next Page</Button>
         </section>
-      )}
+      )} */}
     </div>
   );
 };
