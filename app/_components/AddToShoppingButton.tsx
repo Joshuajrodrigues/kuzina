@@ -26,7 +26,7 @@ const AddToShoppingButton = ({
       if (error) throw error;
       else if (data) {
         toast({
-          title: newValue ? "Moved to cart" : "Removed from cart",
+          title: newValue ? "Moved to list" : "Removed from list",
           duration: 2000,
         });
         setAdded(newValue);
@@ -45,12 +45,12 @@ const AddToShoppingButton = ({
     >
       {added ? (
         <>
-          <HeartFilledIcon className="mr-1" /> Remove from cart
+          <HeartFilledIcon className="mr-1" /> Remove from list
         </>
       ) : (
         <>
           <HeartIcon className="mr-1" />
-          Add to cart
+          Add to list
         </>
       )}
     </Button>
