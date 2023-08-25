@@ -10,6 +10,7 @@ import Filter from "./Filter";
 import ListRenderer from "./ListRenderer";
 import Search from "./Search";
 import AddDrawer from "./AddDrawer";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
@@ -28,7 +29,17 @@ const PantryList = () => {
   if (error) return "Error loading list";
 
   if (isLoading) {
-    return "Loading....";
+    return <div className="px-5 m-5 flex justify-between flex-col ">
+          <Skeleton className="h-[20px] my-5 w-full"/>
+          <Skeleton className="h-[20px] my-2 w-1/2"/>
+          <Skeleton className="h-[20px] my-2 w-1/2"/>
+          <Skeleton className="h-[20px] my-2 w-28"/>
+        <Skeleton className="h-[80px] my-3 w-full"/>
+        <Skeleton className="h-[80px] my-3  w-full"/>
+        <Skeleton className="h-[80px] my-3  w-full"/>
+        <Skeleton className="h-[80px] my-3  w-full"/>
+        <Skeleton className="h-[80px] my-3  w-full"/>
+    </div>;
   }
  
   

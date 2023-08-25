@@ -1,6 +1,7 @@
 "use client";
 import ListRenderer from "@/app/_components/ListRenderer";
 import { QuickNav } from "@/app/_components/QuickNav";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getCartList } from "@/services/CartService";
 import { Pantry } from "@/types/pantry";
 import { useParams } from "next/navigation";
@@ -23,7 +24,9 @@ const page = () => {
   if (error) return "Error loading list";
 
   if (isLoading) {
-    return "Loading....";
+    return <>
+    <Skeleton/>
+    </>;
   }
 
   return (
