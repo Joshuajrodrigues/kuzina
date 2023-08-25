@@ -1,6 +1,6 @@
 const loading = () => {
     return (
-      <div className="px-5 mx-5 flex justify-between">Loading pantry...</div>
+      <div className="p-5 m-5 flex justify-between">Loading pantry...</div>
     )
   }
   
