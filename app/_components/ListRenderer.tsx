@@ -13,11 +13,13 @@ const ListRenderer = ({
   count,
   page,
   setPage,
+  apiToMutate
 }: {
   res: Pantry[];
   count: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  apiToMutate:string
 }) => {
   return (
     <>
@@ -45,7 +47,7 @@ const ListRenderer = ({
                 isInList={item?.addedToCart || false}
               />
             }
-            lastCard={<LastCard id={item?.id!} />}
+            lastCard={<LastCard apiToMutate={apiToMutate} id={item?.id!} />}
           />
         ))}
       </section>

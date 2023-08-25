@@ -1,5 +1,6 @@
 "use client";
 import ListRenderer from "@/app/_components/ListRenderer";
+import { QuickNav } from "@/app/_components/QuickNav";
 import { getCartList } from "@/services/CartService";
 import { Pantry } from "@/types/pantry";
 import { useParams } from "next/navigation";
@@ -25,10 +26,14 @@ const page = () => {
     return "Loading....";
   }
 
-  return <div >
-     <h3 className=" px-5 mx-5 flex justify-between text-xl">Shopping List</h3>
-     <ListRenderer  setPage={setPage} page={page} res={res} count={count}/>
-  </div>;
+  return (
+    <div>
+      <h3 className=" px-5 mx-5 flex justify-between text-xl">
+        <QuickNav/>
+      </h3>
+      <ListRenderer apiToMutate={"[shopping]-list"} setPage={setPage} page={page} res={res} count={count} />
+    </div>
+  );
 };
 
 export default page;

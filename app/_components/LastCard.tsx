@@ -9,7 +9,7 @@ import AddDrawer from "./AddDrawer";
 import DeleteConfirm from "./DeleteConfirm";
 import { useToast } from "@/components/ui/use-toast";
 
-const LastCard = ({ id }: { id: string }) => {
+const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const kitchenId = useParams().slug;
   const { toast } = useToast();
@@ -39,7 +39,7 @@ const LastCard = ({ id }: { id: string }) => {
         title: "Item deleted",
         duration: 2000,
       });
-      mutate(["[pantry]-list", kitchenId, 0]);
+      mutate([apiToMutate, kitchenId, 0]);
     } catch (error) {
       console.log(error);
     } finally {

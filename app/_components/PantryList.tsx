@@ -9,6 +9,7 @@ import useSWR from "swr";
 import Filter from "./Filter";
 import ListRenderer from "./ListRenderer";
 import Search from "./Search";
+import AddDrawer from "./AddDrawer";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
@@ -47,7 +48,10 @@ const PantryList = () => {
           filterDefault={sortOptions[0].label}
         />
       </div>
-      <ListRenderer setPage={setPage} page={page} res={res} count={count}/>
+      <div className=" px-5 m-5 flex justify-between">
+      <AddDrawer />
+      </div>
+      <ListRenderer apiToMutate={"[pantry]-list"} setPage={setPage} page={page} res={res} count={count}/>
   
     </div>
   );
