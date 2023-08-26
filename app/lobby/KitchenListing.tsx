@@ -9,6 +9,7 @@ import CreateKitchenForm from "@/app/_components/CreateKitchenForm";
 import LobbyKitchenCard from "@/app/_components/LobbyKitchenCard";
 import { clientSupabase } from "@/lib/constants";
 import useSWR from "swr";
+import JoinKitchen from "../_components/JoinKitchen";
 
 const KitchenListing = ({ session }: { session: Session | null }) => {
   const [dataSource, setDataSource] = useState<LobbyKitchenCardCollection>([]);
@@ -86,14 +87,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
       <section className="flex flex-col my-5 text-white">
         <CreateKitchenForm fetchKitchens={fetchKitchens} session={session} />
 
-        <Button
-          disabled
-          variant={"default"}
-          type="button"
-          className=" my-5 text-l"
-        >
-          Join an existing kitchen{" "}
-        </Button>
+        <JoinKitchen fetchKitchens={fetchKitchens} session={session} />
       </section>
     </>
   );

@@ -30,12 +30,14 @@ const DeleteConfirm = ({
   isOpen,
   handleDelete,
   handleOpen,
+  showLabel=true,
 }: {
   title?: string;
   descp?: string;
   isOpen: boolean;
   handleDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleOpen: (e: boolean) => void;
+  showLabel?:boolean
 }) => {
   return (
     <>
@@ -58,7 +60,7 @@ const DeleteConfirm = ({
             variant={"destructive"}
           >
             <TrashIcon />
-            Delete
+           {showLabel&&"Delete"}
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

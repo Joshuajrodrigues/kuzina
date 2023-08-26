@@ -48,8 +48,8 @@ const LobbyKitchenCard = ({
         <div className="flex flex-col justify-start">
           <span>Name : {item.kitchenName}</span>
           <section className="flex justify-between items-center">
-            <span>
-              Created On : {format(parseISO(item.created_at as string), "PP")}
+            <span className=" text-xs">
+              Created on : {format(parseISO(item.created_at as string), "PP")}
             </span>
           </section>
         </div>
@@ -58,6 +58,7 @@ const LobbyKitchenCard = ({
             handleOpen={(value) => {
               setIsOpen(value);
             }}
+            showLabel={false}
             isOpen={isOpen}
             descp="This action cannot be undone and will parmanently delete your kitchen"
             handleDelete={() => {
