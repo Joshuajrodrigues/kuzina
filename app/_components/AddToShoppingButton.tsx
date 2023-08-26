@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { addToCart } from "@/services/PantryService";
-import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
+import { HeartFilledIcon, HeartIcon, MinusCircledIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -26,8 +26,11 @@ const AddToShoppingButton = ({
       if (error) throw error;
       else if (data) {
         toast({
-          title: newValue ? "Moved to list" : "Removed from list",
+          title: newValue ? "Added to shopping list" : "Removed from shopping list",
           duration: 2000,
+          variant:"default",
+          type:"foreground",
+          className:newValue?"bg-green-300":"bg-red-300"
         });
         setAdded(newValue);
       }
@@ -45,12 +48,12 @@ const AddToShoppingButton = ({
     >
       {added ? (
         <>
-          <HeartFilledIcon className="mr-1" /> Remove from list
+          <MinusCircledIcon className="mr-1" />  Shopping list
         </>
       ) : (
         <>
-          <HeartIcon className="mr-1" />
-          Add to list
+          <PlusCircledIcon className="mr-1" />
+          Shopping list
         </>
       )}
     </Button>

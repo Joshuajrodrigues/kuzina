@@ -6,11 +6,11 @@ import { Pantry } from "@/types/pantry";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
+import AddDrawer from "./AddDrawer";
 import Filter from "./Filter";
 import ListRenderer from "./ListRenderer";
 import Search from "./Search";
-import AddDrawer from "./AddDrawer";
-import { Skeleton } from "@/components/ui/skeleton";
+import CardListSkelleton from "./skelletons/CardListSkelleton";
 
 const PantryList = () => {
   const kitchenid = useParams().slug;
@@ -18,31 +18,16 @@ const PantryList = () => {
 
   const { data, error, isLoading } = useSWR(
     ["[pantry]-list", kitchenid, page],
-    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page),{
-      revalidateOnFocus:false,
-
+    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page),
+    {
+      revalidateOnFocus: false,
     }
   );
-  let count:number = data?.count!
+  let count: number = data?.count!;
 
-  let res:Pantry[] = data?.data!
+  let res: Pantry[] = data?.data!;
   if (error) return "Error loading list";
 
-  if (isLoading) {
-    return <div className="px-5 m-5 flex justify-between flex-col ">
-          <Skeleton className="h-[20px] my-5 w-full"/>
-          <Skeleton className="h-[20px] my-2 w-1/2"/>
-          <Skeleton className="h-[20px] my-2 w-1/2"/>
-          <Skeleton className="h-[20px] my-2 w-28"/>
-        <Skeleton className="h-[80px] my-3 w-full"/>
-        <Skeleton className="h-[80px] my-3  w-full"/>
-        <Skeleton className="h-[80px] my-3  w-full"/>
-        <Skeleton className="h-[80px] my-3  w-full"/>
-        <Skeleton className="h-[80px] my-3  w-full"/>
-    </div>;
-  }
- 
-  
   return (
     <div>
       <Search />
@@ -60,10 +45,21 @@ const PantryList = () => {
         />
       </div>
       <div className=" px-5 m-5 flex justify-between">
-      <AddDrawer />
+        <AddDrawer />
       </div>
-      <ListRenderer apiToMutate={"[pantry]-list"} setPage={setPage} page={page} res={res} count={count}/>
-  
+      {isLoading ? (
+        <CardListSkelleton />
+      ) : (
+        <>
+          <ListRenderer
+            apiToMutate={"[pantry]-list"}
+            setPage={setPage}
+            page={page}
+            res={res}
+            count={count}
+          />
+        </>
+      )}
     </div>
   );
 };

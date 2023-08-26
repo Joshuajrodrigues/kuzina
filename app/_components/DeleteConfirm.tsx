@@ -10,8 +10,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import { TrashIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
 
 const DeleteConfirm = ({
   title = "Are you sure absolutely sure?",
@@ -27,37 +38,43 @@ const DeleteConfirm = ({
   handleOpen: (e: boolean) => void;
 }) => {
   return (
-    <Dialog
-      onOpenChange={(openChange) => {
-        handleOpen(openChange);
-      }}
-      open={isOpen}
-    >
-      <DialogTrigger asChild className="flex items-center justify-center">
-        <Button
-          onClick={(e) => {
-            //   e.stopPropagation();
-            //  e.preventDefault();
-            handleOpen(true);
-          }}
-          variant={"destructive"}
+    <>
+      <AlertDialog
+        onOpenChange={(openChange: boolean) => {
+          handleOpen(openChange);
+        }}
+        open={isOpen}
+      >
+        <AlertDialogTrigger
+          asChild
+          className="flex items-center justify-center"
         >
-          <TrashIcon />
-          Delete
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{descp}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button onClick={handleDelete} type="button">
-            Confirm
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              handleOpen(true);
+            }}
+            variant={"destructive"}
+          >
+            <TrashIcon />
+            Delete
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>{descp}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <Button onClick={handleDelete} type="button">
+              Confirm
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
 

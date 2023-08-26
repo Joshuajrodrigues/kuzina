@@ -10,11 +10,21 @@ import { useEffect, useState } from "react";
 import CreateKitchenForm from "@/app/_components/CreateKitchenForm";
 import LobbyKitchenCard from "@/app/_components/LobbyKitchenCard";
 import { clientSupabase } from "@/lib/constants";
+import useSWR from "swr";
 
 const KitchenListing = ({ session }: { session: Session | null }) => {
  
   const [dataSource, setDataSource] = useState<LobbyKitchenCardCollection>([]);
   const user = session?.user;
+
+  const {error, isLoading } = useSWR(
+    ["kitchens"],
+    ([url]) => fetchKitchens(),
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
   const daleteKitchen = async (id: string) => {
     try {
       const { error } = await clientSupabase.from("kitchens").delete().eq("id", id);
@@ -44,16 +54,18 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
       console.log(error);
     }
   };
+  
 
-  useEffect(() => {
-    fetchKitchens();
-  }, []);
+  // useEffect(() => {
+  //   fetchKitchens();
+  // }, []);
   return (
     <>
       <div className="h-96 p-2 overflow-x-scroll">
         <LobbyKitchenCard
           daleteKitchen={daleteKitchen}
-          dataSource={dataSource}
+          dataSource={dataSource!}
+          isLoading={isLoading}
         />
       </div>
       <section className="flex flex-col my-5 text-white">

@@ -1,7 +1,7 @@
 "use client";
 import ListRenderer from "@/app/_components/ListRenderer";
 import { QuickNav } from "@/app/_components/QuickNav";
-import { Skeleton } from "@/components/ui/skeleton";
+import CardListSkelleton from "@/app/_components/skelletons/CardListSkelleton";
 import { getCartList } from "@/services/CartService";
 import { Pantry } from "@/types/pantry";
 import { useParams } from "next/navigation";
@@ -23,18 +23,24 @@ const page = () => {
   let res: Pantry[] = data?.data!;
   if (error) return "Error loading list";
 
-  if (isLoading) {
-    return <>
-    <Skeleton/>
-    </>;
-  }
+
 
   return (
     <div>
       <h3 className=" px-5 mx-5 flex justify-between text-xl">
-        <QuickNav/>
+        <QuickNav />
       </h3>
-      <ListRenderer apiToMutate={"[shopping]-list"} setPage={setPage} page={page} res={res} count={count} />
+      {isLoading ? (
+        <CardListSkelleton />
+      ) : (
+        <ListRenderer
+          apiToMutate={"[shopping]-list"}
+          setPage={setPage}
+          page={page}
+          res={res}
+          count={count}
+        />
+      )}
     </div>
   );
 };
