@@ -21,6 +21,13 @@ const ListRenderer = ({
   setPage: Dispatch<SetStateAction<number>>;
   apiToMutate:string
 }) => {
+  if (res?.length <= 0) {
+    return (
+      <div className="h-24 w-full cursor-pointer flex justify-center items-center ">
+        <span>No items here right now :(</span>
+      </div>
+    );
+  }
   return (
     <>
       <section className="px-5 m-5">

@@ -26,13 +26,17 @@ const LobbyKitchenCard = ({
   daleteKitchen: (id: string) => void;
   isLoading: boolean;
 }) => {
-  const [isOpen,setIsOpen]= useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   if (isLoading) {
     return <LobbyListSkelleton />;
   }
   if (dataSource?.length <= 0) {
-    return <>You are currently not part of any kitchen :(</>;
+    return (
+      <div className="h-24 w-full cursor-pointer flex justify-center items-center ">
+        <span>You are currently not part of any kitchen :(</span>
+      </div>
+    );
   }
 
   return dataSource?.map((item) => (
@@ -49,16 +53,18 @@ const LobbyKitchenCard = ({
             </span>
           </section>
         </div>
-        <div onClick={(e)=>e.stopPropagation()}>
-        <DeleteConfirm
-          handleOpen={(value)=>{
-            setIsOpen(value)
-          }}
-          isOpen={isOpen}
-          descp="This action cannot be undone and will parmanently delete your kitchen"
-          handleDelete={() => daleteKitchen(item.id)}
-        />
-
+        <div onClick={(e) => e.stopPropagation()}>
+          <DeleteConfirm
+            handleOpen={(value) => {
+              setIsOpen(value);
+            }}
+            isOpen={isOpen}
+            descp="This action cannot be undone and will parmanently delete your kitchen"
+            handleDelete={() => {
+              daleteKitchen(item.id);
+              setIsOpen(false);
+            }}
+          />
         </div>
       </Card>
     </Link>

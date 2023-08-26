@@ -2,9 +2,7 @@
 
 import { LobbyKitchenCardCollection } from "@/app/_components/LobbyKitchenCard";
 import { Button } from "@/components/ui/button";
-import {
-  Session
-} from "@supabase/auth-helpers-nextjs";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 
 import CreateKitchenForm from "@/app/_components/CreateKitchenForm";
@@ -13,11 +11,10 @@ import { clientSupabase } from "@/lib/constants";
 import useSWR from "swr";
 
 const KitchenListing = ({ session }: { session: Session | null }) => {
- 
   const [dataSource, setDataSource] = useState<LobbyKitchenCardCollection>([]);
   const user = session?.user;
 
-  const {error, isLoading } = useSWR(
+  const { error, isLoading } = useSWR(
     ["kitchens"],
     ([url]) => fetchKitchens(),
     {
@@ -26,16 +23,35 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   );
 
   const daleteKitchen = async (id: string) => {
-    try {
-      const { error } = await clientSupabase.from("kitchens").delete().eq("id", id);
+    const kitchenToDelete = dataSource.find((kitchen) => kitchen.id === id);
+    if (kitchenToDelete?.creator === user?.id) {
+      try {
+        const { error } = await clientSupabase
+          .from("pantry")
+          .delete()
+          .eq("belongs_to", id);
 
-      if (error) {
-        throw error;
+        if (error) {
+          throw error;
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        try {
+          const { error } = await clientSupabase
+            .from("kitchens")
+            .delete()
+            .eq("id", id);
+          if (error) {
+            throw error;
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          fetchKitchens();
+        }
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      fetchKitchens();
+    } else {
     }
   };
   const fetchKitchens = async () => {
@@ -54,7 +70,6 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
       console.log(error);
     }
   };
-  
 
   // useEffect(() => {
   //   fetchKitchens();

@@ -20,9 +20,9 @@ const menus = [
     label: "Pantry list",
   },
   {
-    value: "Shopping list",
+    value: "Wish list",
     route: "/kitchen/{id}/shoppinglist",
-    label: "Shopping list",
+    label: "Wish list",
   },
 ];
 

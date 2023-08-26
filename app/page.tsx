@@ -51,12 +51,12 @@ export default function Home() {
           recipies are possible to be cooked by checking your inventory. It can
           also show you info on which items your running low on or are close to
           expiry date. If any item is missing on a recipe it lets you assign it
-          to a shopping list. Which can be accessed by any memeber of your
+          to a wish list. Which can be accessed by any memeber of your
           kitchen.
         </p>
         <p>
           Kuzina is designed to be incrementally adopted, so you can add items
-          to it next time you go shopping or during your free time. The best way
+          to it next time you go wish or during your free time. The best way
           would be to start by adding your recipies and let kuzina import all
           the inventory required from there.
         </p>
