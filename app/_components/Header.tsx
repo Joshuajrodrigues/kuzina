@@ -18,7 +18,7 @@ export const Header = async () => {
       </Link>
       <section className="flex items-center justify-between">
         {/* <UserProfileMenu/> */}
-        <Notifications />
+        <Notifications session={session}/>
         <UserNav session={session} />
       </section>
     </header>
