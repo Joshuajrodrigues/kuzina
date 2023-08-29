@@ -56,6 +56,10 @@ const Notifications = ({ session }: { session: Session | null }) => {
       fetchRequests();
     }
   };
+  const approveRequest=async(id:string)=>{
+
+  }
+ 
   useEffect(() => {
     if (user) fetchRequests();
   }, [user]);

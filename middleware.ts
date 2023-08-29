@@ -11,11 +11,13 @@ export async function middleware(req: NextRequest) {
 
   const { searchParams } = new URL(req.url)
   const code = searchParams.get('code')
+  console.log("i got code",code);
 
   // magic link bullshit
-  if (code) {
-    return NextResponse.redirect(`${BASE_URL}api/auth/callback?code=${code}`)
-  }
+   if (code) {
+    
+     return NextResponse.redirect(`${BASE_URL}api/auth/callback?code=${code}`)
+   }
 
 
   // if user is signed in and the current path is / redirect the user to /lobby
