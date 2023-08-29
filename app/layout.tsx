@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
-
+import { ThemeProvider } from "@/components/ui/theme_provider";
 import { Header } from "./_components/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        {children}
-        <Toaster />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Header />
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

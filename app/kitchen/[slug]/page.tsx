@@ -18,5 +18,5 @@ const page = ({ params }: { params: { slug: string } }) => {
 export default page
 
 const LinkButton=({href,text}:{href:string,text:string})=>{
-    return  <Link className='my-5 w-full bg-primary rounded-md py-3 px-6 text-white' href={href}>{text}</Link>
+    return  <Link className='my-5 w-full bg-primary text-secondary rounded-md py-3 px-6' href={href}>{text}</Link>
 }

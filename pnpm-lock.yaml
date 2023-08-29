@@ -27,6 +27,7 @@ specifiers:
   date-fns: ^2.30.0
   encoding: ^0.1.13
   next: ~13.4.9
+  next-themes: ^0.2.1
   postcss: 8.4.24
   react: 18.2.0
   react-day-picker: ^8.8.0
@@ -66,6 +67,7 @@ dependencies:
   cmdk: 0.2.0_b2wlzab4o7ehpxv6mvz3buccci
   date-fns: 2.30.0
   next: 13.4.9_biqbaboplfbrettd7655fr4n2y
+  next-themes: 0.2.1_hyjx7svporfhadhuakm5xolhha
   postcss: 8.4.24
   react: 18.2.0
   react-day-picker: 8.8.0_kzhlcyde2l6xjiirkbg7jzhosa
@@ -1884,6 +1886,18 @@ packages:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+    dev: false
+
+  /next-themes/0.2.1_hyjx7svporfhadhuakm5xolhha:
+    resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
+    peerDependencies:
+      next: '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      next: 13.4.9_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /next-tick/1.1.0:

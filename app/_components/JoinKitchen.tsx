@@ -84,7 +84,7 @@ const JoinKitchen = ({
       }}
     >
       <DialogTrigger className="my-5" asChild>
-        <Button variant={"default"} type="button" className=" text-l">
+        <Button variant={"default"} type="button" className=" text-l text-secondary">
         Join an existing kitchen{" "}
         </Button>
       </DialogTrigger>
