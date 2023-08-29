@@ -20,6 +20,7 @@ import {
 import { Session } from "@supabase/supabase-js";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Overflow from "./Overflow";
 
 type NotificationRequests = {
   request_from: string;
@@ -63,8 +64,8 @@ const Notifications = ({ session }: { session: Session | null }) => {
   }
  
   useEffect(() => {
-    if (user) fetchRequests();
-  }, [user]);
+    if (user&&kitchenId) fetchRequests();
+  }, [user,kitchenId]);
 
   if (!user || !kitchenId) {
     return <></>;
@@ -122,7 +123,8 @@ const AcceptListItem = ({
 }) => {
   return (
     <div className="flex w-full items-center justify-between">
-      <span>{item?.full_name || item?.email || "Anon"}</span>
+      <Overflow text={item?.full_name || item?.email || "Anon"} />
+     
       <span className="flex justify-end">
         <Button
           onClick={() => rejectRequests(item.request_from as string)}
