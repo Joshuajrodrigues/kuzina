@@ -24,6 +24,8 @@ import { useEffect, useState } from "react";
 type NotificationRequests = {
   request_from: string;
   full_name: string;
+  email:string;
+  username:string;
 };
 
 const Notifications = ({ session }: { session: Session | null }) => {
@@ -35,8 +37,8 @@ const Notifications = ({ session }: { session: Session | null }) => {
   const fetchRequests = async () => {
     //@ts-ignore
     const { data } = await clientSupabase.rpc("join_notifications", {
-      owner_id: user!.id,
-      request_to: kitchenId,
+      kitchen_owner_id: user!.id,
+      join_request_to: kitchenId,
     });
     if (data) setNotifications(data);
     console.log("data", await data);
@@ -120,7 +122,7 @@ const AcceptListItem = ({
 }) => {
   return (
     <div className="flex w-full items-center justify-between">
-      <span>{item.full_name}</span>
+      <span>{item?.full_name || item?.email || "Anon"}</span>
       <span className="flex justify-end">
         <Button
           onClick={() => rejectRequests(item.request_from as string)}
