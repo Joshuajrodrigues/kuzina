@@ -31,11 +31,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
   const [fullname, setFullname] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
 
-  let testData = {
-    full_name:"test test",
-    username:"test",
 
-  }
 
 
   const getProfile = useCallback(async () => {
@@ -43,7 +39,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
 
       let { data, error, status } = await clientSupabase
         .from('profiles')
-        .select(`full_name, username`)
+        .select(`full_name, username,email`)
         .eq('id', user?.id)
         .single()
 
@@ -52,7 +48,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
       }
      
       if (data) {
-        //@ts-ignore
+      
         let name = data.full_name || data.email
         let initials = name?.split(' ') || ""
         

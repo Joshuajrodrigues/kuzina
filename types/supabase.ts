@@ -9,6 +9,37 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      kitchen_owners: {
+        Row: {
+          id: string
+          kitchen: string | null
+          owner: string | null
+        }
+        Insert: {
+          id?: string
+          kitchen?: string | null
+          owner?: string | null
+        }
+        Update: {
+          id?: string
+          kitchen?: string | null
+          owner?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kitchen_owners_kitchen_fkey"
+            columns: ["kitchen"]
+            referencedRelation: "kitchens"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kitchen_owners_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       kitchens: {
         Row: {
           created_at: string | null
@@ -91,18 +122,21 @@ export interface Database {
       }
       profiles: {
         Row: {
+          email: string | null
           full_name: string | null
           id: string
           updated_at: string | null
           username: string | null
         }
         Insert: {
+          email?: string | null
           full_name?: string | null
           id: string
           updated_at?: string | null
           username?: string | null
         }
         Update: {
+          email?: string | null
           full_name?: string | null
           id?: string
           updated_at?: string | null
@@ -151,12 +185,75 @@ export interface Database {
           }
         ]
       }
+      requests: {
+        Row: {
+          id: string
+          is_approved: boolean
+          request_from: string
+          request_to: string | null
+        }
+        Insert: {
+          id?: string
+          is_approved?: boolean
+          request_from: string
+          request_to?: string | null
+        }
+        Update: {
+          id?: string
+          is_approved?: boolean
+          request_from?: string
+          request_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "requests_request_from_fkey"
+            columns: ["request_from"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "requests_request_to_fkey"
+            columns: ["request_to"]
+            referencedRelation: "kitchens"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      join_notifications: {
+        Args: {
+          kitchen_owner_id: string
+          join_request_to: string
+        }
+        Returns: {
+          username: string
+          full_name: string
+          email: string
+          request_from: string
+        }[]
+      }
+      reject_request: {
+        Args: {
+          request_from_id: string
+          request_to_id: string
+        }
+        Returns: undefined
+      }
+      test: {
+        Args: {
+          kitchen_owner_id: string
+          join_request_to: string
+        }
+        Returns: {
+          username: string
+          full_name: string
+          email: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
