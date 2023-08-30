@@ -3,22 +3,26 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { BASE_URL, clientSupabase } from "@/lib/constants";
-import { Database } from "@/types/supabase";
 import { EnterIcon, ExitIcon } from "@radix-ui/react-icons";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Session } from "@supabase/supabase-js";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+
+type userType = {
+  full_name:string;
+  username:string;
+  email:string
+}
 const UserNav = ({ session }: { session: Session | null }) => {
   const pathname = usePathname();
   const user = session?.user;
@@ -48,7 +52,8 @@ const UserNav = ({ session }: { session: Session | null }) => {
       }
      
       if (data) {
-        let name = data.full_name
+        //@ts-ignore
+        let name = data.full_name || data.email
         let initials = name?.split(' ') || ""
         
         setFullname(data.full_name)
