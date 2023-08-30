@@ -53,7 +53,7 @@ const JoinKitchen = ({
     try {
       const { data, error, status } = await supabase
         .from("requests")
-        .insert([{ request_from: user?.id, request_to: values.kitchenId }])
+        .insert([{ request_from: user?.id!, request_to: values.kitchenId }])
         .select();
 
       if (error && status !== 406) {
