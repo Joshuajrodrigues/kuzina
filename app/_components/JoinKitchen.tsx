@@ -60,6 +60,7 @@ const JoinKitchen = ({
         throw error;
       }
       if (data) {
+        
         toast({
           title: "Request sent to kitchen owner",
           duration: 2000,
