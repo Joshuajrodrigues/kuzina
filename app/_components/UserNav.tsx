@@ -51,9 +51,10 @@ const UserNav = ({ session }: { session: Session | null }) => {
       
         let name = data.full_name || data.email
         let initials = name?.split(' ') || ""
+  
         
         setFullname(data.full_name)
-        setDisplayName(initials[0][0]+ initials[1][0])
+        setDisplayName(initials?.[0]?.[0]+( initials?.[1]?.[0]||initials?.[0]?.[1]||""))
       }
     } catch (error) {
         console.log(error);
