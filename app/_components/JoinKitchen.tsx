@@ -51,22 +51,7 @@ const JoinKitchen = ({
   });
   async function onSubmit(values: z.infer<typeof addKitchenSchema>) {
     try {
-      const { data, error, status } = await supabase
-        .from("requests")
-        .insert([{ request_from: user?.id!, request_to: values.kitchenId }])
-        .select();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-      if (data) {
-        
-        toast({
-          title: "Request sent to kitchen owner",
-          duration: 2000,
-          className:"bg-green-500"
-        });
-      }
+ 
     } catch (error) {
       console.log(error);
     } finally {
