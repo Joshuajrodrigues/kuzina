@@ -1,22 +1,35 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 import hero from "@/public/h1.svg";
-import Image from 'next/image';
+import Image from "next/image";
+import CopyToClipboard from "@/app/_components/CopyToClipboard";
 
 const page = ({ params }: { params: { slug: string } }) => {
   return (
-    <div className='m-5 p-5 flex flex-col items-center text-center'>
-        <LinkButton href={`/kitchen/${params.slug}/pantry`} text='Pantry 📦'/>
+    <>
+      <CopyToClipboard id={params.slug} />
+      <div className="m-5 px-5 flex flex-col items-center text-center">
+        <LinkButton href={`/kitchen/${params.slug}/pantry`} text="Pantry 📦" />
         {/* <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipies 📔'/> */}
-        <LinkButton href={`/kitchen/${params.slug}/shoppinglist`} text='Wish List 📃'/>
-        <Image alt='kitchen' src={hero} width={500} height={600} />
-    </div>
-  )
-}
+        <LinkButton
+          href={`/kitchen/${params.slug}/shoppinglist`}
+          text="Wish List 📃"
+        />
+        <Image alt="kitchen" src={hero} width={500} height={600} />
+      </div>
+    </>
+  );
+};
 
+export default page;
 
-export default page
-
-const LinkButton=({href,text}:{href:string,text:string})=>{
-    return  <Link className='my-5 w-full bg-primary text-secondary rounded-md py-3 px-6' href={href}>{text}</Link>
-}
+const LinkButton = ({ href, text }: { href: string; text: string }) => {
+  return (
+    <Link
+      className="my-5 w-full bg-primary text-secondary rounded-md py-3 px-6"
+      href={href}
+    >
+      {text}
+    </Link>
+  );
+};
