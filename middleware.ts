@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
   const { searchParams } = new URL(req.url)
   const code = searchParams.get('code')
-  console.log("i got code",code);
+
 
   // magic link bullshit
    if (code) {

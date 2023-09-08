@@ -21,6 +21,7 @@ import { Session } from "@supabase/supabase-js";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Overflow from "./Overflow";
+import { error } from "console";
 
 type NotificationRequests = {
   request_from: string;
@@ -60,7 +61,20 @@ const Notifications = ({ session }: { session: Session | null }) => {
     }
   };
   const approveRequest=async(id:string)=>{
+    try {
+      //@ts-ignore
+      const { data, error } =await clientSupabase.rpc("accept_request",{
+        request_from_id: id,
+        request_to_id: kitchenId,
+      })
+      rejectRequests(id)
+      if (error) {
+        throw error
+      }
 
+    } catch (error) {
+      
+    } 
   }
  
   useEffect(() => {
@@ -99,7 +113,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
           {notifications?.length > 0 ? (
             notifications.map((item) => (
               <DropdownMenuItem className="w-full" key={item.request_from}>
-                <AcceptListItem rejectRequests={rejectRequests} item={item} />
+                <AcceptListItem rejectRequests={rejectRequests} approveRequest={approveRequest} item={item} />
               </DropdownMenuItem>
             ))
           ) : (
@@ -117,9 +131,11 @@ export default Notifications;
 const AcceptListItem = ({
   item,
   rejectRequests,
+  approveRequest
 }: {
   item: any;
   rejectRequests: (id: string) => void;
+  approveRequest:(id:string) =>void;
 }) => {
   return (
     <div className="flex w-full items-center justify-between">
@@ -132,7 +148,7 @@ const AcceptListItem = ({
         >
           <CrossCircledIcon />{" "}
         </Button>
-        <Button className=" h-6 bg-green-500">
+        <Button onClick={()=>approveRequest(item.request_from as string)} className=" h-6 bg-green-500">
           <CheckCircledIcon />{" "}
         </Button>
       </span>
