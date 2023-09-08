@@ -42,17 +42,23 @@ import * as z from "zod";
 import { Pantry } from "@/types/pantry";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 const AddItemForm = ({
   closeDrawer,
   prefillData,
+  isEditClicked
 }: {
   closeDrawer: () => void;
   prefillData?: Pantry | null | undefined;
+  isEditClicked?:boolean
 }) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
   const { toast } = useToast();
+
+  const [isReadOnly,setIsReadOnly] = useState(true)
+
   const prefiledExpiryDate = prefillData?.expiry_date
     ? new Date(prefillData?.expiry_date)
     : undefined;
@@ -124,7 +130,7 @@ const AddItemForm = ({
   }
 
   return (
-    <Form {...form}>
+    <Form  {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-5 text-left"
@@ -136,7 +142,7 @@ const AddItemForm = ({
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="eg) Pepper" {...field} />
+                <Input readOnly={!!prefillData?!isEditClicked:false} placeholder="eg) Pepper" {...field} />
               </FormControl>
               <FormDescription>What should we call this item ?</FormDescription>
               <FormMessage />
@@ -286,7 +292,7 @@ const AddItemForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{!isEditClicked?"Close":"Submit"}</Button>
       </form>
     </Form>
   );

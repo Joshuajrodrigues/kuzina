@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { deletePantryItem } from "@/services/PantryService";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon, Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useParams } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 import { mutate } from "swr";
@@ -58,10 +58,10 @@ const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
       />
       <AddDrawer
         editItemId={id}
-        title="Edit item"
+        title="View item"
         triggerName={
           <>
-            <Pencil1Icon className="mr-1" /> Edit
+            <EyeOpenIcon className="mr-1" /> View More
           </>
         }
       />

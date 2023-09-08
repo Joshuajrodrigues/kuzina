@@ -26,8 +26,8 @@ import { error } from "console";
 type NotificationRequests = {
   request_from: string;
   full_name: string;
-  email:string;
-  username:string;
+  email: string;
+  username: string;
 };
 
 const Notifications = ({ session }: { session: Session | null }) => {
@@ -43,7 +43,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
       join_request_to: kitchenId,
     });
     if (data) setNotifications(data);
-    console.log("data", await data);
+  
   };
 
   const rejectRequests = async (id: string) => {
@@ -60,26 +60,25 @@ const Notifications = ({ session }: { session: Session | null }) => {
       fetchRequests();
     }
   };
-  const approveRequest=async(id:string)=>{
+  const approveRequest = async (id: string) => {
     try {
       //@ts-ignore
-      const { data, error } =await clientSupabase.rpc("accept_request",{
+      const { data, error } = await clientSupabase.rpc("accept_request", {
         request_from_id: id,
         request_to_id: kitchenId,
-      })
-      rejectRequests(id)
+      });
+      rejectRequests(id);
       if (error) {
-        throw error
+        throw error;
       }
+    } catch (error) {}
+  };
 
-    } catch (error) {
-      
-    } 
-  }
- 
   useEffect(() => {
-    if (user&&kitchenId) fetchRequests();
-  }, [user,kitchenId]);
+    console.log("fetchRequests");
+    
+    if (user && kitchenId) fetchRequests();
+  }, [user, kitchenId]);
 
   if (!user || !kitchenId) {
     return <></>;
@@ -113,14 +112,17 @@ const Notifications = ({ session }: { session: Session | null }) => {
           {notifications?.length > 0 ? (
             notifications.map((item) => (
               <DropdownMenuItem className="w-full" key={item.request_from}>
-                <AcceptListItem rejectRequests={rejectRequests} approveRequest={approveRequest} item={item} />
+                <AcceptListItem
+                  rejectRequests={rejectRequests}
+                  approveRequest={approveRequest}
+                  item={item}
+                />
               </DropdownMenuItem>
             ))
           ) : (
             <span className="text-sm p-2">No new requests</span>
           )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -131,16 +133,16 @@ export default Notifications;
 const AcceptListItem = ({
   item,
   rejectRequests,
-  approveRequest
+  approveRequest,
 }: {
   item: any;
   rejectRequests: (id: string) => void;
-  approveRequest:(id:string) =>void;
+  approveRequest: (id: string) => void;
 }) => {
   return (
     <div className="flex w-full items-center justify-between">
       <Overflow text={item?.full_name || item?.email || "Anon"} />
-     
+
       <span className="flex justify-end">
         <Button
           onClick={() => rejectRequests(item.request_from as string)}
@@ -148,7 +150,10 @@ const AcceptListItem = ({
         >
           <CrossCircledIcon />{" "}
         </Button>
-        <Button onClick={()=>approveRequest(item.request_from as string)} className=" h-6 bg-green-500">
+        <Button
+          onClick={() => approveRequest(item.request_from as string)}
+          className=" h-6 bg-green-500"
+        >
           <CheckCircledIcon />{" "}
         </Button>
       </span>

@@ -32,9 +32,10 @@ const AddDrawer = ({
   editItemId?: string;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [itemEditData, setItemEditData] = useState<
-    Pantry | null | undefined
-  >(null);
+  const [isEditClicked,setIsEditClicked] = useState(false)
+  const [itemEditData, setItemEditData] = useState<Pantry | null | undefined>(
+    null
+  );
   const kitchenId = useParams().slug;
 
   const handleGetItemDetails = async (
@@ -45,8 +46,8 @@ const AddDrawer = ({
       const { data, error } = await getPantryItem(editItemId, kitchenId);
       if (error) throw error;
       if (data) {
-        console.log("data",data);
-        
+        console.log("data", data);
+
         setItemEditData(data);
         setIsDrawerOpen(true);
       }
@@ -81,10 +82,15 @@ const AddDrawer = ({
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
         <SheetDescription>
+          <div className="flex justify-end">
+            <Button onClick={()=>setIsEditClicked(true)} >{!isEditClicked?"Edit":"Editing"}</Button>
+          </div>
           <AddItemForm
+            isEditClicked={isEditClicked}
             closeDrawer={() => {
               setIsDrawerOpen(false);
               setItemEditData(null);
+              setIsEditClicked(false)
             }}
             prefillData={itemEditData}
           />
