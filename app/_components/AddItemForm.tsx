@@ -47,11 +47,13 @@ import { useState } from "react";
 const AddItemForm = ({
   closeDrawer,
   prefillData,
-  isEditClicked
+  isEditClicked,
+  apiToMutate
 }: {
   closeDrawer: () => void;
   prefillData?: Pantry | null | undefined;
-  isEditClicked?:boolean
+  isEditClicked?:boolean;
+  apiToMutate?:string
 }) => {
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
@@ -96,12 +98,10 @@ const AddItemForm = ({
           toast({
             title: "Item updated",
             duration: 2000,
+            className:" bg-green-500"
           });
-          try {
-            mutate(["[pantry]-list", kitchenId, 0]);
-          } catch (error) {
-            console.log(error);
-          }
+          mutate([apiToMutate, kitchenId, 0]);
+      
 
           closeDrawer();
         }
@@ -119,7 +119,7 @@ const AddItemForm = ({
             duration: 2000,
           });
           try {
-            mutate(["[pantry]-list", kitchenId, 0]);
+            mutate([apiToMutate, kitchenId, 0]);
           } catch (error) {
             console.log(error);
           }

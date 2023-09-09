@@ -18,6 +18,7 @@ import { Pantry } from "@/types/pantry";
 
 const AddDrawer = ({
   title = "Add item",
+  apiToMutate,
   triggerName = (
     <>
       {" "}
@@ -28,6 +29,7 @@ const AddDrawer = ({
   editItemId,
 }: {
   title?: string;
+  apiToMutate?:string;
   triggerName?: string | ReactNode;
   editItemId?: string;
 }) => {
@@ -86,6 +88,7 @@ const AddDrawer = ({
             <Button onClick={()=>setIsEditClicked(true)} >{!isEditClicked?"Edit":"Editing"}</Button>
           </div>
           <AddItemForm
+            apiToMutate={apiToMutate}
             isEditClicked={isEditClicked}
             closeDrawer={() => {
               setIsEditClicked(false)

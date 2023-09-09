@@ -57,6 +57,7 @@ const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
         handleDelete={handleDelete}
       />
       <AddDrawer
+        apiToMutate={apiToMutate}
         editItemId={id}
         title="View item"
         triggerName={
