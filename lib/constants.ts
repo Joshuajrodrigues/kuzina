@@ -16,10 +16,7 @@ export const filterOptions = [
   },
   {
     label: "Expiring soon",
-  },
-  {
-    label: "Wishlisted",
-  },
+  }
 ];
 export const sortOptions = [
   {

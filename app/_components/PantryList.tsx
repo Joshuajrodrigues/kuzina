@@ -31,7 +31,7 @@ const PantryList = () => {
   return (
     <div>
       <Search />
-      <div className="px-5 mx-5 flex justify-between flex-col ">
+      {/* <div className="px-5 mx-5 flex justify-between flex-col ">
         <Filter
           filterOptions={filterOptions}
           filterName="Status"
@@ -43,7 +43,7 @@ const PantryList = () => {
           filterName="Sort Order"
           filterDefault={sortOptions[0].label}
         />
-      </div>
+      </div> */}
       <div className=" px-5 m-5 flex justify-between">
         <AddDrawer />
       </div>
