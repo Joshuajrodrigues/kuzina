@@ -45,7 +45,7 @@ const PantryList = () => {
         />
       </div> */}
       <div className=" px-5 m-5 flex justify-between">
-        <AddDrawer />
+        <AddDrawer apiToMutate="[pantry]-list" />
       </div>
       {isLoading ? (
         <CardListSkelleton />

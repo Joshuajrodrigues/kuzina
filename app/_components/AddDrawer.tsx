@@ -29,12 +29,12 @@ const AddDrawer = ({
   editItemId,
 }: {
   title?: string;
-  apiToMutate?:string;
+  apiToMutate?: string;
   triggerName?: string | ReactNode;
   editItemId?: string;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isEditClicked,setIsEditClicked] = useState(false)
+  const [isEditClicked, setIsEditClicked] = useState(false);
   const [itemEditData, setItemEditData] = useState<Pantry | null | undefined>(
     null
   );
@@ -61,7 +61,10 @@ const AddDrawer = ({
   return (
     <Sheet
       onOpenChange={(isOpen) => {
-        if (!isOpen) {setIsDrawerOpen(isOpen);  setIsEditClicked(false)};
+        if (!isOpen) {
+          setIsDrawerOpen(isOpen);
+          setIsEditClicked(false);
+        }
       }}
       open={isDrawerOpen}
     >
@@ -84,14 +87,18 @@ const AddDrawer = ({
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
         <SheetDescription>
-          <div className="flex justify-end">
-            <Button onClick={()=>setIsEditClicked(true)} >{!isEditClicked?"Edit":"Editing"}</Button>
-          </div>
+          {!!itemEditData && (
+            <div className="flex justify-end">
+              <Button onClick={() => setIsEditClicked(true)}>
+                {!isEditClicked ? "Edit" : "Editing"}
+              </Button>
+            </div>
+          )}
           <AddItemForm
             apiToMutate={apiToMutate}
             isEditClicked={isEditClicked}
             closeDrawer={() => {
-              setIsEditClicked(false)
+              setIsEditClicked(false);
               setIsDrawerOpen(false);
               setItemEditData(null);
             }}

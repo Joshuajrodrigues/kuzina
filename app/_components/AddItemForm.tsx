@@ -79,7 +79,7 @@ const AddItemForm = ({
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     console.log("values",values);
-    if(!isEditClicked){
+    if((!!prefillData&&!isEditClicked)){
       closeDrawer();
       return
     }
@@ -298,7 +298,7 @@ const AddItemForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit">{!isEditClicked?"Close":"Submit"}</Button>
+        <Button type="submit">{(!!prefillData&&!isEditClicked)?"Close":"Submit"}</Button>
       </form>
     </Form>
   );
