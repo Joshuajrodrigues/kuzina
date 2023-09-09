@@ -77,7 +77,10 @@ const AddItemForm = ({
 
   async function onSubmit(values: z.infer<typeof pantryItemSchema>) {
     console.log("values",values);
-    
+    if(!isEditClicked){
+      closeDrawer();
+      return
+    }
     try {
       let request = Object.assign(values);
       request.id = prefillData?.id;
@@ -157,7 +160,7 @@ const AddItemForm = ({
             <FormItem>
               <FormLabel>Price (Optional)</FormLabel>
               <FormControl>
-                <Input min={0} type="number" placeholder="" {...field} />
+                <Input readOnly={!!prefillData?!isEditClicked:false} min={0} type="number" placeholder="" {...field} />
               </FormControl>
               <FormDescription>
                 How much did this item cost you ?
@@ -176,6 +179,7 @@ const AddItemForm = ({
                 <FormLabel>Quantity</FormLabel>
                 <FormControl>
                   <Input
+                    readOnly={!!prefillData?!isEditClicked:false}
                     className=" w-full"
                     min={0}
                     type="number"
@@ -198,6 +202,7 @@ const AddItemForm = ({
                 <FormLabel>Unit</FormLabel>
                 <FormControl defaultValue={"num"}>
                   <Select
+                    disabled={!!prefillData?!isEditClicked:false}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
@@ -225,7 +230,7 @@ const AddItemForm = ({
             <FormItem>
               <FormLabel>Description (Optional)</FormLabel>
               <FormControl defaultValue={""}>
-                <Textarea {...field} />
+                <Textarea readOnly={!!prefillData?!isEditClicked:false} {...field} />
               </FormControl>
               <FormDescription>Add any note here if you like</FormDescription>
               <FormMessage />
@@ -243,6 +248,7 @@ const AddItemForm = ({
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
+                    disabled={!!prefillData?!isEditClicked:false}
                     variant={"outline"}
                     className={cn(
                       "w-[280px] justify-start text-left font-normal",

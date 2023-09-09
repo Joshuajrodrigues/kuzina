@@ -59,7 +59,7 @@ const AddDrawer = ({
   return (
     <Sheet
       onOpenChange={(isOpen) => {
-        if (!isOpen) setIsDrawerOpen(isOpen);
+        if (!isOpen) {setIsDrawerOpen(isOpen);  setIsEditClicked(false)};
       }}
       open={isDrawerOpen}
     >
@@ -88,9 +88,9 @@ const AddDrawer = ({
           <AddItemForm
             isEditClicked={isEditClicked}
             closeDrawer={() => {
+              setIsEditClicked(false)
               setIsDrawerOpen(false);
               setItemEditData(null);
-              setIsEditClicked(false)
             }}
             prefillData={itemEditData}
           />
