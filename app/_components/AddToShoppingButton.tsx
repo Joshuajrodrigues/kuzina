@@ -13,7 +13,7 @@ const AddToShoppingButton = ({
   isInList: boolean;
   id: string;
 }) => {
-  const kitchenId = useParams().slug;
+  const kitchenId = useParams().slug as string;
   const { toast } = useToast();
   const [added, setAdded] = useState(false);
   useEffect(() => {
