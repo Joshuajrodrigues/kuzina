@@ -231,6 +231,19 @@ export interface Database {
         }
         Returns: undefined
       }
+      get_owner_kitchens: {
+        Args: {
+          kitchen_owner_id: string
+        }
+        Returns: {
+          id: string
+          created_at: string
+          kitchenname: string
+          creator: string
+          owner: string
+          kitchen: string
+        }[]
+      }
       get_user_kitchens: {
         Args: {
           kitchen_owner_id: string

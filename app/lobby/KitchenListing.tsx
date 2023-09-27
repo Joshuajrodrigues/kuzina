@@ -74,7 +74,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   };
   const fetchKitchens = async () => {
     try {
-      const { data, error } = await clientSupabase.rpc("get_user_kitchens",{"kitchen_owner_id":user?.id!})
+      const { data, error } = await clientSupabase.rpc("get_owner_kitchens",{"kitchen_owner_id":user?.id!})
       if (error) {
         throw error;
       }
