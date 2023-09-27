@@ -73,7 +73,7 @@ const AddDrawer = ({
           onClick={async (e) => {
             e.stopPropagation();
             if (editItemId) {
-              await handleGetItemDetails(editItemId, kitchenId);
+              await handleGetItemDetails(editItemId, kitchenId as string);
             } else {
               setIsDrawerOpen(true);
             }
