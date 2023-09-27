@@ -54,7 +54,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
   
         
         setFullname(data.full_name)
-        setDisplayName(initials?.[0]?.[0]+( initials?.[1]?.[0]||initials?.[0]?.[1]||""))
+        setDisplayName(initials?.[0]?.[0]+( initials?.[1]?.[0]||initials?.[0]?.[1]||"")||"user")
       }
     } catch (error) {
         console.log(error);
@@ -64,7 +64,10 @@ const UserNav = ({ session }: { session: Session | null }) => {
   }, [user, clientSupabase])
 
   useEffect(() => {
-    getProfile()
+    if(!fullname || !displayName){
+
+      getProfile()
+    }
   }, [user, getProfile])
 
 

@@ -31,7 +31,7 @@ const LobbyKitchenCard = ({
   isLoading: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [itemToDelete,setIsItemToDelete] = useState("")
   if (isLoading) {
     return <LobbyListSkelleton />;
   }
@@ -57,7 +57,7 @@ const LobbyKitchenCard = ({
             </span>
           </section>
         </div>
-        <div onClick={(e) => e.stopPropagation()}>
+        <div onClick={(e) =>{ e.stopPropagation();setIsItemToDelete(item.id)}}>
           <DeleteConfirm
             handleOpen={(value) => {
               setIsOpen(value);
@@ -66,7 +66,7 @@ const LobbyKitchenCard = ({
             isOpen={isOpen}
             descp="This action cannot be undone and will parmanently delete your kitchen"
             handleDelete={() => {
-              daleteKitchen(item.id);
+              daleteKitchen(itemToDelete);
               setIsOpen(false);
             }}
           />
