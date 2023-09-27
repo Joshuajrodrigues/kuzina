@@ -67,7 +67,6 @@ const Notifications = ({ session }: { session: Session | null }) => {
         request_from_id: id,
         request_to_id: kitchenId as string,
       });
-      rejectRequests(id);
       if (error) {
         throw error;
       }
