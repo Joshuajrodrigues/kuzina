@@ -7,12 +7,16 @@ import Link from "next/link";
 import LobbyListSkelleton from "./skelletons/LobbyListSkelleton";
 import DeleteConfirm from "./DeleteConfirm";
 import { useState } from "react";
+import Empty from "./Empty";
 
 interface ILobbyKitchenCard {
-  created_at: string | null;
-  creator: string | null;
   id: string;
-  kitchenName: string | null;
+  created_at: string | null;
+  kitchenname: string | null;
+  creator: string | null;
+  owner:string|null;
+  kitchen:string;
+  
 }
 
 export type LobbyKitchenCardCollection = ILobbyKitchenCard[];
@@ -34,7 +38,7 @@ const LobbyKitchenCard = ({
   if (dataSource?.length <= 0) {
     return (
       <div className="h-24 w-full cursor-pointer flex justify-center items-center ">
-        <span>You are currently not part of any kitchen :(</span>
+       <Empty message="You are not part of any kitchens" />
       </div>
     );
   }
@@ -46,7 +50,7 @@ const LobbyKitchenCard = ({
         className="h-24 cursor-pointer flex justify-between items-center p-5 my-5 focus:border-double"
       >
         <div className="flex flex-col justify-start">
-          <span>Name : {item.kitchenName}</span>
+          <span>Name : {item.kitchenname}</span>
           <section className="flex justify-between items-center">
             <span className=" text-xs">
               Created on : {format(parseISO(item.created_at as string), "PP")}

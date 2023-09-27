@@ -224,6 +224,26 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      accept_request: {
+        Args: {
+          request_from_id: string
+          request_to_id: string
+        }
+        Returns: undefined
+      }
+      get_user_kitchens: {
+        Args: {
+          kitchen_owner_id: string
+        }
+        Returns: {
+          id: string
+          created_at: string
+          kitchenname: string
+          creator: string
+          owner: string
+          kitchen: string
+        }[]
+      }
       join_notifications: {
         Args: {
           kitchen_owner_id: string

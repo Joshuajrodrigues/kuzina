@@ -45,6 +45,17 @@ const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,
     },
   });
 
+  async function addToPermissions(id:string){
+    try {
+      const { data, error, status } = await supabase
+      .from("kitchen_owners")
+      .insert([{ kitchen:id, owner: user?.id }])
+      .select();
+    } catch (error) {
+      
+    }
+  }
+
   async function onSubmit(values: z.infer<typeof addKitchenSchema>) {
     try {
       const { data, error, status } = await supabase
@@ -56,6 +67,9 @@ const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,
         throw error;
       }
       if(data){
+        console.log("data",data);
+        
+       await addToPermissions(data[0].id)
         toast({
           title: "Kitchen created",
           duration: 2000,

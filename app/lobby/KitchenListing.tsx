@@ -23,6 +23,20 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
     }
   );
 
+  const removeFromPermissions=async(id:string)=>{
+    try {
+      const { error } = await clientSupabase
+        .from("kitchen_owners")
+        .delete()
+        .eq("kitchen", id);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const daleteKitchen = async (id: string) => {
     const kitchenToDelete = dataSource.find((kitchen) => kitchen.id === id);
     if (kitchenToDelete?.creator === user?.id) {
@@ -39,6 +53,9 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
         console.log(error);
       } finally {
         try {
+
+          await removeFromPermissions(id)
+
           const { error } = await clientSupabase
             .from("kitchens")
             .delete()
@@ -57,14 +74,12 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   };
   const fetchKitchens = async () => {
     try {
-      const { data, error } = await clientSupabase
-        .from("kitchens")
-        .select(`*`)
-        .eq("creator", user?.id);
+      const { data, error } = await clientSupabase.rpc("get_user_kitchens",{"kitchen_owner_id":user?.id!})
       if (error) {
         throw error;
       }
       if (data) {
+        //@ts-ignore
         setDataSource(data);
       }
     } catch (error) {
@@ -84,7 +99,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
           isLoading={isLoading}
         />
       </div>
-      <section className="flex flex-col my-5 text-white">
+      <section className="flex flex-col my-5 text-white"> 
         <CreateKitchenForm fetchKitchens={fetchKitchens} session={session} />
 
         <JoinKitchen fetchKitchens={fetchKitchens} session={session} />

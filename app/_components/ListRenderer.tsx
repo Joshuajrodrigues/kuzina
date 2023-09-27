@@ -7,6 +7,7 @@ import MiddleCard from "./MiddleCard";
 import TopCard from "./TopCard";
 import { Pantry } from "@/types/pantry";
 import { Dispatch, SetStateAction } from "react";
+import Empty from "./Empty";
 
 const ListRenderer = ({
   res,
@@ -24,7 +25,7 @@ const ListRenderer = ({
   if (res?.length <= 0) {
     return (
       <div className="h-24 w-full cursor-pointer flex justify-center items-center ">
-        <span>No items here right now :(</span>
+        <Empty message="No items added"/>
       </div>
     );
   }
