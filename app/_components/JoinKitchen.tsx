@@ -42,6 +42,7 @@ const JoinKitchen = ({
   const supabase = createClientComponentClient<Database>();
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const user = session?.user;
   const form = useForm<z.infer<typeof addKitchenSchema>>({
     resolver: zodResolver(addKitchenSchema),
@@ -49,7 +50,81 @@ const JoinKitchen = ({
       kitchenId: "",
     },
   });
+  const checkIfAlreadyAMember = async (
+    values: z.infer<typeof addKitchenSchema>
+  ) => {
+    try {
+      const { data, error, status } = await supabase
+        .from("kitchen_owners")
+        .select("*", {
+          count: "exact",
+        })
+        .eq("kitchen", values.kitchenId)
+        .eq("owner", user?.id!);
+
+      if (error && status !== 406) {
+        throw error;
+      }
+      if (data) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkIfAlreadyRequested = async (
+    values: z.infer<typeof addKitchenSchema>
+  ) => {
+    try {
+      const { data, error, status } = await supabase
+        .from("requests")
+        .select("*", {
+          count: "exact",
+        })
+        .eq("request_to", values.kitchenId)
+        .eq("request_from", user?.id!);
+
+      if (error && status !== 406) {
+        throw error;
+      }
+      if (data) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   async function onSubmit(values: z.infer<typeof addKitchenSchema>) {
+    setIsSubmitting(true);
+    let isAMember = await checkIfAlreadyAMember(values);
+    let isRequested = await checkIfAlreadyRequested(values);
+    if (isAMember) {
+      toast({
+        title: "Already a member",
+        duration: 2000,
+        className: "bg-green-500",
+      });
+      setIsSubmitting(false);
+
+      return;
+    }
+    if (isRequested) {
+      toast({
+        title: "Already requested",
+        duration: 2000,
+        className: "bg-green-500",
+      });
+      setIsSubmitting(false);
+
+      return;
+    }
+  
+
     try {
       const { data, error, status } = await supabase
         .from("requests")
@@ -60,11 +135,10 @@ const JoinKitchen = ({
         throw error;
       }
       if (data) {
-        
         toast({
           title: "Request sent to kitchen owner",
           duration: 2000,
-          className:"bg-green-500"
+          className: "bg-green-500",
         });
       }
     } catch (error) {
@@ -73,20 +147,24 @@ const JoinKitchen = ({
       form.reset();
       setIsDialogOpen(false);
       fetchKitchens();
+      setIsSubmitting(false);
     }
   }
 
   return (
     <Dialog
-    
       open={isDialogOpen}
       onOpenChange={(isOpen) => {
         setIsDialogOpen(isOpen);
       }}
     >
       <DialogTrigger className="my-5" asChild>
-        <Button variant={"default"} type="button" className=" text-l text-secondary">
-        Join an existing kitchen{" "}
+        <Button
+          variant={"default"}
+          type="button"
+          className=" text-l text-secondary"
+        >
+          Join an existing kitchen{" "}
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -105,7 +183,10 @@ const JoinKitchen = ({
                 <FormItem>
                   <FormLabel>Kitchen id</FormLabel>
                   <FormControl>
-                    <Input placeholder="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx" {...field} />
+                    <Input
+                      placeholder="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     Enter the kitchen id you wish to join.
@@ -114,7 +195,7 @@ const JoinKitchen = ({
                 </FormItem>
               )}
             />
-            <Button className="my-5" type="submit">
+            <Button disabled={isSubmitting} className="my-5" type="submit">
               Join
             </Button>
           </form>
