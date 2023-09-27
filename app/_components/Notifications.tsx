@@ -40,7 +40,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
     //@ts-ignore
     const { data } = await clientSupabase.rpc("join_notifications", {
       kitchen_owner_id: user!.id,
-      join_request_to: kitchenId,
+      join_request_to: kitchenId as string,
     });
     if (data) setNotifications(data);
   
@@ -51,7 +51,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
       //@ts-ignore
       const { data, error } = await clientSupabase.rpc("reject_request", {
         request_from_id: id,
-        request_to_id: kitchenId,
+        request_to_id: kitchenId as string,
       });
       if (error) throw error;
     } catch (error) {
@@ -65,7 +65,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
       //@ts-ignore
       const { data, error } = await clientSupabase.rpc("accept_request", {
         request_from_id: id,
-        request_to_id: kitchenId,
+        request_to_id: kitchenId as string,
       });
       rejectRequests(id);
       if (error) {

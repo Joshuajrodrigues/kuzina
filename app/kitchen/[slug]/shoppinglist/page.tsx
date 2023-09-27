@@ -9,7 +9,7 @@ import { useState } from "react";
 import useSWR from "swr";
 
 const page = () => {
-  const kitchenid = useParams().slug;
+  const kitchenid = useParams().slug as string;
   const [page, setPage] = useState(0);
   const { data, error, isLoading } = useSWR(
     ["[shopping]-list", kitchenid, page],

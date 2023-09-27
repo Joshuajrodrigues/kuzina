@@ -32,7 +32,7 @@ export function QuickNav() {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const kitchenid = useParams().slug;
+  const kitchenid = useParams().slug as string;
 
   const currentLink = menus.find(
     (item) => item.route.split("/").at(-1) === pathname.split("/").at(-1)

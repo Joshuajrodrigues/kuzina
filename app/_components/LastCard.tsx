@@ -19,7 +19,7 @@ const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
     e.stopPropagation();
     e.preventDefault();
     try {
-      const { error } = await deletePantryItem(id, kitchenId);
+      const { error } = await deletePantryItem(id, kitchenId as string);
       if (error) {
         let desc = "";
         if (error.message.includes("violates foreign key")) {

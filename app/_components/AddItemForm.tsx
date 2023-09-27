@@ -90,7 +90,7 @@ const AddItemForm = ({
       if (prefillData) {
         const { data, error } = await updatePantryItem(
           prefillData.id,
-          kitchenId,
+          kitchenId as string,
           request
         );
         if (error) throw error;
@@ -109,7 +109,7 @@ const AddItemForm = ({
         const { data, error } = await addToPantry(
           "[pantry]-add",
           values,
-          kitchenId
+          kitchenId as string
         );
 
         if (error) throw error;
