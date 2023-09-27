@@ -65,7 +65,9 @@ const JoinKitchen = ({
       if (error && status !== 406) {
         throw error;
       }
-      if (data) {
+      console.log("datadata",data);
+      
+      if (data&&data?.length>0) {
         return true;
       } else {
         return false;
@@ -90,7 +92,7 @@ const JoinKitchen = ({
       if (error && status !== 406) {
         throw error;
       }
-      if (data) {
+      if (data&&data?.length>0) {
         return true;
       } else {
         return false;
@@ -103,6 +105,8 @@ const JoinKitchen = ({
     setIsSubmitting(true);
     let isAMember = await checkIfAlreadyAMember(values);
     let isRequested = await checkIfAlreadyRequested(values);
+    console.log("isAMember",isAMember);
+    
     if (isAMember) {
       toast({
         title: "Already a member",

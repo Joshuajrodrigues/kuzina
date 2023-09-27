@@ -24,7 +24,7 @@ const ListRenderer = ({
 }) => {
   if (res?.length <= 0) {
     return (
-      <div className="h-24 w-full cursor-pointer flex justify-center items-center ">
+      <div className="h-full w-full cursor-pointer flex justify-center items-center ">
         <Empty message="No items added"/>
       </div>
     );

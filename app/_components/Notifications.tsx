@@ -70,11 +70,15 @@ const Notifications = ({ session }: { session: Session | null }) => {
       if (error) {
         throw error;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("error",error);
+      
+    }finally{
+      rejectRequests(id);
+    }
   };
 
   useEffect(() => {
-    console.log("fetchRequests");
     
     if (user && kitchenId) fetchRequests();
   }, [user, kitchenId]);
@@ -89,7 +93,7 @@ const Notifications = ({ session }: { session: Session | null }) => {
           <Avatar className="h-8 w-8 ">
             <AvatarFallback>
               {notifications?.length > 0 ? (
-                <EnvelopeClosedIcon />
+                <EnvelopeClosedIcon color="green" />
               ) : (
                 <EnvelopeOpenIcon />
               )}

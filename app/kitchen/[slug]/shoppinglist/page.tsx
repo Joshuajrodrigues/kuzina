@@ -26,7 +26,7 @@ const page = () => {
 
 
   return (
-    <div>
+    <div className="h-96">
       <h3 className=" px-5 mx-5 flex justify-between text-xl">
         <QuickNav />
       </h3>
