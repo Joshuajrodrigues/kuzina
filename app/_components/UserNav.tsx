@@ -40,7 +40,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
       let { data, error, status } = await clientSupabase
         .from('profiles')
         .select(`full_name, username,email`)
-        .eq('id', user?.id)
+        .eq('id', user?.id!)
         .single()
 
       if (error && status !== 406) {

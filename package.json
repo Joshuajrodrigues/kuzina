@@ -50,6 +50,8 @@
   },
   "devDependencies": {
     "encoding": "^0.1.13",
+    "eslint": "8.50.0",
+    "eslint-config-next": "13.5.3",
     "supabase": ">=1.8.1"
   }
 }
