@@ -49,6 +49,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "awesome-debounce-promise": "^2.1.0",
     "encoding": "^0.1.13",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",

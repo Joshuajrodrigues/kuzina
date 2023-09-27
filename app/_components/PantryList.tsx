@@ -1,24 +1,24 @@
 "use client";
 
-import { filterOptions, sortOptions } from "@/lib/constants";
 import { getPantryList } from "@/services/PantryService";
 import { Pantry } from "@/types/pantry";
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import useSWR from "swr";
 import AddDrawer from "./AddDrawer";
-import Filter from "./Filter";
 import ListRenderer from "./ListRenderer";
 import Search from "./Search";
 import CardListSkelleton from "./skelletons/CardListSkelleton";
-
 const PantryList = () => {
   const kitchenid = useParams().slug as string;
   const [page, setPage] = useState(0);
+  const [search,setSearch] = useState("")
+  const [dataSource,setDataSource] = useState([])
 
   const { data, error, isLoading } = useSWR(
-    ["[pantry]-list", kitchenid, page],
-    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page),
+    ["[pantry]-list", kitchenid, page,search],
+    ([url, kitchenid, page]) => getPantryList(url, kitchenid, page,search),
     {
       revalidateOnFocus: false,
     }
@@ -28,9 +28,17 @@ const PantryList = () => {
   let res: Pantry[] = data?.data!;
   if (error) return "Error loading list";
 
+  const debouncedSearch = AwesomeDebouncePromise((query) => {
+    setSearch(query);
+  }, 1500);
+
+  const handleSearchChange = (event:ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    debouncedSearch(query);
+  };
   return (
     <div>
-      <Search />
+      <Search onChange={handleSearchChange} />
       {/* <div className="px-5 mx-5 flex justify-between flex-col ">
         <Filter
           filterOptions={filterOptions}

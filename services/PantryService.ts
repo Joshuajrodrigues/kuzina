@@ -28,11 +28,27 @@ export const pantryItemSchema = z.object({
 export const getPantryList = async (
   url: string,
   kitchenid: string,
-  page: number
+  page: number,
+  query?:string
 ) => {
   let rangeEnd = page + 4;
   let tableName = extractTableName(url) || "";
-  let { data, count, error } = await clientSupabase
+  if(query){
+    let { data, count, error } = await clientSupabase
+    .from(tableName)
+    .select("*", { count: "exact" })
+
+    // Filters
+    .eq("belongs_to", kitchenid)
+    .textSearch("item_name",`${query}`)
+    .order("created_at", { ascending: false })
+    .range(page, rangeEnd);
+    if (error) throw error;
+    console.log("count", count);
+  
+    return { data, count };
+  }else{
+    let { data, count, error } = await clientSupabase
     .from(tableName)
     .select("*", { count: "exact" })
 
@@ -40,10 +56,13 @@ export const getPantryList = async (
     .eq("belongs_to", kitchenid)
     .order("created_at", { ascending: false })
     .range(page, rangeEnd);
-  if (error) throw error;
-  console.log("count", count);
+    if (error) throw error;
+    console.log("count", count);
+  
+    return { data, count };
+  }
 
-  return { data, count };
+
 };
 
 export const addToPantry = async (
