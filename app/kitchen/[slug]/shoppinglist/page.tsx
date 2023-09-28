@@ -1,4 +1,5 @@
 "use client";
+import Help from "@/app/_components/Help";
 import ListRenderer from "@/app/_components/ListRenderer";
 import { QuickNav } from "@/app/_components/QuickNav";
 import CardListSkelleton from "@/app/_components/skelletons/CardListSkelleton";
@@ -29,6 +30,7 @@ const page = () => {
     <div className="h-96">
       <h3 className=" px-5 mx-5 flex justify-between text-xl">
         <QuickNav />
+        <Help description="A list of things you need / running low on" />
       </h3>
       {isLoading ? (
         <CardListSkelleton />

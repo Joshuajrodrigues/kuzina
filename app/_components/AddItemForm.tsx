@@ -100,7 +100,7 @@ const AddItemForm = ({
             duration: 2000,
             className:" bg-green-500"
           });
-          mutate([apiToMutate, kitchenId, 0]);
+          mutate([apiToMutate, kitchenId, 0,'']);
       
 
           closeDrawer();
@@ -119,7 +119,7 @@ const AddItemForm = ({
             duration: 2000,
           });
           try {
-            mutate([apiToMutate, kitchenId, 0]);
+            mutate([apiToMutate, kitchenId, 0,'']);
           } catch (error) {
             console.log(error);
           }

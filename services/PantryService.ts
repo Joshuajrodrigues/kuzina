@@ -84,6 +84,7 @@ export const addToPantry = async (
         expiry_date: values.expiry_date,
         price: values.price,
         unit: values.unit,
+        description:values.description
       },
     ])
     .select();
