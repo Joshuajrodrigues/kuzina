@@ -29,7 +29,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 export const addKitchenSchema = z.object({
-  kitchenId: z.string().min(2).max(50),
+  kitchenId: z.string().min(2).max(100),
 });
 
 const JoinKitchen = ({
@@ -51,7 +51,7 @@ const JoinKitchen = ({
     },
   });
   const checkIfAlreadyAMember = async (
-    values: z.infer<typeof addKitchenSchema>
+    code: string
   ) => {
     try {
       const { data, error, status } = await supabase
@@ -59,7 +59,7 @@ const JoinKitchen = ({
         .select("*", {
           count: "exact",
         })
-        .eq("kitchen", values.kitchenId)
+        .eq("kitchen", code)
         .eq("owner", user?.id!);
 
       if (error && status !== 406) {
@@ -78,7 +78,7 @@ const JoinKitchen = ({
   };
 
   const checkIfAlreadyRequested = async (
-    values: z.infer<typeof addKitchenSchema>
+    code: string
   ) => {
     try {
       const { data, error, status } = await supabase
@@ -86,7 +86,7 @@ const JoinKitchen = ({
         .select("*", {
           count: "exact",
         })
-        .eq("request_to", values.kitchenId)
+        .eq("request_to", code)
         .eq("request_from", user?.id!);
 
       if (error && status !== 406) {
@@ -102,9 +102,10 @@ const JoinKitchen = ({
     }
   };
   async function onSubmit(values: z.infer<typeof addKitchenSchema>) {
+    let code = values.kitchenId.replace("Use invite code ","")
     setIsSubmitting(true);
-    let isAMember = await checkIfAlreadyAMember(values);
-    let isRequested = await checkIfAlreadyRequested(values);
+    let isAMember = await checkIfAlreadyAMember(code);
+    let isRequested = await checkIfAlreadyRequested(code);
     console.log("isAMember",isAMember);
     
     if (isAMember) {
@@ -132,7 +133,7 @@ const JoinKitchen = ({
     try {
       const { data, error, status } = await supabase
         .from("requests")
-        .insert([{ request_from: user?.id!, request_to: values.kitchenId }])
+        .insert([{ request_from: user?.id!, request_to: code }])
         .select();
 
       if (error && status !== 406) {
@@ -188,7 +189,7 @@ const JoinKitchen = ({
                   <FormLabel>Kitchen id</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx"
+                      placeholder="Use invite code xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx"
                       {...field}
                     />
                   </FormControl>

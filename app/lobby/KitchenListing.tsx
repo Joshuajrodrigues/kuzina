@@ -10,11 +10,12 @@ import LobbyKitchenCard from "@/app/_components/LobbyKitchenCard";
 import { clientSupabase } from "@/lib/constants";
 import useSWR from "swr";
 import JoinKitchen from "../_components/JoinKitchen";
+import { useToast } from "@/components/ui/use-toast";
 
 const KitchenListing = ({ session }: { session: Session | null }) => {
   const [dataSource, setDataSource] = useState<LobbyKitchenCardCollection>([]);
   const user = session?.user;
-
+  const { toast } = useToast();
   const { error, isLoading } = useSWR(
     ["kitchens"],
     ([url]) => fetchKitchens(),
@@ -66,10 +67,17 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
         } catch (error) {
           console.log(error);
         } finally {
+          toast({
+            title: "Kitchen deleted",
+            duration: 2000,
+            className: "bg-green-500",
+          });
           fetchKitchens();
         }
       }
     } else {
+      console.log("not admin");
+      
     }
   };
   const fetchKitchens = async () => {
@@ -97,6 +105,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
           daleteKitchen={daleteKitchen}
           dataSource={dataSource!}
           isLoading={isLoading}
+          user={user}
         />
       </div>
       <section className="flex flex-col my-5 text-white"> 
