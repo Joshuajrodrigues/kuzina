@@ -9,8 +9,8 @@ const page = ({ params }: { params: { slug: string } }) => {
     <>
       <CopyToClipboard id={params.slug} />
       <div className="m-5 px-5 flex flex-col items-center text-center">
-        <LinkButton href={`/kitchen/${params.slug}/pantry`} text="Pantry 📦" />
-        {/* <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipies 📔'/> */}
+        <LinkButton href={`/kitchen/${params.slug}/pantry`} text="Pantry List 📦" />
+        <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipie Cards 📔'/>
         <LinkButton
           href={`/kitchen/${params.slug}/shoppinglist`}
           text="Wish List 📃"

@@ -20,10 +20,16 @@ const menus = [
     label: "Pantry list",
   },
   {
+    value: "Recipie cards",
+    route: "/kitchen/{id}/recipies",
+    label: "Recipie cards",
+  },
+  {
     value: "Wish list",
     route: "/kitchen/{id}/shoppinglist",
     label: "Wish list",
   },
+
 ];
 
 const homeRoute = "/kitchen/{id}";
