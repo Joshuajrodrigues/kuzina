@@ -1,5 +1,6 @@
 import Help from '@/app/_components/Help'
 import { QuickNav } from '@/app/_components/QuickNav'
+import RecipieList from '@/app/_components/RecipieList'
 import React from 'react'
 
 const page = () => {
@@ -9,7 +10,7 @@ const page = () => {
       <QuickNav />
       <Help description="A collection of your recipies"/>
     </div>
-    Coming soon
+    <RecipieList/>
   </>
   )
 }

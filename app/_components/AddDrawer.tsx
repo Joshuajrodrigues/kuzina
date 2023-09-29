@@ -15,6 +15,7 @@ import AddItemForm from "./AddItemForm";
 import { getPantryItem } from "@/services/PantryService";
 import { useParams } from "next/navigation";
 import { Pantry } from "@/types/pantry";
+import AddRecipesForm from "./AddRecipesForm";
 
 const AddDrawer = ({
   title = "Add item",
@@ -23,15 +24,17 @@ const AddDrawer = ({
     <>
       {" "}
       <PlusCircledIcon className="mr-2 h-4 w-4" />
-      Add Item
+      Add item
     </>
   ),
   editItemId,
+  recipeForm = false,
 }: {
   title?: string;
   apiToMutate?: string;
   triggerName?: string | ReactNode;
   editItemId?: string;
+  recipeForm?: boolean;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -94,16 +97,29 @@ const AddDrawer = ({
               </Button>
             </div>
           )}
-          <AddItemForm
-            apiToMutate={apiToMutate}
-            isEditClicked={isEditClicked}
-            closeDrawer={() => {
-              setIsEditClicked(false);
-              setIsDrawerOpen(false);
-              setItemEditData(null);
-            }}
-            prefillData={itemEditData}
-          />
+          {!recipeForm ? (
+            <AddItemForm
+              apiToMutate={apiToMutate}
+              isEditClicked={isEditClicked}
+              closeDrawer={() => {
+                setIsEditClicked(false);
+                setIsDrawerOpen(false);
+                setItemEditData(null);
+              }}
+              prefillData={itemEditData}
+            />
+          ) : (
+            <AddRecipesForm
+              apiToMutate={apiToMutate}
+              isEditClicked={isEditClicked}
+              closeDrawer={() => {
+                setIsEditClicked(false);
+                setIsDrawerOpen(false);
+                setItemEditData(null);
+              }}
+              prefillData={itemEditData}
+            />
+          )}
         </SheetDescription>
       </SheetContent>
     </Sheet>
