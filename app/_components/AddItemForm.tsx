@@ -69,7 +69,7 @@ const AddItemForm = ({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
       item_name: prefillData?.item_name || "",
-      quantity: prefillData?.quantity || 1,
+      quantity: prefillData?.quantity || 0,
       unit: prefillData?.unit || "num",
       price: prefillData?.price || 0,
       expiry_date: prefiledExpiryDate || undefined,

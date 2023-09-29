@@ -14,7 +14,7 @@ export const pantryItemSchema = z.object({
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ required_error: "Quantity is required" })
-      .min(1)
+      .min(0)
       .positive("Quantity must be positive")
   ),
   unit: z.string().min(1),
