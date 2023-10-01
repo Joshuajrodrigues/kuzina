@@ -189,7 +189,7 @@ const AddRecipesForm = ({
                       {...field}
                     />
                   </FormControl>
-                  <Button tabIndex={-1} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
+                  <Button tabIndex={-2} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
                     <MinusCircledIcon />
                   </Button>
 
