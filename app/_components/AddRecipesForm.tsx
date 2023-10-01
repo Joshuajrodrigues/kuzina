@@ -45,9 +45,10 @@ import { useSWRConfig } from "swr";
 import * as z from "zod";
 import { Pantry } from "@/types/pantry";
 import { useToast } from "@/components/ui/use-toast";
-import { Textarea } from "@/components/ui/textarea";
+
 import { useState } from "react";
 import { RecipesSchema } from "@/services/RecipesService";
+import { Textarea } from "@/components/ui/textarea"
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -76,6 +77,7 @@ const AddRecipesForm = ({
       recipeName: prefillData?.item_name || "",
       ingridients: [{ value: "" }, { value: "" }, { value: "" }, { value: "" }],
       steps: [{ value: "" }, { value: "" }, { value: "" }, { value: "" }],
+      note:""
     },
   });
   const { fields:ingridientsFields, append:ingridientsAppend, remove:ingridientsRemove } = useFieldArray({
@@ -245,6 +247,26 @@ const AddRecipesForm = ({
             <PlusCircledIcon className="mr-2" /> Add more
           </Button>
         </div>
+        <FormField
+          control={form.control}
+          name="note"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Note (Optional)</FormLabel>
+              <FormControl>
+                <Textarea
+                  readOnly={!!prefillData ? !isEditClicked : false}
+                  maxLength={200}
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Additional info perhaps ?
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button disabled type="submit">
           {!!prefillData && !isEditClicked ? "Close" : "Submit"}
         </Button>

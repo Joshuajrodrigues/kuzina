@@ -15,5 +15,6 @@ export const RecipesSchema = z.object({
     z.object({
       value:z.string()
     }).required()
-  )
+  ),
+  note:z.string().max(200).optional()
 });
