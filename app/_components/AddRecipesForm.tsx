@@ -185,7 +185,7 @@ const AddRecipesForm = ({
                       {...field}
                     />
                   </FormControl>
-                  <Button onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
+                  <Button tabIndex={ingridientsFields.length+index+1} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
                     <MinusCircledIcon />
                   </Button>
 
@@ -220,13 +220,14 @@ const AddRecipesForm = ({
                   <div className="flex justify-evenly">
                   <FormControl>
                     <Input
+                    
                       className=" w-80"
                       readOnly={!!prefillData ? !isEditClicked : false}
                       placeholder={`Enter step ${index+1}`}
                       {...field}
                     />
                   </FormControl>
-                  <Button onClick={()=>stepsRemove(index)} variant={"destructive"} size={"icon"}>
+                  <Button tabIndex={stepsFields.length+index+1} onClick={()=>stepsRemove(index)} variant={"destructive"} size={"icon"}>
                     <MinusCircledIcon />
                   </Button>
 
