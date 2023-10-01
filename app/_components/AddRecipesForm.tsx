@@ -75,8 +75,8 @@ const AddRecipesForm = ({
     resolver: zodResolver(pantryItemSchema),
     defaultValues: {
       recipeName: prefillData?.item_name || "",
-      ingridients: [{ value: "" }, { value: "" }, { value: "" }, { value: "" }],
-      steps: [{ value: "" }, { value: "" }, { value: "" }, { value: "" }],
+      ingridients: [{ value: "" }, { value: "" } ],
+      steps: [{ value: "" }, { value: "" }, { value: "" }],
       note:""
     },
   });
@@ -89,6 +89,8 @@ const AddRecipesForm = ({
     control: form.control,
   });
   async function onSubmit(values: z.infer<typeof RecipesSchema>) {
+    console.log("valuesvalues",values);
+    
     // console.log("values", values);
     // if (!!prefillData && !isEditClicked) {
     //   closeDrawer();
@@ -142,7 +144,7 @@ const AddRecipesForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 text-left"
+        className="space-y-5 text-left overflow-y-scroll"
       >
         <FormField
           control={form.control}
@@ -267,7 +269,7 @@ const AddRecipesForm = ({
             </FormItem>
           )}
         />
-        <Button disabled type="submit">
+        <Button type="submit">
           {!!prefillData && !isEditClicked ? "Close" : "Submit"}
         </Button>
       </form>
