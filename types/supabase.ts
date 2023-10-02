@@ -9,6 +9,24 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      ingridients: {
+        Row: {
+          belongs_to_recipe: string
+          id: string
+          value: string[] | null
+        }
+        Insert: {
+          belongs_to_recipe: string
+          id?: string
+          value?: string[] | null
+        }
+        Update: {
+          belongs_to_recipe?: string
+          id?: string
+          value?: string[] | null
+        }
+        Relationships: []
+      }
       kitchen_owners: {
         Row: {
           id: string
@@ -155,26 +173,23 @@ export interface Database {
         Row: {
           belongs_to_kitchen: string | null
           created_at: string
-          description: string | null
-          id: number
-          steps: string[] | null
-          title: string
+          id: string
+          note: string | null
+          recipie_name: string
         }
         Insert: {
           belongs_to_kitchen?: string | null
           created_at?: string
-          description?: string | null
-          id?: number
-          steps?: string[] | null
-          title: string
+          id?: string
+          note?: string | null
+          recipie_name: string
         }
         Update: {
           belongs_to_kitchen?: string | null
           created_at?: string
-          description?: string | null
-          id?: number
-          steps?: string[] | null
-          title?: string
+          id?: string
+          note?: string | null
+          recipie_name?: string
         }
         Relationships: [
           {
@@ -215,6 +230,31 @@ export interface Database {
             foreignKeyName: "requests_request_to_fkey"
             columns: ["request_to"]
             referencedRelation: "kitchens"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      steps: {
+        Row: {
+          belongs_to_recipe: string
+          id: number
+          value: string | null
+        }
+        Insert: {
+          belongs_to_recipe: string
+          id?: number
+          value?: string | null
+        }
+        Update: {
+          belongs_to_recipe?: string
+          id?: number
+          value?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "steps_belongs_to_recipe_fkey"
+            columns: ["belongs_to_recipe"]
+            referencedRelation: "recipies"
             referencedColumns: ["id"]
           }
         ]
