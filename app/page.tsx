@@ -40,6 +40,7 @@ export default function Home() {
           <text
             x="35"
             fontFamily="cursive"
+         
             fontSize={"12px"}
             y="80"
             fill="black"
@@ -77,12 +78,12 @@ export default function Home() {
           >
             Never forget a recipe
           </text>
-          <text x="35" fontSize={"8px"} y="100" fill="black">
+          <text x="37" fontSize={"8px"} y="100" fill="black">
             Add and save all your favourite
-            <tspan x="35" y="110">
+            <tspan x="37" y="110">
               recipes in one place.
             </tspan>
-            <tspan x="35" y="120">
+            <tspan x="37" y="120">
               Quick to add and easy to refer.
             </tspan>
           </text>
@@ -104,9 +105,9 @@ export default function Home() {
           >
             Easy shopping list
           </text>
-          <text x="35" fontSize={"8px"} y="110" fill="black">
+          <text x="40" fontSize={"8px"} y="110" fill="black">
             Add / remove items to and from
-            <tspan x="35" y="120">
+            <tspan x="40" y="120">
               the shopping list easily.
             </tspan>
           </text>
@@ -147,6 +148,7 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col justify-center items-center">
+  
         <Link href={"/auth"}>
           <Button className="py-5 my-5">Lets get started</Button>
         </Link>
