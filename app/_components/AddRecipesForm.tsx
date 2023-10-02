@@ -197,7 +197,7 @@ const AddRecipesForm = ({
                     </FormControl>
 
                     <Button
-                      tabIndex={500}
+                      tabIndex={-1}
                       onClick={() => ingridientsRemove(index)}
                       variant={index > 0 ? "destructive" : "ghost"}
                       size={"icon"}
@@ -243,7 +243,8 @@ const AddRecipesForm = ({
                       />
                     </FormControl>
                     <Button
-                      tabIndex={500}
+                      type="button"
+                      tabIndex={-1}
                       onClick={() => stepsRemove(index)}
                       variant={index > 0 ? "destructive" : "ghost"}
                       size={"icon"}
