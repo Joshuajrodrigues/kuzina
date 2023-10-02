@@ -235,11 +235,12 @@ const AddRecipesForm = ({
                   </FormDescription>
                   <div className="flex justify-evenly">
                     <FormControl>
-                      <Input
+                      <Textarea
+                        
                         className=" w-80"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter step ${index + 1}`}
-                        enterKeyHint="next"
+                        
                         {...field}
                       />
                     </FormControl>
