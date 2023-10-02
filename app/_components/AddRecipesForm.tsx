@@ -189,7 +189,7 @@ const AddRecipesForm = ({
                       {...field}
                     />
                   </FormControl>
-                  <Button tabIndex={-2} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
+                  <Button tabIndex={500} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
                     <MinusCircledIcon />
                   </Button>
 
@@ -231,7 +231,7 @@ const AddRecipesForm = ({
                       {...field}
                     />
                   </FormControl>
-                  <Button tabIndex={-1} onClick={()=>stepsRemove(index)} variant={"destructive"} size={"icon"}>
+                  <Button tabIndex={500} onClick={()=>stepsRemove(index)} variant={"destructive"} size={"icon"}>
                     <MinusCircledIcon />
                   </Button>
 
