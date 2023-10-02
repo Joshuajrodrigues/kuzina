@@ -238,17 +238,17 @@ export interface Database {
         Row: {
           belongs_to_recipe: string
           id: number
-          value: string | null
+          value: string[] | null
         }
         Insert: {
           belongs_to_recipe: string
           id?: number
-          value?: string | null
+          value?: string[] | null
         }
         Update: {
           belongs_to_recipe?: string
           id?: number
-          value?: string | null
+          value?: string[] | null
         }
         Relationships: [
           {

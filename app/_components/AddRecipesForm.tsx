@@ -47,7 +47,7 @@ import { Pantry } from "@/types/pantry";
 import { useToast } from "@/components/ui/use-toast";
 
 import { useState } from "react";
-import { RecipesSchema } from "@/services/RecipesService";
+import { RecipesSchema, addToRecipe } from "@/services/RecipesService";
 import { Textarea } from "@/components/ui/textarea";
 
 const AddRecipesForm = ({
@@ -97,59 +97,58 @@ const AddRecipesForm = ({
   async function onSubmit(values: z.infer<typeof RecipesSchema>) {
     console.log("valuesvalues", values);
 
-    // console.log("values", values);
-    // if (!!prefillData && !isEditClicked) {
-    //   closeDrawer();
-    //   return;
-    // }
-    // try {
-    //   let request = Object.assign(values);
-    //   request.id = prefillData?.id;
-    //   if (prefillData) {
-    //     const { data, error } = await updatePantryItem(
-    //       prefillData.id,
-    //       kitchenId as string,
-    //       request
-    //     );
-    //     if (error) throw error;
-    //     if (data) {
-    //       toast({
-    //         title: "Item updated",
-    //         duration: 2000,
-    //         className: " bg-green-500",
-    //       });
-    //       mutate([apiToMutate, kitchenId, 0, ""]);
-    //       closeDrawer();
-    //     }
-    //   } else {
-    //     const { data, error } = await addToPantry(
-    //       "[pantry]-add",
-    //       values,
-    //       kitchenId as string
-    //     );
-    //     if (error) throw error;
-    //     if (data) {
-    //       toast({
-    //         title: "Item added",
-    //         duration: 2000,
-    //       });
-    //       try {
-    //         mutate([apiToMutate, kitchenId, 0, ""]);
-    //       } catch (error) {
-    //         console.log(error);
-    //       }
-    //       closeDrawer();
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    if (!!prefillData && !isEditClicked) {
+      closeDrawer();
+      return;
+    }
+    try {
+      let request = Object.assign(values);
+      request.id = prefillData?.id;
+      if (prefillData) {
+        //     const { data, error } = await updatePantryItem(
+        //       prefillData.id,
+        //       kitchenId as string,
+        //       request
+        //     );
+        //     if (error) throw error;
+        //     if (data) {
+        //       toast({
+        //         title: "Item updated",
+        //         duration: 2000,
+        //         className: " bg-green-500",
+        //       });
+        //       mutate([apiToMutate, kitchenId, 0, ""]);
+        //       closeDrawer();
+        //     }
+      } else {
+        const { data, error } = await addToRecipe(
+          "[recipies]-add",
+          values,
+          kitchenId as string
+        );
+        if (error) throw error;
+        if (data) {
+          toast({
+            title: "Item added",
+            duration: 2000,
+          });
+          try {
+           // mutate([apiToMutate, kitchenId, 0, ""]);
+          } catch (error) {
+            console.log(error);
+          }
+          closeDrawer();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((val) => console.log("vals", val))}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-5 text-left"
       >
         <FormField
@@ -236,11 +235,9 @@ const AddRecipesForm = ({
                   <div className="flex justify-evenly">
                     <FormControl>
                       <Textarea
-                        
                         className=" w-80"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter step ${index + 1}`}
-                        
                         {...field}
                       />
                     </FormControl>
@@ -254,7 +251,6 @@ const AddRecipesForm = ({
                     >
                       {index > 0 && <MinusCircledIcon />}
                     </Button>
-                   
                   </div>
                   <FormMessage />
                 </FormItem>
