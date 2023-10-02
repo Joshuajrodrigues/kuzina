@@ -15,7 +15,7 @@ export const pantryItemSchema = z.object({
     z.coerce
       .number({ required_error: "Quantity is required" })
       .min(0)
-      .positive("Quantity must be positive")
+     
   ),
   unit: z.string().min(1),
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),

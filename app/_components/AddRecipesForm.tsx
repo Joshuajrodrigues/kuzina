@@ -48,7 +48,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { useState } from "react";
 import { RecipesSchema } from "@/services/RecipesService";
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -64,33 +64,39 @@ const AddRecipesForm = ({
   const { mutate } = useSWRConfig();
   const kitchenId = useParams().slug;
   const { toast } = useToast();
-  const [ingridientsCount, setIngridientsCount] = useState(5);
-  const [isReadOnly, setIsReadOnly] = useState(true);
 
   const prefiledExpiryDate = prefillData?.expiry_date
     ? new Date(prefillData?.expiry_date)
     : undefined;
 
   const form = useForm<z.infer<typeof RecipesSchema>>({
-    resolver: zodResolver(pantryItemSchema),
+    resolver: zodResolver(RecipesSchema),
     defaultValues: {
       recipeName: prefillData?.item_name || "",
-      ingridients: [{ value: "" }, { value: "" } ],
+      ingridients: [{ value: "" }, { value: "" }],
       steps: [{ value: "" }, { value: "" }, { value: "" }],
-      note:""
+      note: "",
     },
   });
-  const { fields:ingridientsFields, append:ingridientsAppend, remove:ingridientsRemove } = useFieldArray({
+  const {
+    fields: ingridientsFields,
+    append: ingridientsAppend,
+    remove: ingridientsRemove,
+  } = useFieldArray({
     name: "ingridients",
     control: form.control,
   });
-  const { fields:stepsFields, append:stepsAppend, remove:stepsRemove } = useFieldArray({
+  const {
+    fields: stepsFields,
+    append: stepsAppend,
+    remove: stepsRemove,
+  } = useFieldArray({
     name: "steps",
     control: form.control,
   });
   async function onSubmit(values: z.infer<typeof RecipesSchema>) {
-    console.log("valuesvalues",values);
-    
+    console.log("valuesvalues", values);
+
     // console.log("values", values);
     // if (!!prefillData && !isEditClicked) {
     //   closeDrawer();
@@ -143,7 +149,7 @@ const AddRecipesForm = ({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((val) => console.log("vals", val))}
         className="space-y-5 text-left"
       >
         <FormField
@@ -181,18 +187,24 @@ const AddRecipesForm = ({
                     Add ingridients to your recipe.
                   </FormDescription>
                   <div className="flex justify-evenly">
-                  <FormControl>
-                    <Input
-                      className=" w-80"
-                      readOnly={!!prefillData ? !isEditClicked : false}
-                      placeholder={`Enter ingridient ${index+1}`}
-                      {...field}
-                    />
-                  </FormControl>
-                  <Button tabIndex={500} onClick={()=>ingridientsRemove(index)} variant={"destructive"} size={"icon"}>
-                    <MinusCircledIcon />
-                  </Button>
+                    <FormControl>
+                      <Input
+                        className=" w-80 "
+                        readOnly={!!prefillData ? !isEditClicked : false}
+                        placeholder={`Enter ingridient ${index + 1}`}
+                        {...field}
+                      />
+                    </FormControl>
 
+                    <Button
+                      tabIndex={500}
+                      onClick={() => ingridientsRemove(index)}
+                      variant={index > 0 ? "destructive" : "ghost"}
+                      size={"icon"}
+                      disabled={index <= 0}
+                    >
+                      {index > 0 && <MinusCircledIcon />}
+                    </Button>
                   </div>
                   <FormMessage />
                 </FormItem>
@@ -222,19 +234,24 @@ const AddRecipesForm = ({
                     Add steps to your recipe.
                   </FormDescription>
                   <div className="flex justify-evenly">
-                  <FormControl>
-                    <Input
-                    
-                      className=" w-80"
-                      readOnly={!!prefillData ? !isEditClicked : false}
-                      placeholder={`Enter step ${index+1}`}
-                      {...field}
-                    />
-                  </FormControl>
-                  <Button tabIndex={500} onClick={()=>stepsRemove(index)} variant={"destructive"} size={"icon"}>
-                    <MinusCircledIcon />
-                  </Button>
-
+                    <FormControl>
+                      <Input
+                        className=" w-80"
+                        readOnly={!!prefillData ? !isEditClicked : false}
+                        placeholder={`Enter step ${index + 1}`}
+                        {...field}
+                      />
+                    </FormControl>
+                    <Button
+                      tabIndex={500}
+                      onClick={() => stepsRemove(index)}
+                      variant={index > 0 ? "destructive" : "ghost"}
+                      size={"icon"}
+                      disabled={index <= 0}
+                    >
+                      {index > 0 && <MinusCircledIcon />}
+                    </Button>
+                   
                   </div>
                   <FormMessage />
                 </FormItem>
@@ -262,9 +279,7 @@ const AddRecipesForm = ({
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
-                Additional info perhaps ?
-              </FormDescription>
+              <FormDescription>Additional info perhaps ?</FormDescription>
               <FormMessage />
             </FormItem>
           )}
