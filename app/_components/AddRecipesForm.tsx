@@ -239,6 +239,7 @@ const AddRecipesForm = ({
                         className=" w-80"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter step ${index + 1}`}
+                        enterKeyHint="next"
                         {...field}
                       />
                     </FormControl>
