@@ -85,7 +85,8 @@ const AddDrawer = ({
           {triggerName}
         </Button>
       </SheetTrigger>
-      <SheetContent onClick={(e) => e.stopPropagation()} side={"bottom"}>
+      
+      <SheetContent className="h-full overflow-auto"  onClick={(e) => e.stopPropagation()} side={"bottom"}>
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>

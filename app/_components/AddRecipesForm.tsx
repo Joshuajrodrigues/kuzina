@@ -144,7 +144,7 @@ const AddRecipesForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 text-left overflow-y-scroll"
+        className="space-y-5 text-left"
       >
         <FormField
           control={form.control}
