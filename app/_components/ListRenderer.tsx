@@ -8,15 +8,16 @@ import TopCard from "./TopCard";
 import { Pantry } from "@/types/pantry";
 import { Dispatch, SetStateAction } from "react";
 import Empty from "./Empty";
+import { Recipe } from "@/services/RecipesService";
 
 const ListRenderer = ({
   res,
   count,
   page,
   setPage,
-  apiToMutate
+  apiToMutate,
 }: {
-  res: Pantry[];
+  res: Pantry[] 
   count: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;

@@ -133,7 +133,7 @@ const AddRecipesForm = ({
             duration: 2000,
           });
           try {
-           // mutate([apiToMutate, kitchenId, 0, ""]);
+            mutate([apiToMutate, kitchenId, 0, ""]);
           } catch (error) {
             console.log(error);
           }

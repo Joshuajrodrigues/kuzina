@@ -14,3 +14,9 @@ export const extractTableName=(url:string)=>{
     return url.substring(startIndex+1,endIndex)
   }
 }
+export function truncateString(str:string, maxLength:number) {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.substring(0, maxLength) + ' ...view more';
+}

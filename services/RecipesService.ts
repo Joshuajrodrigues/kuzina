@@ -27,10 +27,11 @@ export const RecipesSchema = z.object({
   note: z.string().max(200).optional(),
 });
 //------------------------------------------------------------------------------
-type Recipe = {
+export type Recipe = {
   id: string;
   created_at: string;
   recipie_name: string;
+  belongs_to_kitchen:string;
   note: string;
 };
 
@@ -103,4 +104,44 @@ export const addToSteps = async (
     .select();
 
   return { data, error };
+};
+
+export const getRecipeList = async (
+  url: string,
+  kitchenid: string,
+  page: number,
+  query?:string
+) => {
+  let rangeEnd = page + 4;
+  
+  if(query){
+    let { data, count, error } = await clientSupabase
+    .from("recipies")
+    .select("*", { count: "exact" })
+
+    // Filters
+    .eq("belongs_to_kitchen", kitchenid)
+    .textSearch("recipie_name",`${query}`)
+    .order("created_at", { ascending: false })
+    .range(page, rangeEnd);
+    if (error) throw error;
+    console.log("count", count);
+  
+    return { data, count };
+  }else{
+    let { data, count, error } = await clientSupabase
+    .from("recipies")
+    .select("*", { count: "exact" })
+
+    // Filters
+    .eq("belongs_to_kitchen", kitchenid)
+    .order("created_at", { ascending: false })
+    .range(page, rangeEnd);
+    if (error) throw error;
+    console.log("count", count);
+  
+    return { data, count };
+  }
+
+
 };
