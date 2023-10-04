@@ -8,8 +8,22 @@ import { mutate } from "swr";
 import AddDrawer from "./AddDrawer";
 import DeleteConfirm from "./DeleteConfirm";
 import { useToast } from "@/components/ui/use-toast";
+import { PostgrestError } from "@supabase/supabase-js";
 
-const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
+const LastCard = ({
+  id,
+  apiToMutate,
+  deleteService=deletePantryItem,
+}: {
+  id: string;
+  apiToMutate: string;
+  deleteService?: (
+    id: string,
+    kitchenId: string
+  ) => Promise<{
+    error: PostgrestError | null;
+  }>;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const kitchenId = useParams().slug;
   const { toast } = useToast();
@@ -19,7 +33,7 @@ const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
     e.stopPropagation();
     e.preventDefault();
     try {
-      const { error } = await deletePantryItem(id, kitchenId as string);
+      const { error } = await deleteService(id, kitchenId as string);
       if (error) {
         let desc = "";
         if (error.message.includes("violates foreign key")) {
@@ -39,7 +53,7 @@ const LastCard = ({ id,apiToMutate }: { id: string,apiToMutate:string }) => {
         title: "Item deleted",
         duration: 2000,
       });
-      mutate([apiToMutate, kitchenId, 0,'']);
+      mutate([apiToMutate, kitchenId, 0, ""]);
     } catch (error) {
       console.log(error);
     } finally {

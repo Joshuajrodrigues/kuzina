@@ -5,24 +5,37 @@ import {
   HeartIcon,
   SketchLogoIcon,
 } from "@radix-ui/react-icons";
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import AddToShoppingButton from "./AddToShoppingButton";
+import { recipeTypes } from "@/lib/constants";
 
 const MiddleCard: FC<{
   price?: number;
   isInList?: boolean;
-  id:string
-}> = ({ price, isInList,id }) => {
+  type?: string;
+  id: string;
+  icon?: ReactNode;
+  isRecipe?: boolean;
+}> = ({
+  price,
+  isInList,
+  isRecipe = false,
+  id,
+  type,
+  icon = <SketchLogoIcon className="mr-1" />,
+}) => {
   return (
     <div
       className={"flex px-4 w-full justify-between items-center text-center"}
     >
       <span className="flex flex-col text-left">
-        <h6 className="flex items-center justify-center font-extralight text-sm">
-          {" "}
-          <SketchLogoIcon className="mr-1" /> Price
+        <h6 className="flex items-center justify-start font-extralight text-sm">
+          {icon}
+          {isRecipe ? <>Type</> : <>Price</>}
         </h6>
-        {price || "-"}
+        {!isRecipe
+          ? price || "-"
+          : recipeTypes.find((item) => item.value === type)?.label}
       </span>
       <span className="flex flex-col text-right">
         <AddToShoppingButton id={id} isInList={isInList || false} />

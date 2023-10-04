@@ -176,6 +176,7 @@ export interface Database {
           id: string
           note: string | null
           recipie_name: string
+          type: string | null
         }
         Insert: {
           belongs_to_kitchen?: string | null
@@ -183,6 +184,7 @@ export interface Database {
           id?: string
           note?: string | null
           recipie_name: string
+          type?: string | null
         }
         Update: {
           belongs_to_kitchen?: string | null
@@ -190,6 +192,7 @@ export interface Database {
           id?: string
           note?: string | null
           recipie_name?: string
+          type?: string | null
         }
         Relationships: [
           {
@@ -237,17 +240,17 @@ export interface Database {
       steps: {
         Row: {
           belongs_to_recipe: string
-          id: number
+          id: string
           value: string[] | null
         }
         Insert: {
           belongs_to_recipe: string
-          id?: number
+          id?: string
           value?: string[] | null
         }
         Update: {
           belongs_to_recipe?: string
-          id?: number
+          id?: string
           value?: string[] | null
         }
         Relationships: [

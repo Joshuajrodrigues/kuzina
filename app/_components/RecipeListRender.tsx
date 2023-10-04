@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Recipe } from "@/services/RecipesService";
+import { Recipe, deleteRecipeItem } from "@/services/RecipesService";
 import { Dispatch, SetStateAction } from "react";
 import CardItem from "./CardItem";
 import Empty from "./Empty";
@@ -7,7 +7,7 @@ import FirstCard from "./FirstCard";
 import LastCard from "./LastCard";
 import MiddleCard from "./MiddleCard";
 import TopCard from "./TopCard";
-import { Component1Icon, IdCardIcon, ListBulletIcon, ReaderIcon } from "@radix-ui/react-icons";
+import { Component1Icon, IdCardIcon, ListBulletIcon, MixIcon, ReaderIcon } from "@radix-ui/react-icons";
 import { StickyNoteIcon } from "lucide-react";
 
 const RecipeListRender = ({
@@ -30,6 +30,7 @@ const RecipeListRender = ({
           </div>
         );
       }
+      
   return (
     <>
     <section className="px-5 m-5">
@@ -53,13 +54,14 @@ const RecipeListRender = ({
           }
           middleCard={
             <MiddleCard
-       
-        
+              isRecipe
+              icon={<MixIcon className="mr-1"/>}
+              type={item?.type}
               id={item?.id!}
            
             />
           }
-          lastCard={<LastCard apiToMutate={apiToMutate} id={item?.id!} />}
+          lastCard={<LastCard deleteService={deleteRecipeItem} apiToMutate={apiToMutate} id={item?.id!} />}
         />
       ))}
     </section>

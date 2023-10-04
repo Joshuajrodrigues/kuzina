@@ -25,6 +25,7 @@ export const RecipesSchema = z.object({
     )
     .min(1),
   note: z.string().max(200).optional(),
+  type:z.string().optional()
 });
 //------------------------------------------------------------------------------
 export type Recipe = {
@@ -33,6 +34,7 @@ export type Recipe = {
   recipie_name: string;
   belongs_to_kitchen:string;
   note: string;
+  type?:string
 };
 
 export const addToRecipe = async (
@@ -51,6 +53,7 @@ export const addToRecipe = async (
         recipie_name: values.recipeName,
         belongs_to_kitchen: kitchenId,
         note: values.note,
+        type:values.type
       },
     ])
     .select();
@@ -144,4 +147,19 @@ export const getRecipeList = async (
   }
 
 
+};
+
+export const deleteRecipeItem = async (
+  id: string,
+  kitchenId: string
+): Promise<{
+  error: PostgrestError | null;
+}> => {
+  const { error } = await clientSupabase
+    .from("recipies")
+    .delete()
+    .eq("belongs_to_kitchen", kitchenId)
+    .eq("id", id);
+
+  return { error };
 };

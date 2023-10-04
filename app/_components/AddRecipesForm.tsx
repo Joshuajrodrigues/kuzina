@@ -32,6 +32,7 @@ import {
   pantryItemSchema,
   updatePantryItem,
 } from "@/services/PantryService";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CalendarIcon,
@@ -49,6 +50,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { RecipesSchema, addToRecipe } from "@/services/RecipesService";
 import { Textarea } from "@/components/ui/textarea";
+import { recipeTypes } from "@/lib/constants";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -76,6 +78,7 @@ const AddRecipesForm = ({
       ingridients: [{ value: "" }, { value: "" }],
       steps: [{ value: "" }, { value: "" }, { value: "" }],
       note: "",
+      type:undefined
     },
   });
   const {
@@ -171,6 +174,35 @@ const AddRecipesForm = ({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Type</FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {
+                      recipeTypes?.map((item)=>(
+                        <SelectItem value={item.value}>{item.label}</SelectItem>
+                      ))
+                    }
+                    
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormDescription>
+                What should we group this recipe as ?
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div>
           {ingridientsFields.map((field, index) => (
             <FormField

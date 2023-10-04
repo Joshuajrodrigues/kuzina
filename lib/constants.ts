@@ -1,7 +1,9 @@
 import { Database } from "@/types/supabase";
-import { createClientComponentClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import {
+  createClientComponentClient,
+  createServerComponentClient,
+} from "@supabase/auth-helpers-nextjs";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-
 
 export const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -9,14 +11,15 @@ export const BASE_URL =
     : "http://localhost:3000/";
 
 export const clientSupabase = createClientComponentClient<Database>();
-export const serverSupabase=(cookies:()=>ReadonlyRequestCookies)=> createServerComponentClient<Database>({ cookies });
+export const serverSupabase = (cookies: () => ReadonlyRequestCookies) =>
+  createServerComponentClient<Database>({ cookies });
 export const filterOptions = [
   {
     label: "Running low",
   },
   {
     label: "Expiring soon",
-  }
+  },
 ];
 export const sortOptions = [
   {
@@ -24,5 +27,31 @@ export const sortOptions = [
   },
   {
     label: "Descending",
+  },
+];
+export const recipeTypes = [
+  {
+    label: "Snack",
+    value: "snack",
+  },
+  {
+    label: "Main course",
+    value: "mainCourse",
+  },
+  {
+    label: "Soup",
+    value: "soup",
+  },
+  {
+    label: "Drink",
+    value: "drink",
+  },
+  {
+    label: "Pickle",
+    value: "pickle",
+  },
+  {
+    label: "Deasert",
+    value: "deasert",
   },
 ];
