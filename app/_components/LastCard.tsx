@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { deletePantryItem } from "@/services/PantryService";
+import { deletePantryItem, getPantryItem } from "@/services/PantryService";
 import { EyeOpenIcon, Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useParams } from "next/navigation";
 import React, { ReactNode, useState } from "react";
@@ -9,11 +9,13 @@ import AddDrawer from "./AddDrawer";
 import DeleteConfirm from "./DeleteConfirm";
 import { useToast } from "@/components/ui/use-toast";
 import { PostgrestError } from "@supabase/supabase-js";
+import { getRecipeItem } from "@/services/RecipesService";
 
 const LastCard = ({
   id,
   apiToMutate,
   deleteService=deletePantryItem,
+  recipeForm=false
 }: {
   id: string;
   apiToMutate: string;
@@ -23,6 +25,7 @@ const LastCard = ({
   ) => Promise<{
     error: PostgrestError | null;
   }>;
+  recipeForm?:boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const kitchenId = useParams().slug;
@@ -35,15 +38,8 @@ const LastCard = ({
     try {
       const { error } = await deleteService(id, kitchenId as string);
       if (error) {
-        let desc = "";
-        if (error.message.includes("violates foreign key")) {
-          desc = "Item most likely used in a recipie";
-        } else {
-          desc = "Something went wrong";
-        }
         toast({
           title: "Could not delete",
-          description: desc,
           variant: "destructive",
           duration: 2000,
         });
@@ -73,10 +69,12 @@ const LastCard = ({
       <AddDrawer
         apiToMutate={apiToMutate}
         editItemId={id}
-        title="View item"
+        title={!recipeForm?"View item":"View recipe"}
+        recipeForm={recipeForm}
+        editService={(id,kitchenId)=>recipeForm?getRecipeItem(id,kitchenId):getPantryItem(id,kitchenId)}
         triggerName={
           <>
-            <EyeOpenIcon className="mr-1" /> View More
+            <EyeOpenIcon className="mr-1" /> View
           </>
         }
       />

@@ -178,3 +178,19 @@ export const addToFav = async (
     .select();
   return {data,error}
 };
+
+export const getRecipeItem = async (
+  id: string,
+  kitchenId: string
+): Promise<{
+  data: Recipe | null;
+  error: PostgrestError | null;
+}> => {
+  const { data, error } = await clientSupabase
+    .from("recipies")
+    .select("*")
+    .eq("belongs_to_kitchen", kitchenId)
+    .eq("id", id);
+  //.update({ other_column: "otherValue" })
+  return { data: data![0] as Recipe, error };
+};

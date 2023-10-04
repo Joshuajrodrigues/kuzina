@@ -16,6 +16,8 @@ import { getPantryItem } from "@/services/PantryService";
 import { useParams } from "next/navigation";
 import { Pantry } from "@/types/pantry";
 import AddRecipesForm from "./AddRecipesForm";
+import { PostgrestError } from "@supabase/supabase-js";
+import { Recipe } from "@/services/RecipesService";
 
 const AddDrawer = ({
   title = "Add item",
@@ -29,16 +31,24 @@ const AddDrawer = ({
   ),
   editItemId,
   recipeForm = false,
+  editService = getPantryItem,
 }: {
   title?: string;
   apiToMutate?: string;
   triggerName?: string | ReactNode;
   editItemId?: string;
   recipeForm?: boolean;
+  editService?: (
+    id: string,
+    kitchenId: string
+  ) => Promise<{
+    data: Pantry | Recipe | null;
+    error: PostgrestError | null;
+  }>;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
-  const [itemEditData, setItemEditData] = useState<Pantry | null | undefined>(
+  const [itemEditData, setItemEditData] = useState<Pantry | Recipe| null | undefined>(
     null
   );
   const kitchenId = useParams().slug;
@@ -48,7 +58,7 @@ const AddDrawer = ({
     kitchenId: string
   ) => {
     try {
-      const { data, error } = await getPantryItem(editItemId, kitchenId);
+      const { data, error } = await editService(editItemId, kitchenId);
       if (error) throw error;
       if (data) {
         console.log("data", data);
@@ -85,8 +95,12 @@ const AddDrawer = ({
           {triggerName}
         </Button>
       </SheetTrigger>
-      
-      <SheetContent className="h-full overflow-auto"  onClick={(e) => e.stopPropagation()} side={"bottom"}>
+
+      <SheetContent
+        className="h-full overflow-auto"
+        onClick={(e) => e.stopPropagation()}
+        side={"bottom"}
+      >
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
@@ -107,7 +121,7 @@ const AddDrawer = ({
                 setIsDrawerOpen(false);
                 setItemEditData(null);
               }}
-              prefillData={itemEditData}
+              prefillData={itemEditData as Pantry}
             />
           ) : (
             <AddRecipesForm
@@ -118,7 +132,7 @@ const AddDrawer = ({
                 setIsDrawerOpen(false);
                 setItemEditData(null);
               }}
-              prefillData={itemEditData}
+              prefillData={itemEditData as Recipe}
             />
           )}
         </SheetDescription>

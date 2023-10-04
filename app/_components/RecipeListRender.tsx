@@ -61,7 +61,7 @@ const RecipeListRender = ({
            
             />
           }
-          lastCard={<LastCard deleteService={deleteRecipeItem} apiToMutate={apiToMutate} id={item?.id!} />}
+          lastCard={<LastCard recipeForm deleteService={deleteRecipeItem} apiToMutate={apiToMutate} id={item?.id!} />}
         />
       ))}
     </section>

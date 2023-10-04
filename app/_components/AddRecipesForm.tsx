@@ -48,7 +48,7 @@ import { Pantry } from "@/types/pantry";
 import { useToast } from "@/components/ui/use-toast";
 
 import { useState } from "react";
-import { RecipesSchema, addToRecipe } from "@/services/RecipesService";
+import { Recipe, RecipesSchema, addToRecipe } from "@/services/RecipesService";
 import { Textarea } from "@/components/ui/textarea";
 import { recipeTypes } from "@/lib/constants";
 
@@ -59,7 +59,7 @@ const AddRecipesForm = ({
   apiToMutate,
 }: {
   closeDrawer: () => void;
-  prefillData?: Pantry | null | undefined;
+  prefillData?: Recipe;
   isEditClicked?: boolean;
   apiToMutate?: string;
 }) => {
@@ -67,18 +67,16 @@ const AddRecipesForm = ({
   const kitchenId = useParams().slug;
   const { toast } = useToast();
 
-  const prefiledExpiryDate = prefillData?.expiry_date
-    ? new Date(prefillData?.expiry_date)
-    : undefined;
+
 
   const form = useForm<z.infer<typeof RecipesSchema>>({
     resolver: zodResolver(RecipesSchema),
     defaultValues: {
-      recipeName: prefillData?.item_name || "",
+      recipeName: prefillData?.recipie_name || "",
       ingridients: [{ value: "" }, { value: "" }],
       steps: [{ value: "" }, { value: "" }, { value: "" }],
-      note: "",
-      type:undefined
+      note: prefillData?.note||"",
+      type:prefillData?.type || undefined
     },
   });
   const {
