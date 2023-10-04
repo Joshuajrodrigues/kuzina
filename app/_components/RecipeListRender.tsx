@@ -54,7 +54,7 @@ const RecipeListRender = ({
           }
           middleCard={
             <MiddleCard
-              isRecipe
+              isRecipe={true}
               icon={<MixIcon className="mr-1"/>}
               type={item?.type}
               id={item?.id!}

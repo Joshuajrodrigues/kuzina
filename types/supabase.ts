@@ -174,6 +174,7 @@ export interface Database {
           belongs_to_kitchen: string | null
           created_at: string
           id: string
+          is_fav: boolean | null
           note: string | null
           recipie_name: string
           type: string | null
@@ -182,6 +183,7 @@ export interface Database {
           belongs_to_kitchen?: string | null
           created_at?: string
           id?: string
+          is_fav?: boolean | null
           note?: string | null
           recipie_name: string
           type?: string | null
@@ -190,6 +192,7 @@ export interface Database {
           belongs_to_kitchen?: string | null
           created_at?: string
           id?: string
+          is_fav?: boolean | null
           note?: string | null
           recipie_name?: string
           type?: string | null

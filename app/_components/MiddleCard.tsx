@@ -38,7 +38,7 @@ const MiddleCard: FC<{
           : recipeTypes.find((item) => item.value === type)?.label}
       </span>
       <span className="flex flex-col text-right">
-        <AddToShoppingButton id={id} isInList={isInList || false} />
+        <AddToShoppingButton isRecipe={isRecipe} id={id} isInList={isInList || false} />
       </span>
     </div>
   );

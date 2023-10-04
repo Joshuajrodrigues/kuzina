@@ -163,3 +163,18 @@ export const deleteRecipeItem = async (
 
   return { error };
 };
+
+
+export const addToFav = async (
+  id: string,
+  kitchenId: string,
+  value: boolean
+) => {
+  const { data, error } = await clientSupabase
+    .from("recipies")
+    .update({ is_fav: value })
+    .eq("belongs_to_kitchen", kitchenId)
+    .eq("id", id)
+    .select();
+  return {data,error}
+};
