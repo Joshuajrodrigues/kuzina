@@ -23,10 +23,7 @@ import { cn } from "@/lib/utils";
 
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  MinusCircledIcon,
-  PlusCircledIcon
-} from "@radix-ui/react-icons";
+import { MinusCircledIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { useParams } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
@@ -34,7 +31,11 @@ import * as z from "zod";
 
 import { Textarea } from "@/components/ui/textarea";
 import { recipeTypes } from "@/lib/constants";
-import { RecipeEdit, RecipesSchema, addToRecipe } from "@/services/RecipesService";
+import {
+  RecipeEdit,
+  RecipesSchema,
+  addToRecipe,
+} from "@/services/RecipesService";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -51,16 +52,18 @@ const AddRecipesForm = ({
   const kitchenId = useParams().slug;
   const { toast } = useToast();
 
-
-
   const form = useForm<z.infer<typeof RecipesSchema>>({
     resolver: zodResolver(RecipesSchema),
     defaultValues: {
       recipeName: prefillData?.recipe?.recipie_name || "",
-      ingridients:prefillData?.ingridients?.map((item)=>{return{value:item}})|| [{ value: "" }, { value: "" }],
-      steps:prefillData?.steps?.map((item)=>{return{value:item}}) || [{ value: "" }, { value: "" }, { value: "" }],
-      note: prefillData?.recipe?.note||"",
-      type:prefillData?.recipe?.type || undefined
+      ingridients: prefillData?.ingridients?.map((item) => {
+        return { value: item };
+      }) || [{ value: "" }, { value: "" }],
+      steps: prefillData?.steps?.map((item) => {
+        return { value: item };
+      }) || [{ value: "" }, { value: "" }, { value: "" }],
+      note: prefillData?.recipe?.note || "",
+      type: prefillData?.recipe?.type || undefined,
     },
   });
   const {
@@ -163,17 +166,18 @@ const AddRecipesForm = ({
             <FormItem>
               <FormLabel>Type</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  disabled={!!prefillData ? !isEditClicked : false}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {
-                      recipeTypes?.map((item)=>(
-                        <SelectItem value={item.value}>{item.label}</SelectItem>
-                      ))
-                    }
-                    
+                    {recipeTypes?.map((item) => (
+                      <SelectItem value={item.value}>{item.label}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -208,29 +212,32 @@ const AddRecipesForm = ({
                         {...field}
                       />
                     </FormControl>
-
-                    <Button
-                      tabIndex={-1}
-                      onClick={() => ingridientsRemove(index)}
-                      variant={index > 0 ? "destructive" : "ghost"}
-                      size={"icon"}
-                      disabled={index <= 0}
-                    >
-                      {index > 0 && <MinusCircledIcon />}
-                    </Button>
+                    {(!prefillData || isEditClicked) && (
+                      <Button
+                        tabIndex={-1}
+                        onClick={() => ingridientsRemove(index)}
+                        variant={index > 0 ? "destructive" : "ghost"}
+                        size={"icon"}
+                        disabled={index <= 0}
+                      >
+                        {index > 0 && <MinusCircledIcon />}
+                      </Button>
+                    )}
                   </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
           ))}
-          <Button
-            className="my-2"
-            onClick={() => ingridientsAppend({ value: "" })}
-            variant={"secondary"}
-          >
-            <PlusCircledIcon className="mr-2" /> Add more
-          </Button>
+          {(!prefillData || isEditClicked) && (
+            <Button
+              className="my-2"
+              onClick={() => ingridientsAppend({ value: "" })}
+              variant={"secondary"}
+            >
+              <PlusCircledIcon className="mr-2" /> Add more
+            </Button>
+          )}
         </div>
         <div>
           {stepsFields.map((field, index) => (
@@ -255,29 +262,33 @@ const AddRecipesForm = ({
                         {...field}
                       />
                     </FormControl>
-                    <Button
-                      type="button"
-                      tabIndex={-1}
-                      onClick={() => stepsRemove(index)}
-                      variant={index > 0 ? "destructive" : "ghost"}
-                      size={"icon"}
-                      disabled={index <= 0}
-                    >
-                      {index > 0 && <MinusCircledIcon />}
-                    </Button>
+                    {(!prefillData || isEditClicked) && (
+                      <Button
+                        type="button"
+                        tabIndex={-1}
+                        onClick={() => stepsRemove(index)}
+                        variant={index > 0 ? "destructive" : "ghost"}
+                        size={"icon"}
+                        disabled={index <= 0}
+                      >
+                        {index > 0 && <MinusCircledIcon />}
+                      </Button>
+                    )}
                   </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
           ))}
-          <Button
-            className="my-2"
-            onClick={() => stepsAppend({ value: "" })}
-            variant={"secondary"}
-          >
-            <PlusCircledIcon className="mr-2" /> Add more
-          </Button>
+          {(!prefillData || isEditClicked) && (
+            <Button
+              className="my-2"
+              onClick={() => stepsAppend({ value: "" })}
+              variant={"secondary"}
+            >
+              <PlusCircledIcon className="mr-2" /> Add more
+            </Button>
+          )}
         </div>
         <FormField
           control={form.control}
