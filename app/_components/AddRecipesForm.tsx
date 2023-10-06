@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/select";
 //@ts-ignore
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -20,37 +19,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import {
-  addToPantry,
-  getPantryList,
-  pantryItemSchema,
-  updatePantryItem,
-} from "@/services/PantryService";
 
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  CalendarIcon,
   MinusCircledIcon,
-  PlusCircledIcon,
+  PlusCircledIcon
 } from "@radix-ui/react-icons";
-import { addDays, format } from "date-fns";
 import { useParams } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import * as z from "zod";
-import { Pantry } from "@/types/pantry";
-import { useToast } from "@/components/ui/use-toast";
 
-import { useState } from "react";
-import { Recipe, RecipesSchema, addToRecipe } from "@/services/RecipesService";
 import { Textarea } from "@/components/ui/textarea";
 import { recipeTypes } from "@/lib/constants";
+import { RecipeEdit, RecipesSchema, addToRecipe } from "@/services/RecipesService";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -59,7 +43,7 @@ const AddRecipesForm = ({
   apiToMutate,
 }: {
   closeDrawer: () => void;
-  prefillData?: Recipe;
+  prefillData?: RecipeEdit;
   isEditClicked?: boolean;
   apiToMutate?: string;
 }) => {
@@ -72,11 +56,11 @@ const AddRecipesForm = ({
   const form = useForm<z.infer<typeof RecipesSchema>>({
     resolver: zodResolver(RecipesSchema),
     defaultValues: {
-      recipeName: prefillData?.recipie_name || "",
-      ingridients: [{ value: "" }, { value: "" }],
-      steps: [{ value: "" }, { value: "" }, { value: "" }],
-      note: prefillData?.note||"",
-      type:prefillData?.type || undefined
+      recipeName: prefillData?.recipe?.recipie_name || "",
+      ingridients:prefillData?.ingridients?.map((item)=>{return{value:item}})|| [{ value: "" }, { value: "" }],
+      steps:prefillData?.steps?.map((item)=>{return{value:item}}) || [{ value: "" }, { value: "" }, { value: "" }],
+      note: prefillData?.recipe?.note||"",
+      type:prefillData?.recipe?.type || undefined
     },
   });
   const {
@@ -104,7 +88,7 @@ const AddRecipesForm = ({
     }
     try {
       let request = Object.assign(values);
-      request.id = prefillData?.id;
+      request.id = prefillData?.recipe?.id;
       if (prefillData) {
         //     const { data, error } = await updatePantryItem(
         //       prefillData.id,

@@ -17,7 +17,7 @@ import { useParams } from "next/navigation";
 import { Pantry } from "@/types/pantry";
 import AddRecipesForm from "./AddRecipesForm";
 import { PostgrestError } from "@supabase/supabase-js";
-import { Recipe } from "@/services/RecipesService";
+import { Recipe, RecipeEdit } from "@/services/RecipesService";
 
 const AddDrawer = ({
   title = "Add item",
@@ -42,13 +42,13 @@ const AddDrawer = ({
     id: string,
     kitchenId: string
   ) => Promise<{
-    data: Pantry | Recipe | null;
+    data: Pantry | RecipeEdit | null;
     error: PostgrestError | null;
   }>;
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
-  const [itemEditData, setItemEditData] = useState<Pantry | Recipe| null | undefined>(
+  const [itemEditData, setItemEditData] = useState<Pantry | RecipeEdit| null | undefined>(
     null
   );
   const kitchenId = useParams().slug;
@@ -132,7 +132,7 @@ const AddDrawer = ({
                 setIsDrawerOpen(false);
                 setItemEditData(null);
               }}
-              prefillData={itemEditData as Recipe}
+              prefillData={itemEditData as RecipeEdit}
             />
           )}
         </SheetDescription>

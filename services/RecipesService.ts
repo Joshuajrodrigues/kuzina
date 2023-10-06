@@ -25,17 +25,27 @@ export const RecipesSchema = z.object({
     )
     .min(1),
   note: z.string().max(200).optional(),
-  type:z.string().optional()
+  type: z.string().optional(),
 });
 //------------------------------------------------------------------------------
 export type Recipe = {
   id: string;
   created_at: string;
   recipie_name: string;
-  belongs_to_kitchen:string;
+  belongs_to_kitchen: string;
   note: string;
-  type?:string
+  type?: string;
 };
+
+export type Steps = string[] | null;
+export type Ingridients = string[] | null;
+
+export type RecipeEdit ={
+  recipe:Recipe;
+  ingridients:Ingridients;
+  steps:Steps;
+}
+
 
 export const addToRecipe = async (
   url: string,
@@ -53,19 +63,18 @@ export const addToRecipe = async (
         recipie_name: values.recipeName,
         belongs_to_kitchen: kitchenId,
         note: values.note,
-        type:values.type
+        type: values.type,
       },
     ])
     .select();
 
   const typedData: Recipe[] = data as Recipe[];
-  console.log("typedData",typedData);
-  
-  await addToIngridient(typedData[0].id,values)
-  await addToSteps(typedData[0].id,values)
+  console.log("typedData", typedData);
+
+  await addToIngridient(typedData[0].id, values);
+  await addToSteps(typedData[0].id, values);
   return { data, error };
 };
-
 
 export const addToIngridient = async (
   recipeId: string,
@@ -113,40 +122,38 @@ export const getRecipeList = async (
   url: string,
   kitchenid: string,
   page: number,
-  query?:string
+  query?: string
 ) => {
   let rangeEnd = page + 4;
-  
-  if(query){
-    let { data, count, error } = await clientSupabase
-    .from("recipies")
-    .select("*", { count: "exact" })
 
-    // Filters
-    .eq("belongs_to_kitchen", kitchenid)
-    .textSearch("recipie_name",`${query}`)
-    .order("created_at", { ascending: false })
-    .range(page, rangeEnd);
+  if (query) {
+    let { data, count, error } = await clientSupabase
+      .from("recipies")
+      .select("*", { count: "exact" })
+
+      // Filters
+      .eq("belongs_to_kitchen", kitchenid)
+      .textSearch("recipie_name", `${query}`)
+      .order("created_at", { ascending: false })
+      .range(page, rangeEnd);
     if (error) throw error;
     console.log("count", count);
-  
+
     return { data, count };
-  }else{
+  } else {
     let { data, count, error } = await clientSupabase
-    .from("recipies")
-    .select("*", { count: "exact" })
+      .from("recipies")
+      .select("*", { count: "exact" })
 
-    // Filters
-    .eq("belongs_to_kitchen", kitchenid)
-    .order("created_at", { ascending: false })
-    .range(page, rangeEnd);
+      // Filters
+      .eq("belongs_to_kitchen", kitchenid)
+      .order("created_at", { ascending: false })
+      .range(page, rangeEnd);
     if (error) throw error;
     console.log("count", count);
-  
+
     return { data, count };
   }
-
-
 };
 
 export const deleteRecipeItem = async (
@@ -164,7 +171,6 @@ export const deleteRecipeItem = async (
   return { error };
 };
 
-
 export const addToFav = async (
   id: string,
   kitchenId: string,
@@ -176,14 +182,14 @@ export const addToFav = async (
     .eq("belongs_to_kitchen", kitchenId)
     .eq("id", id)
     .select();
-  return {data,error}
+  return { data, error };
 };
 
 export const getRecipeItem = async (
   id: string,
   kitchenId: string
 ): Promise<{
-  data: Recipe | null;
+  data: RecipeEdit | null;
   error: PostgrestError | null;
 }> => {
   const { data, error } = await clientSupabase
@@ -192,5 +198,40 @@ export const getRecipeItem = async (
     .eq("belongs_to_kitchen", kitchenId)
     .eq("id", id);
   //.update({ other_column: "otherValue" })
-  return { data: data![0] as Recipe, error };
+  const { data: ingridients, error: ingridientError } =
+    await getRecipeIngridients(id);
+  const { data: steps, error: stepsError } = await getRecipeSteps(id);
+
+  let response:RecipeEdit ={
+    recipe:data![0] as Recipe,
+    ingridients,
+    steps
+  }
+  return { data: response, error };
+};
+
+const getRecipeIngridients = async (
+  recipeId: string
+): Promise<{
+  data: Ingridients | null;
+  error: PostgrestError | null;
+}> => {
+  const { data, error } = await clientSupabase
+    .from("ingridients")
+    .select("value")
+    .eq("belongs_to_recipe", recipeId);
+  return { data: data?.[0]?.value as Ingridients, error };
+};
+
+const getRecipeSteps = async (
+  recipeId: string
+): Promise<{
+  data: Steps | null;
+  error: PostgrestError | null;
+}> => {
+  const { data, error } = await clientSupabase
+    .from("steps")
+    .select("*")
+    .eq("belongs_to_recipe", recipeId);
+  return { data: data?.[0]?.value as Steps, error };
 };
