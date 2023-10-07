@@ -12,12 +12,12 @@ export default function AuthForm() {
   return (
     <Auth
       supabaseClient={supabase}
-      view="sign_in"
+      view="sign_up"
       appearance={{ theme: ThemeSupa }}
       theme="dark"
       showLinks={false}
       providers={["google"]}
-      redirectTo={''}
+      redirectTo={BASE_URL}
    
       
     />
