@@ -74,3 +74,9 @@
 
 
 
+form#auth-sign-in{
+  display: none;
+}
+div.supabase-auth-ui_ui-divider{
+  display: none;
+}
