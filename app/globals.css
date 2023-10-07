@@ -80,3 +80,7 @@ form#auth-sign-in{
 div.supabase-auth-ui_ui-divider{
   display: none;
 }
+
+.header-title{
+  color: hsl(142.1 76.2% 36.3%);
+}

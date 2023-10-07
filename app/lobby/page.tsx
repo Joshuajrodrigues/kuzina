@@ -14,7 +14,7 @@ const page = async () => {
 
   return (
     <div className="m-5 p-5">
-      <h3 className=" text-xl text-primary">Welcome </h3>
+      <h3 className=" text-xl ">Welcome </h3>
       <KitchenListing session={session} />
     </div>
   );
