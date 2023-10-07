@@ -7,6 +7,8 @@ import LandingPageCards from "./_components/LandingPageCards";
 export default function Home() {
   //redirect('/pantry')
   return (
+    <>
+ 
     <main className="p-5 m-5 lg:p-12 lg:m-12  ">
       <section className="flex flex-col justify-center items-center">
         <h1 className="text-4xl text-center">Your home kitchen management</h1>
@@ -17,9 +19,11 @@ export default function Home() {
           alt="Hero"
           src={hero}
           //placeholder="blur"
-          quality={100}
-          width={400}
-          height={400}
+          priority={true}
+         // placeholder="blur"
+         // quality={100}
+         // width={400}
+         // height={400}
           style={{
             objectFit: "cover",
           }}
@@ -105,5 +109,9 @@ export default function Home() {
         </Link>
       </section>
     </main>
+    <footer className="flex items-center justify-center">
+        <p>&copy; 2023 Kuzina. All rights reserved.</p>
+      </footer>
+    </>
   );
 }

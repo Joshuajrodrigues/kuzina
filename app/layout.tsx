@@ -29,9 +29,7 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
       </body>
-      <footer className="flex items-center justify-center">
-        <p>&copy; 2023 Kuzina. All rights reserved.</p>
-      </footer>
+     
     </html>
   );
 }

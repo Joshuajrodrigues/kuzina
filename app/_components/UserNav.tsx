@@ -64,7 +64,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
   }, [user, clientSupabase])
 
   useEffect(() => {
-    if(!fullname || !displayName){
+    if((!fullname || !displayName)&&user){
 
       getProfile()
     }
