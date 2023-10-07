@@ -16,7 +16,7 @@ export const Header = async ({font}:{font:NextFont}) => {
   return (
     <header className="mx-5 mb-5 p-5 flex justify-between">
       <Link href={"/"}>
-        <h1 className={`text-3xl ${font.className} md:text-4xl`}>Cozinh</h1> <em className=" text-xs">/koˈd͡zi.ɲ</em>
+        <h1 className={`text-3xl ${font.className} md:text-4xl`}>Kuzina</h1> <em className=" text-xs">/kuˈd͡zi.ɲa</em>
       </Link>
       <section className="flex items-center justify-between md:w-36">
         {/* <UserProfileMenu/> */}
