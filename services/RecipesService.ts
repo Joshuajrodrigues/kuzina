@@ -30,22 +30,22 @@ export const RecipesSchema = z.object({
 //------------------------------------------------------------------------------
 export type Recipe = {
   id: string;
-  created_at: string;
+  created_at?: string;
   recipie_name: string;
   belongs_to_kitchen: string;
   note: string;
   type?: string;
+  is_fav?: boolean;
 };
 
 export type Steps = string[] | null;
 export type Ingridients = string[] | null;
 
-export type RecipeEdit ={
-  recipe:Recipe;
-  ingridients:Ingridients;
-  steps:Steps;
-}
-
+export type RecipeEdit = {
+  recipe: Recipe;
+  ingridients: Ingridients;
+  steps: Steps;
+};
 
 export const addToRecipe = async (
   url: string,
@@ -202,11 +202,11 @@ export const getRecipeItem = async (
     await getRecipeIngridients(id);
   const { data: steps, error: stepsError } = await getRecipeSteps(id);
 
-  let response:RecipeEdit ={
-    recipe:data![0] as Recipe,
+  let response: RecipeEdit = {
+    recipe: data![0] as Recipe,
     ingridients,
-    steps
-  }
+    steps,
+  };
   return { data: response, error };
 };
 
@@ -234,4 +234,45 @@ const getRecipeSteps = async (
     .select("*")
     .eq("belongs_to_recipe", recipeId);
   return { data: data?.[0]?.value as Steps, error };
+};
+
+export const updateRecipeItem = async (
+  id: string,
+  kitchenId: string,
+  updateObject: RecipeEdit
+): Promise<{
+  data: Recipe[] | null;
+  error: PostgrestError | null;
+}> => {
+  let recipeReq: Recipe = updateObject.recipe;
+  let ingridientsReq: Ingridients = updateObject.ingridients;
+  let stepsReq: Steps = updateObject.steps;
+
+    const { data, error } = await clientSupabase
+      .from("recipies")
+      .update({
+        "is_fav":recipeReq.is_fav,
+        "note":recipeReq.note,
+        "type":recipeReq.type,
+        "recipie_name":recipeReq.recipie_name
+
+      })
+      .eq("belongs_to_kitchen", kitchenId)
+      .eq("id", id)
+      .select();
+  
+    const { data: Idata, error: Ierror } = await clientSupabase
+      .from("ingridients")
+      .update({ value: ingridientsReq })
+      .eq("belongs_to_recipe", recipeReq.id);
+  
+    const {data:sData,error:Serror} = await clientSupabase
+      .from("steps")
+      .update({"value":stepsReq})
+      .eq("belongs_to_recipe",recipeReq.id)
+    
+
+
+    
+  return { data: data as Recipe[], error };
 };

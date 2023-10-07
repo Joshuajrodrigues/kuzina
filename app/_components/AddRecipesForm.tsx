@@ -35,7 +35,9 @@ import {
   RecipeEdit,
   RecipesSchema,
   addToRecipe,
+  updateRecipeItem,
 } from "@/services/RecipesService";
+import { updatePantryItem } from "@/services/PantryService";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -92,22 +94,37 @@ const AddRecipesForm = ({
     try {
       let request = Object.assign(values);
       request.id = prefillData?.recipe?.id;
+
+      console.log("request", request);
+      let requestbody:RecipeEdit ={
+        recipe:{
+          id: request.id,
+          recipie_name: request.recipeName,
+          belongs_to_kitchen: kitchenId as string,
+          note: request.note,
+          type:request.type
+        },
+        //@ts-ignore
+        ingridients:request.ingridients.map((item)=>item.value),
+         //@ts-ignore
+        steps:request.steps.map((item)=>item.value)
+      }
       if (prefillData) {
-        //     const { data, error } = await updatePantryItem(
-        //       prefillData.id,
-        //       kitchenId as string,
-        //       request
-        //     );
-        //     if (error) throw error;
-        //     if (data) {
-        //       toast({
-        //         title: "Item updated",
-        //         duration: 2000,
-        //         className: " bg-green-500",
-        //       });
-        //       mutate([apiToMutate, kitchenId, 0, ""]);
-        //       closeDrawer();
-        //     }
+        const { data, error } = await updateRecipeItem(
+          prefillData?.recipe.id,
+          kitchenId as string,
+          requestbody
+        );
+        if (error) throw error;
+        if (data) {
+          toast({
+            title: "Recipe updated",
+            duration: 2000,
+            className: " bg-green-500",
+          });
+          mutate([apiToMutate, kitchenId, 0, ""]);
+          closeDrawer();
+        }
       } else {
         const { data, error } = await addToRecipe(
           "[recipies]-add",
