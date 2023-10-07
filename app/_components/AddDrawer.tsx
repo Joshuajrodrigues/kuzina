@@ -83,6 +83,7 @@ const AddDrawer = ({
     >
       <SheetTrigger asChild>
         <Button
+          className=" bg-secondary text-primary"
           onClick={async (e) => {
             e.stopPropagation();
             if (editItemId) {
@@ -107,7 +108,7 @@ const AddDrawer = ({
         <SheetDescription>
           {!!itemEditData && (
             <div className="flex justify-end">
-              <Button onClick={() => setIsEditClicked(true)}>
+              <Button className=" bg-secondary text-primary" onClick={() => setIsEditClicked(true)}>
                 {!isEditClicked ? "Edit" : "Editing"}
               </Button>
             </div>

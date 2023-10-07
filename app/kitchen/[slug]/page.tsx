@@ -14,10 +14,10 @@ const page = ({ params }: { params: { slug: string } }) => {
     </div>
       <div className="m-5 px-5 flex flex-col items-center text-center">
         <LinkButton href={`/kitchen/${params.slug}/pantry`} text="Pantry List 📦" />
-        <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipie Cards 📔'/>
+        <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipie List 📔'/>
         <LinkButton
           href={`/kitchen/${params.slug}/shoppinglist`}
-          text="Wish List 📃"
+          text="Wish List 🛒"
         />
         <Image alt="kitchen" src={hero} width={500} height={600} />
       </div>
