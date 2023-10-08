@@ -167,7 +167,7 @@ const JoinKitchen = ({
         <Button
           variant={"default"}
           type="button"
-          className=" text-l text-secondary"
+          className=" text-l text-secondary w-64"
         >
           Join an existing kitchen{" "}
         </Button>

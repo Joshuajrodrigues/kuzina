@@ -100,7 +100,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   // }, []);
   return (
     <>
-      <div className="h-96 p-2 overflow-x-scroll">
+      <div className="h-96 p-2 overflow-y-auto flex flex-col items-center justify-center">
         <LobbyKitchenCard
           daleteKitchen={daleteKitchen}
           dataSource={dataSource!}
@@ -108,7 +108,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
           user={user}
         />
       </div>
-      <section className="flex flex-col my-5 text-white"> 
+      <section className="flex flex-col my-5 text-white justify-center items-center"> 
         <CreateKitchenForm fetchKitchens={fetchKitchens} session={session} />
 
         <JoinKitchen fetchKitchens={fetchKitchens} session={session} />

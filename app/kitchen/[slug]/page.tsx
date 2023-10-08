@@ -8,13 +8,19 @@ import Help from "@/app/_components/Help";
 const page = ({ params }: { params: { slug: string } }) => {
   return (
     <>
-    <div className="mx-5 px-5 flex justify-between">
-
-      <CopyToClipboard id={params.slug} /> <Help description="Invite code to get your family to collaborate with you" />
-    </div>
+      <div className="mx-5 px-5 flex justify-between">
+        <CopyToClipboard id={params.slug} />{" "}
+        <Help description="Invite code to get your family to collaborate with you" />
+      </div>
       <div className="m-5 px-5 flex flex-col items-center text-center">
-        <LinkButton href={`/kitchen/${params.slug}/pantry`} text="Pantry List 📦" />
-        <LinkButton href={`/kitchen/${params.slug}/recipies`} text='Recipie List 📔'/>
+        <LinkButton
+          href={`/kitchen/${params.slug}/pantry`}
+          text="Pantry List 📦"
+        />
+        <LinkButton
+          href={`/kitchen/${params.slug}/recipies`}
+          text="Recipie List 📔"
+        />
         <LinkButton
           href={`/kitchen/${params.slug}/shoppinglist`}
           text="Wish List 🛒"

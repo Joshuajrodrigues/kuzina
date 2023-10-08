@@ -93,7 +93,7 @@ const CreateKitchenForm = ({ session,fetchKitchens }: { session: Session | null,
       }}
     >
       <DialogTrigger asChild>
-        <Button variant={"default"} type="button" className=" text-l text-secondary">
+        <Button variant={"default"} type="button" className=" text-l text-secondary w-64">
           Create a new kitchen
         </Button>
       </DialogTrigger>
