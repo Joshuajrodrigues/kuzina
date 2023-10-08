@@ -35,7 +35,7 @@ const page = ({ params }: { params: { slug: string } }) => {
               width="80"
               font-size="80"
             >
-              🥝
+              🍉
             </text>
             <text
               className="emoji-pattern"
@@ -44,7 +44,7 @@ const page = ({ params }: { params: { slug: string } }) => {
               width="80"
               font-size="80"
             >
-              🥝
+              🍉
             </text>
           </pattern>
           <rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" />
