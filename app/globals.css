@@ -84,3 +84,11 @@ div.supabase-auth-ui_ui-divider{
 .header-title{
   color: hsl(142.1 76.2% 36.3%);
 }
+
+.avocado{
+  position: absolute;
+  top: 10;
+  width: 100%;
+  height: 80%;
+  z-index: -1;
+}
