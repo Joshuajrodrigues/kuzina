@@ -167,14 +167,14 @@ const JoinKitchen = ({
         <Button
           variant={"default"}
           type="button"
-          className=" text-l text-secondary w-64"
+          className=" text-l text-secondary w-64 font-extrabold"
         >
           Join an existing kitchen{" "}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Join kitchen</DialogTitle>
+          <DialogTitle className=" text-primary">Join kitchen</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form

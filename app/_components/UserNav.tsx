@@ -63,15 +63,19 @@ const UserNav = ({ session }: { session: Session | null }) => {
     if ((!fullname || !displayName) && user) {
       getProfile();
     }
-  }, [user, getProfile]);
+  }, [user, displayName, fullname]);
 
-  if (!user && pathname !== "/auth") {
+  if (!user && !displayName) {
     return (
       <Link
         href={"/auth"}
-        className="button items-center justify-center flex text-sm"
+        className="button items-center justify-center flex text-sm text-primary"
       >
-        <EnterIcon className="mr-2 text-primary" /> Sign in
+        {pathname !== "/auth" && (
+          <>
+            <EnterIcon className="mr-2 text-primary" /> Sign in
+          </>
+        )}
       </Link>
     );
   }

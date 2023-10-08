@@ -5,8 +5,8 @@ import auth from "@/public/auth.svg";
 const page = () => {
 
   return (
-    <div className="m-5 p-5 my-28 md:mx-20 md:px-20 lg:mx-20 lg:px-20 xl:mx-72 xl:px-72 border border-black">
-      <h3 className=" text-xl">Authentication</h3>
+    <div className="m-5 p-5 my-28 md:mx-20 md:px-20 lg:mx-20 lg:px-20 xl:mx-72 xl:px-72 border border-primary rounded-2xl">
+      <h3 className=" text-xl text-primary">Authentication</h3>
       <AuthForm />
       <Image
         alt="lady showing laptop with auth logo"

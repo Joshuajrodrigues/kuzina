@@ -45,7 +45,7 @@ export default function Home() {
           Are you tired of the chaos in your kitchen? <br /> Do you struggle
           with meal planning, grocery shopping, keeping track of your recipes,
           and finding it difficult to collaborate with family members on your
-          culinary endeavors? <br /> <b>Look no further!</b>
+          culinary endeavors? <br /> <b >Look no further!</b>
         </p>
       </section>
       <section className=" lg:flex lg:flex-wrap">

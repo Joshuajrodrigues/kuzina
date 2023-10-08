@@ -26,7 +26,7 @@ const Help = ({ description }: { description: string }) => {
         onBlur={() => {
           setOpen(false);
         }}>
-        <Button className=" text-primary" variant="outline" size="icon" >
+        <Button  variant="outline" size="icon" >
 
           <HelpCircleIcon />
         </Button>
