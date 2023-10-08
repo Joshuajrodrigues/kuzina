@@ -3,6 +3,7 @@ import React from "react";
 import CopyToClipboard from "@/app/_components/CopyToClipboard";
 import Help from "@/app/_components/Help";
 import KitchenName from "@/app/_components/KitchenName";
+import { Card } from "@/components/ui/card";
 
 const page = ({ params }: { params: { slug: string } }) => {
   return (
@@ -15,7 +16,7 @@ const page = ({ params }: { params: { slug: string } }) => {
         <h3 className=" text-xl md:text-3xl text-left text-primary mb-10 font-extrabold ">
           <KitchenName id={params.slug} />
         </h3>
-     
+
         <LinkButton
           href={`/kitchen/${params.slug}/pantry`}
           text="Pantry List"
@@ -38,10 +39,10 @@ export default page;
 const LinkButton = ({ href, text }: { href: string; text: string }) => {
   return (
     <Link
-      className="my-5 w-full md:w-80 bg-transparent border h-20 font-bold text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
+      className=""
       href={href}
     >
-      {text}
+      <Card className="my-5 w-64 md:w-80  border h-20 font-bold text-center flex items-center justify-center text-primary py-3 px-6">{text}</Card>
     </Link>
   );
 };
