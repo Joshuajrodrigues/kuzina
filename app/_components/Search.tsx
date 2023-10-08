@@ -8,7 +8,7 @@ const Search = ({
 }) => {
   return (
     <div className='m-5 px-5 ' >
-      <Input onChange={onChange} name='search' id='search' placeholder='Search' className='w-full border-primary border p-2 text-primary' type="text" />
+      <Input onChange={onChange} name='search' id='search' placeholder='Search' className='w-full  border p-2 text-primary' type="text" />
     </div>
   )
 }

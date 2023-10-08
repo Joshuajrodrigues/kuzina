@@ -43,7 +43,7 @@ export default page;
 const LinkButton = ({ href, text }: { href: string; text: string }) => {
   return (
     <Link className="" href={href}>
-      <Card className="my-2 w-64 md:w-80  border h-20 font-bold text-center flex items-center justify-center text-primary py-3 px-6">
+      <Card className="my-2 w-64 md:w-80  border h-20 font-bold text-center flex items-center justify-center py-3 px-6">
         {text}
       </Card>
     </Link>
