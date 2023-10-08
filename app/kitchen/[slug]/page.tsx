@@ -9,7 +9,7 @@ const page = ({ params }: { params: { slug: string } }) => {
     <>
       <div className="mx-5 px-5 flex justify-between">
         <CopyToClipboard id={params.slug} />{" "}
-        <Help description="Invite code to get your family to collaborate with you" />
+        <Help description="Use code to invite members" />
       </div>
       <div className="m-5 px-5 flex flex-col items-center text-center">
         <h3 className=" text-xl md:text-3xl text-left text-primary mb-10 font-extrabold ">
@@ -38,7 +38,7 @@ export default page;
 const LinkButton = ({ href, text }: { href: string; text: string }) => {
   return (
     <Link
-      className="my-5 w-full md:w-80 bg-white border h-20 font-bold text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
+      className="my-5 w-full md:w-80 bg-transparent border h-20 font-bold text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
       href={href}
     >
       {text}

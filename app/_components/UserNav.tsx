@@ -84,7 +84,7 @@ const UserNav = ({ session }: { session: Session | null }) => {
       >
         {pathname !== "/auth" && (
           <>
-            <EnterIcon className="mr-2" /> Sign in
+            <EnterIcon className="mr-2 text-primary" /> Sign in
           </>
         )}
       </Link>
@@ -95,15 +95,15 @@ const UserNav = ({ session }: { session: Session | null }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>{displayName}</AvatarFallback>
+            <AvatarFallback><p className="text-primary">{displayName}</p></AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{fullname}</p>
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-sm font-medium leading-none text-primary">{fullname}</p>
+            <p className="text-xs leading-none text-muted-foreground overflow-auto ">
               {session?.user.email}
             </p>
           </div>

@@ -43,7 +43,6 @@ const Notifications = ({ session }: { session: Session | null }) => {
       join_request_to: kitchenId as string,
     });
     if (data) setNotifications(data);
-  
   };
 
   const rejectRequests = async (id: string) => {
@@ -71,15 +70,13 @@ const Notifications = ({ session }: { session: Session | null }) => {
         throw error;
       }
     } catch (error) {
-      console.log("error",error);
-      
-    }finally{
+      console.log("error", error);
+    } finally {
       rejectRequests(id);
     }
   };
 
   useEffect(() => {
-    
     if (user && kitchenId) fetchRequests();
   }, [user, kitchenId]);
 
@@ -93,9 +90,9 @@ const Notifications = ({ session }: { session: Session | null }) => {
           <Avatar className="h-8 w-8 ">
             <AvatarFallback>
               {notifications?.length > 0 ? (
-                <EnvelopeClosedIcon color="green" />
+                <EnvelopeClosedIcon className=" bg-primary" color="red" />
               ) : (
-                <EnvelopeOpenIcon />
+                <EnvelopeOpenIcon color="green" />
               )}
             </AvatarFallback>
           </Avatar>

@@ -16,7 +16,7 @@ const CopyToClipboard = ({ id }: { id: string }) => {
     <div className="flex items-center justify-start  my-0">
       <Button
         onClick={handleCopy}
-        className=" bg-primary-foreground text-primary text-[7px] px-2 w-[100px] border-primary bg-white border border-dashed hover:bg-slate-100"
+        className=" bg-transparent text-primary text-[7px] px-2 w-[150px]  border border-dashed hover:bg-slate-100"
       >
         {!isCopied ? (
           <>

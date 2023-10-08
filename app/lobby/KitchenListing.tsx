@@ -99,7 +99,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   //   fetchKitchens();
   // }, []);
   return (
-    <>
+    <div>
       <div className=" h-80 p-2 overflow-y-auto flex flex-col items-center ">
         <LobbyKitchenCard
           daleteKitchen={daleteKitchen}
@@ -113,7 +113,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
 
         <JoinKitchen fetchKitchens={fetchKitchens} session={session} />
       </section>
-    </>
+    </div>
   );
 };
 
