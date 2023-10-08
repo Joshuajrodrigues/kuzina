@@ -1,9 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import hero from "@/public/h1.svg";
-import Image from "next/image";
 import CopyToClipboard from "@/app/_components/CopyToClipboard";
 import Help from "@/app/_components/Help";
+import KitchenName from "@/app/_components/KitchenName";
 
 const page = ({ params }: { params: { slug: string } }) => {
   return (
@@ -13,6 +12,7 @@ const page = ({ params }: { params: { slug: string } }) => {
         <Help description="Invite code to get your family to collaborate with you" />
       </div>
       <div className="m-5 px-5 flex flex-col items-center text-center">
+      <h3 className=" text-xl md:text-3xl text-left "><KitchenName id={params.slug}/></h3>
         <LinkButton
           href={`/kitchen/${params.slug}/pantry`}
           text="Pantry List"
@@ -35,7 +35,7 @@ export default page;
 const LinkButton = ({ href, text }: { href: string; text: string }) => {
   return (
     <Link
-      className="my-5 w-full bg-white border h-20 text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
+      className="my-5 w-full md:w-80 bg-white border h-20 text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
       href={href}
     >
       {text}
