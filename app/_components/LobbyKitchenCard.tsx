@@ -46,10 +46,10 @@ const LobbyKitchenCard = ({
   }
 
   return dataSource?.map((item) => (
-    <Link key={item.id} href={`/kitchen/${item.id}`}>
+    <Link className="w-full flex items-center justify-center" key={item.id} href={`/kitchen/${item.id}`}>
       <Card
         key={item.id}
-        className="h-24 cursor-pointer flex justify-between items-center p-5 my-5 focus:border-double md:w-[340px]"
+        className="h-24 w-full cursor-pointer flex justify-between items-center p-5 my-5 focus:border-double md:w-[340px]"
       >
         <div className="flex flex-col justify-start">
           <span>Name : {item.kitchenname}</span>
