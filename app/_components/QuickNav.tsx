@@ -48,9 +48,9 @@ export function QuickNav() {
   return (
     <div className="w-full flex items-center justify-start">
       <Link href={homeRoute.replace("{id}", kitchenid)}>
-        <HomeIcon className="mr-2" /> 
+        <HomeIcon className="mr-2 text-primary" /> 
       </Link>
-      <span className="mr-2">
+      <span className="mr-2 text-primary">
         /
       </span>
       <Popover open={open} onOpenChange={setOpen}>
@@ -59,10 +59,10 @@ export function QuickNav() {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[150px] justify-between"
+            className="w-[150px] justify-between border-primary "
           >
             {value!.label}
-            <ChevronDownIcon className="ml-2 " />
+            <ChevronDownIcon className="ml-2 text-primary" />
           </Button>
         </PopoverTrigger>
 

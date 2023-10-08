@@ -83,7 +83,7 @@ const AddDrawer = ({
     >
       <SheetTrigger asChild>
         <Button
-          className=" bg-secondary text-primary"
+          className=" bg-secondary text-primary hover:text-white"
           onClick={async (e) => {
             e.stopPropagation();
             if (editItemId) {

@@ -17,7 +17,7 @@ const CardItem:FC<{
   const [active, handleActive] = useState(false);
   return (
     <Card
-      className="mb-12 relative bg-transparent border-none shadow-none cursor-pointer"
+      className="mb-12 relative bg-transparent border-none shadow-none cursor-pointer border-primary"
       style={
         active
           ? {
@@ -40,7 +40,7 @@ const CardItem:FC<{
             }
           }}
           className={
-            "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center "
+            "w-full absolute h-20 flex duration-150 origin-bottom justify-center items-center  border-primary"
           }
           style={
             active
@@ -75,7 +75,7 @@ const CardItem:FC<{
             }
           }}
           className={
-            "w-full  border-2 absolute h-20 flex duration-150 origin-bottom justify-center items-center"
+            "w-full  border-2 absolute h-20 flex duration-150 origin-bottom justify-center items-center  border-primary"
           }
         >
           {firstCard}
@@ -89,7 +89,7 @@ const CardItem:FC<{
               }
             }}
             className={
-              "w-full  border-2 relative h-20 flex duration-150 origin-bottom justify-center items-center"
+              "w-full  border-2 relative h-20 flex duration-150 origin-bottom justify-center items-center  border-primary"
             }
             style={
               active
@@ -121,7 +121,7 @@ const CardItem:FC<{
                 }
               }}
               className={
-                "w-full border-2  absolute h-20 flex duration-150 origin-top justify-center items-center"
+                "w-full border-2  absolute h-20 flex duration-150 origin-top justify-center items-center  border-primary"
               }
               style={
                 active

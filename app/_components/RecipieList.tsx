@@ -36,7 +36,7 @@ const RecipieList = () => {
     debouncedSearch(query);
   };
   return (
-    <div>
+    <div className=" md:px-24 lg:px-32 xl:px-64">
       <Search onChange={handleSearchChange} />
       <div className=" px-5 m-5 flex justify-between">
         <AddDrawer
