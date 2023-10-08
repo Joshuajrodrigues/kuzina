@@ -15,17 +15,16 @@ const page = ({ params }: { params: { slug: string } }) => {
       <div className="m-5 px-5 flex flex-col items-center text-center">
         <LinkButton
           href={`/kitchen/${params.slug}/pantry`}
-          text="Pantry List 📦"
+          text="Pantry List"
         />
         <LinkButton
           href={`/kitchen/${params.slug}/recipies`}
-          text="Recipie List 📔"
+          text="Recipie List"
         />
         <LinkButton
           href={`/kitchen/${params.slug}/shoppinglist`}
-          text="Wish List 🛒"
+          text="Wish List"
         />
-        <Image alt="kitchen" src={hero} width={500} height={600} />
       </div>
     </>
   );
@@ -36,7 +35,7 @@ export default page;
 const LinkButton = ({ href, text }: { href: string; text: string }) => {
   return (
     <Link
-      className="my-5 w-full bg-primary text-secondary rounded-md py-3 px-6"
+      className="my-5 w-full bg-white border h-20 text-center flex items-center justify-center border-primary text-primary rounded-md py-3 px-6"
       href={href}
     >
       {text}
