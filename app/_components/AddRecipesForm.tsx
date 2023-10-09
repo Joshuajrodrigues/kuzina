@@ -137,11 +137,16 @@ const AddRecipesForm = ({
             title: "Item added",
             duration: 2000,
           });
-          try {
-            mutate([apiToMutate, kitchenId, 0, "", "", ""]);
-          } catch (error) {
-            console.log(error);
-          }
+          debugger
+          mutate([
+            "[recipies]-list",
+            kitchenId,
+            0,
+            undefined,
+            undefined,
+            undefined,
+          ]);
+
           closeDrawer();
         }
       }

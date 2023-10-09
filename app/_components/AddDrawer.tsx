@@ -52,7 +52,8 @@ const AddDrawer = ({
   const [itemEditData, setItemEditData] = useState<Pantry | RecipeEdit| null | undefined>(
     null
   );
-  const { height, width } = useGetWidth();
+ 
+    const { height, width } = useGetWidth();
   const kitchenId = useParams().slug;
 
   const handleGetItemDetails = async (
@@ -102,7 +103,7 @@ const AddDrawer = ({
       <SheetContent
         className="h-full overflow-auto"
         onClick={(e) => e.stopPropagation()}
-        side={width<768?"bottom":"right"}
+        side={width! <768?"bottom":"right"}
       >
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>

@@ -127,9 +127,9 @@ export const getRecipeList = async (
   type?:string
 ) => {
   let rangeEnd = page + 4;
-
+  let tableName = extractTableName(url) || "";
   let queryBuilder = clientSupabase
-    .from("recipies")
+    .from(tableName)
     .select("*", { count: "exact" })
     .eq("belongs_to_kitchen", kitchenid)
     .order("created_at", { ascending: false })
