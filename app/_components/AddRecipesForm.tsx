@@ -122,7 +122,7 @@ const AddRecipesForm = ({
             duration: 2000,
             className: " bg-green-500",
           });
-          mutate([apiToMutate, kitchenId, 0, "", "", ""]);
+          mutate([apiToMutate, kitchenId, 0, '', '', '']);
           closeDrawer();
         }
       } else {
@@ -137,14 +137,14 @@ const AddRecipesForm = ({
             title: "Item added",
             duration: 2000,
           });
-          debugger
+          
           mutate([
             "[recipies]-list",
             kitchenId,
             0,
-            undefined,
-            undefined,
-            undefined,
+            '',
+            '',
+            '',
           ]);
 
           closeDrawer();

@@ -12,10 +12,7 @@ export const pantryItemSchema = z.object({
   ),
   quantity: z.preprocess(
     (args) => (args === "" ? undefined : args),
-    z.coerce
-      .number({ required_error: "Quantity is required" })
-      .min(0)
-     
+    z.coerce.number({ required_error: "Quantity is required" }).min(0)
   ),
   unit: z.string().min(1),
   expiry_date: z.date({ invalid_type_error: "Invalid date" }).optional(),
@@ -29,26 +26,12 @@ export const getPantryList = async (
   url: string,
   kitchenid: string,
   page: number,
-  query?:string
+  query?: string
 ) => {
   let rangeEnd = page + 4;
   let tableName = extractTableName(url) || "";
-  if(query){
-    let { data, count, error } = await clientSupabase
-    .from(tableName)
-    .select("*", { count: "exact" })
 
-    // Filters
-    .eq("belongs_to", kitchenid)
-    .textSearch("item_name",`${query}`)
-    .order("created_at", { ascending: false })
-    .range(page, rangeEnd);
-    if (error) throw error;
-    console.log("count", count);
-  
-    return { data, count };
-  }else{
-    let { data, count, error } = await clientSupabase
+  let queryBuilder = clientSupabase
     .from(tableName)
     .select("*", { count: "exact" })
 
@@ -56,13 +39,16 @@ export const getPantryList = async (
     .eq("belongs_to", kitchenid)
     .order("created_at", { ascending: false })
     .range(page, rangeEnd);
-    if (error) throw error;
-    console.log("count", count);
-  
-    return { data, count };
+  if (query) {
+    queryBuilder = queryBuilder.textSearch("item_name", `${query}`);
   }
 
+  let { data, count, error } = await queryBuilder
+    
+  if (error) throw error;
+  console.log("count", count);
 
+  return { data, count };
 };
 
 export const addToPantry = async (
@@ -84,7 +70,7 @@ export const addToPantry = async (
         expiry_date: values.expiry_date,
         price: values.price,
         unit: values.unit,
-        description:values.description
+        description: values.description,
       },
     ])
     .select();
@@ -151,7 +137,5 @@ export const addToCart = async (
     .eq("belongs_to", kitchenId)
     .eq("id", id)
     .select();
-  return {data,error}
+  return { data, error };
 };
-
-
