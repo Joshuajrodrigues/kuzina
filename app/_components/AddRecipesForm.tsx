@@ -96,19 +96,19 @@ const AddRecipesForm = ({
       request.id = prefillData?.recipe?.id;
 
       console.log("request", request);
-      let requestbody:RecipeEdit ={
-        recipe:{
+      let requestbody: RecipeEdit = {
+        recipe: {
           id: request.id,
           recipie_name: request.recipeName,
           belongs_to_kitchen: kitchenId as string,
           note: request.note,
-          type:request.type
+          type: request.type,
         },
         //@ts-ignore
-        ingridients:request.ingridients.map((item)=>item.value),
-         //@ts-ignore
-        steps:request.steps.map((item)=>item.value)
-      }
+        ingridients: request.ingridients.map((item) => item.value),
+        //@ts-ignore
+        steps: request.steps.map((item) => item.value),
+      };
       if (prefillData) {
         const { data, error } = await updateRecipeItem(
           prefillData?.recipe.id,
@@ -164,6 +164,7 @@ const AddRecipesForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
+                  className=" w-72 md:w-80"
                   readOnly={!!prefillData ? !isEditClicked : false}
                   placeholder="eg) Chiken tikka masala"
                   {...field}
@@ -220,10 +221,10 @@ const AddRecipesForm = ({
                   <FormDescription className={cn(index !== 0 && "sr-only")}>
                     Add ingridients to your recipe.
                   </FormDescription>
-                  <div className="flex justify-evenly">
+                  <div className="flex justify-start">
                     <FormControl>
                       <Input
-                        className=" w-80 "
+                        className=" w-80 mr-5"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter ingridient ${index + 1}`}
                         {...field}
@@ -231,6 +232,7 @@ const AddRecipesForm = ({
                     </FormControl>
                     {(!prefillData || isEditClicked) && (
                       <Button
+                        type="button"
                         tabIndex={-1}
                         onClick={() => ingridientsRemove(index)}
                         variant={index > 0 ? "destructive" : "ghost"}
@@ -248,6 +250,7 @@ const AddRecipesForm = ({
           ))}
           {(!prefillData || isEditClicked) && (
             <Button
+              type="button"
               className="my-2"
               onClick={() => ingridientsAppend({ value: "" })}
               variant={"secondary"}
@@ -270,10 +273,10 @@ const AddRecipesForm = ({
                   <FormDescription className={cn(index !== 0 && "sr-only")}>
                     Add steps to your recipe.
                   </FormDescription>
-                  <div className="flex justify-evenly">
+                  <div className="flex justify-start">
                     <FormControl>
                       <Textarea
-                        className=" w-80"
+                        className=" w-80 mr-5"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter step ${index + 1}`}
                         {...field}
@@ -299,6 +302,7 @@ const AddRecipesForm = ({
           ))}
           {(!prefillData || isEditClicked) && (
             <Button
+              type="button"
               className="my-2"
               onClick={() => stepsAppend({ value: "" })}
               variant={"secondary"}
@@ -315,6 +319,7 @@ const AddRecipesForm = ({
               <FormLabel>Note (Optional)</FormLabel>
               <FormControl>
                 <Textarea
+                  className="w-72 md:w-80"
                   readOnly={!!prefillData ? !isEditClicked : false}
                   maxLength={200}
                   {...field}

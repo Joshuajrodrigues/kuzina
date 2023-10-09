@@ -18,6 +18,7 @@ import { Pantry } from "@/types/pantry";
 import AddRecipesForm from "./AddRecipesForm";
 import { PostgrestError } from "@supabase/supabase-js";
 import { Recipe, RecipeEdit } from "@/services/RecipesService";
+import useGetWidth from "@/lib/hooks/useGetWidth";
 
 const AddDrawer = ({
   title = "Add item",
@@ -51,6 +52,7 @@ const AddDrawer = ({
   const [itemEditData, setItemEditData] = useState<Pantry | RecipeEdit| null | undefined>(
     null
   );
+  const { height, width } = useGetWidth();
   const kitchenId = useParams().slug;
 
   const handleGetItemDetails = async (
@@ -100,7 +102,7 @@ const AddDrawer = ({
       <SheetContent
         className="h-full overflow-auto"
         onClick={(e) => e.stopPropagation()}
-        side={"bottom"}
+        side={width<768?"bottom":"right"}
       >
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
