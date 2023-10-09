@@ -32,8 +32,7 @@ const LobbyKitchenCard = ({
   isLoading: boolean;
   user?: User;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [itemToDelete, setIsItemToDelete] = useState("");
+
   if (isLoading) {
     return <LobbyListSkelleton />;
   }
@@ -46,7 +45,7 @@ const LobbyKitchenCard = ({
   }
 
   return dataSource?.map((item) => (
-    <Link className="w-full flex items-start justify-center" key={item.id} href={`/kitchen/${item.id}`}>
+    <div className="w-full flex items-start justify-center" key={item.id}>
       <Card
         key={item.id}
         className="h-20 w-full cursor-pointer flex justify-between items-center p-5 my-2 focus:border-double md:w-[340px]"
@@ -61,27 +60,22 @@ const LobbyKitchenCard = ({
         </div>
         {item?.creator === user?.id && (
           <div
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsItemToDelete(item.id);
-            }}
           >
-            <DeleteConfirm
-              handleOpen={(value) => {
-                setIsOpen(value);
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                daleteKitchen(item.id);
               }}
-              showLabel={false}
-              isOpen={isOpen}
-              descp="This action cannot be undone and will parmanently delete your kitchen"
-              handleDelete={() => {
-                daleteKitchen(itemToDelete);
-                setIsOpen(false);
-              }}
-            />
+              variant={"destructive"}
+            >
+              <TrashIcon />
+              
+            </Button>
           </div>
         )}
       </Card>
-    </Link>
+    </div>
   ));
 };
 
