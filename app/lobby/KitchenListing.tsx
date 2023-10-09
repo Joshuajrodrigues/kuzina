@@ -40,6 +40,8 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
   }
   const daleteKitchen = async (id: string) => {
     const kitchenToDelete = dataSource.find((kitchen) => kitchen.id === id);
+    console.log("kitchenToDelete",kitchenToDelete);
+    
     if (kitchenToDelete?.creator === user?.id) {
       try {
         const { error } = await clientSupabase
@@ -109,7 +111,10 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
         />
       </div>
       <section className="flex flex-col my-2 text-white justify-center items-center"> 
+      {
+        dataSource.length ===0 &&
         <CreateKitchenForm fetchKitchens={fetchKitchens} session={session} />
+      }
 
         <JoinKitchen fetchKitchens={fetchKitchens} session={session} />
       </section>

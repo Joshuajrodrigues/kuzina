@@ -123,7 +123,7 @@ export const getRecipeList = async (
   kitchenid: string,
   page: number,
   query?: string,
-  isFav?: string,
+  isFav?: boolean,
   type?:string
 ) => {
   let rangeEnd = page + 4;
@@ -138,7 +138,7 @@ export const getRecipeList = async (
   if (query) {
     queryBuilder = queryBuilder.textSearch("recipie_name", `${query}`);
   }
-  if(isFav==="true"){
+  if(isFav===true){
     queryBuilder = queryBuilder.eq("is_fav", true);
   }
   if(type&&type?.length>0 && type !== "All"){

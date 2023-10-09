@@ -18,9 +18,10 @@ const RecipieList = () => {
   const [search, setSearch] = useState("");
   const [isFav,setIsFav] = useState(false)
   const [type,setType] = useState("")
+  
   const { data, error, isLoading } = useSWR(
     ["[recipies]-list", kitchenid, page, search,isFav,type],
-    ([url, kitchenid, page]) => getRecipeList(url, kitchenid, page, search,`${isFav}`,type),
+    ([url, kitchenid, page]) => getRecipeList(url, kitchenid, page, search,isFav,type),
     {
       revalidateOnFocus: false,
     }

@@ -122,7 +122,7 @@ const AddRecipesForm = ({
             duration: 2000,
             className: " bg-green-500",
           });
-          mutate([apiToMutate, kitchenId, 0, '', '', '']);
+          mutate([apiToMutate, kitchenId, 0, "",false,""]);
           closeDrawer();
         }
       } else {
@@ -138,14 +138,7 @@ const AddRecipesForm = ({
             duration: 2000,
           });
           
-          mutate([
-            "[recipies]-list",
-            kitchenId,
-            0,
-            '',
-            '',
-            '',
-          ]);
+          mutate([apiToMutate, kitchenId, 0, "",false,""]);
 
           closeDrawer();
         }

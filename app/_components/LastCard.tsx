@@ -49,7 +49,13 @@ const LastCard = ({
         title: "Item deleted",
         duration: 2000,
       });
-      mutate([apiToMutate, kitchenId, 0, "","",""]);
+      console.log("apiToMutate",apiToMutate);
+      if(recipeForm){
+        mutate([apiToMutate, kitchenId, 0, "",false,""]);
+      }else{
+
+        mutate([apiToMutate, kitchenId, 0, ""]);
+      }
     } catch (error) {
       console.log(error);
     } finally {
