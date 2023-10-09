@@ -33,7 +33,8 @@ const Filter: FC<{
   filterName: string;
   filterDefault: string;
   isRadio?: boolean;
-}> = ({ filterDefault, filterName, filterOptions, isRadio = false }) => {
+  onChange:(e:string[])=>void
+}> = ({ filterDefault, filterName, filterOptions, isRadio = true,onChange }) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([
     filterDefault,
   ]);
@@ -72,7 +73,7 @@ const Filter: FC<{
                       <Badge
                         variant="secondary"
                         key={option.label}
-                        className="rounded-sm px-1 font-normal"
+                        className="rounded-sm px-1 font-normal text-center"
                       >
                         {option.label}
                       </Badge>
@@ -111,18 +112,21 @@ const Filter: FC<{
                             newSelectedValues.splice(index, 1);
                           }
                           setSelectedValues(newSelectedValues);
+                          onChange(newSelectedValues)
                         } else {
                           newSelectedValues.push(option.label);
                           setSelectedValues(newSelectedValues);
+                          onChange(newSelectedValues)
                         }
                       } else {
                         setSelectedValues([option.label]);
+                        onChange([option.label])
                       }
                     }}
                   >
                     <div
                       className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded border border-primary",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible"

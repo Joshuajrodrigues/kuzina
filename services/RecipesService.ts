@@ -1,4 +1,4 @@
-import { clientSupabase } from "@/lib/constants";
+import { clientSupabase, recipeTypes } from "@/lib/constants";
 import { extractTableName } from "@/lib/utils";
 import { Pantry } from "@/types/pantry";
 import { PostgrestError, PostgrestSingleResponse } from "@supabase/supabase-js";
@@ -122,38 +122,37 @@ export const getRecipeList = async (
   url: string,
   kitchenid: string,
   page: number,
-  query?: string
+  query?: string,
+  isFav?: string,
+  type?:string
 ) => {
   let rangeEnd = page + 4;
 
+  let queryBuilder = clientSupabase
+    .from("recipies")
+    .select("*", { count: "exact" })
+    .eq("belongs_to_kitchen", kitchenid)
+    .order("created_at", { ascending: false })
+    .range(page, rangeEnd);
+
   if (query) {
-    let { data, count, error } = await clientSupabase
-      .from("recipies")
-      .select("*", { count: "exact" })
-
-      // Filters
-      .eq("belongs_to_kitchen", kitchenid)
-      .textSearch("recipie_name", `${query}`)
-      .order("created_at", { ascending: false })
-      .range(page, rangeEnd);
-    if (error) throw error;
-    console.log("count", count);
-
-    return { data, count };
-  } else {
-    let { data, count, error } = await clientSupabase
-      .from("recipies")
-      .select("*", { count: "exact" })
-
-      // Filters
-      .eq("belongs_to_kitchen", kitchenid)
-      .order("created_at", { ascending: false })
-      .range(page, rangeEnd);
-    if (error) throw error;
-    console.log("count", count);
-
-    return { data, count };
+    queryBuilder = queryBuilder.textSearch("recipie_name", `${query}`);
   }
+  if(isFav==="true"){
+    queryBuilder = queryBuilder.eq("is_fav", true);
+  }
+  if(type&&type?.length>0 && type !== "All"){
+    let val = recipeTypes.find((item)=>item.label === type)?.value
+    if(val){
+      queryBuilder = queryBuilder.eq("type",val)
+    }
+  }
+  let { data, count, error } = await queryBuilder;
+
+  if (error) throw error;
+  console.log("count", count);
+
+  return { data, count };
 };
 
 export const deleteRecipeItem = async (
@@ -248,31 +247,27 @@ export const updateRecipeItem = async (
   let ingridientsReq: Ingridients = updateObject.ingridients;
   let stepsReq: Steps = updateObject.steps;
 
-    const { data, error } = await clientSupabase
-      .from("recipies")
-      .update({
-        "is_fav":recipeReq.is_fav,
-        "note":recipeReq.note,
-        "type":recipeReq.type,
-        "recipie_name":recipeReq.recipie_name
+  const { data, error } = await clientSupabase
+    .from("recipies")
+    .update({
+      is_fav: recipeReq.is_fav,
+      note: recipeReq.note,
+      type: recipeReq.type,
+      recipie_name: recipeReq.recipie_name,
+    })
+    .eq("belongs_to_kitchen", kitchenId)
+    .eq("id", id)
+    .select();
 
-      })
-      .eq("belongs_to_kitchen", kitchenId)
-      .eq("id", id)
-      .select();
-  
-    const { data: Idata, error: Ierror } = await clientSupabase
-      .from("ingridients")
-      .update({ value: ingridientsReq })
-      .eq("belongs_to_recipe", recipeReq.id);
-  
-    const {data:sData,error:Serror} = await clientSupabase
-      .from("steps")
-      .update({"value":stepsReq})
-      .eq("belongs_to_recipe",recipeReq.id)
-    
+  const { data: Idata, error: Ierror } = await clientSupabase
+    .from("ingridients")
+    .update({ value: ingridientsReq })
+    .eq("belongs_to_recipe", recipeReq.id);
 
+  const { data: sData, error: Serror } = await clientSupabase
+    .from("steps")
+    .update({ value: stepsReq })
+    .eq("belongs_to_recipe", recipeReq.id);
 
-    
   return { data: data as Recipe[], error };
 };

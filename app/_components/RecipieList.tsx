@@ -16,10 +16,11 @@ const RecipieList = () => {
   const kitchenid = useParams().slug as string;
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
-
+  const [isFav,setIsFav] = useState(false)
+  const [type,setType] = useState("")
   const { data, error, isLoading } = useSWR(
-    ["[recipies]-list", kitchenid, page, search],
-    ([url, kitchenid, page]) => getRecipeList(url, kitchenid, page, search),
+    ["[recipies]-list", kitchenid, page, search,isFav,type],
+    ([url, kitchenid, page]) => getRecipeList(url, kitchenid, page, search,`${isFav}`,type),
     {
       revalidateOnFocus: false,
     }
@@ -37,11 +38,29 @@ const RecipieList = () => {
     const query = event.target.value;
     debouncedSearch(query);
   };
+  const handleTypes=(e:string[])=>{
+    if(e[0]){
+      setType(e[0])
+    }else if (e[0]===recipeTypes[0].value){
+      setType("")
+    }else{
+      setType("")
+    }
+    
+  }
+  const handleFav=(e:string[])=>{
+    console.log(e);
+    if(e[0]==="True"){
+      setIsFav(true)
+    }else{
+      setIsFav(false)
+    }
+  }
   return (
     <div className=" md:px-24 lg:px-32 xl:px-64">
       <Search onChange={handleSearchChange} />
-      <Filter filterName="Types" filterDefault="All" filterOptions={recipeTypes}/>
-      <Filter filterName="Show favourites" filterDefault="False" filterOptions={[{label:"True"},{label:"False"}]}/>
+      <Filter onChange={handleTypes} filterName="Types" filterDefault="All" filterOptions={recipeTypes}/>
+      <Filter onChange={handleFav} filterName="Show favourites" filterDefault="False" filterOptions={[{label:"True"},{label:"False"}]}/>
       <div className=" px-5 m-5 flex justify-between">
         <AddDrawer
           title="Add recipes"

@@ -52,6 +52,7 @@ const RecipeListRender = ({
                 type={
                   recipeTypes.find((types) => types.value === item.type)?.label
                 }
+                isRecipe
               />
             }
             firstCard={
@@ -67,6 +68,7 @@ const RecipeListRender = ({
                 icon={<MixIcon className="mr-1" />}
                 type={item?.type}
                 id={item?.id!}
+                isInList={item.is_fav}
               />
             }
             lastCard={

@@ -6,9 +6,10 @@ const TopCard:FC<{
     quantity?:number
     type?:string
     unit?:string,
+    isRecipe?:boolean,
     nameHeader?:ReactNode
     nameHeaderIcon?:ReactNode
-}> = ({name,quantity,unit,type,nameHeader="Item name",nameHeaderIcon=<CubeIcon className="mr-1"  />}) => {
+}> = ({name,quantity,unit,type,nameHeader="Item name",nameHeaderIcon=<CubeIcon className="mr-1"  />,isRecipe=false}) => {
   return (
     <div className={"flex px-4 w-full justify-between items-center text-center"}>
         <span className='flex flex-col text-left'>
@@ -16,8 +17,8 @@ const TopCard:FC<{
             {name}
         </span>
         <span className='flex flex-col text-right'>
-            <h6 className='flex items-center justify-center font-extralight text-sm'><ArchiveIcon className="mr-1"  />{type? "Type" : "Quantity"} </h6>
-            {type} {quantity} {unit}
+            <h6 className='flex items-center justify-center font-extralight text-sm'><ArchiveIcon className="mr-1"  />{isRecipe? "Type" : "Quantity"} </h6>
+            {type || '-'} {quantity} {unit}
         </span>
     </div>
   )
