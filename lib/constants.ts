@@ -31,6 +31,10 @@ export const sortOptions = [
 ];
 export const recipeTypes = [
   {
+    label: "All",
+    value: "all",
+  },
+  {
     label: "Snack",
     value: "snack",
   },

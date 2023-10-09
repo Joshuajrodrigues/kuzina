@@ -9,6 +9,8 @@ import useSWR from "swr";
 import { Recipe, getRecipeList } from "@/services/RecipesService";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import RecipeListRender from "./RecipeListRender";
+import Filter from "./Filter";
+import { recipeTypes } from "@/lib/constants";
 
 const RecipieList = () => {
   const kitchenid = useParams().slug as string;
@@ -38,6 +40,8 @@ const RecipieList = () => {
   return (
     <div className=" md:px-24 lg:px-32 xl:px-64">
       <Search onChange={handleSearchChange} />
+      <Filter filterName="Types" filterDefault="All" filterOptions={recipeTypes}/>
+      <Filter filterName="Show favourites" filterDefault="False" filterOptions={[{label:"True"},{label:"False"}]}/>
       <div className=" px-5 m-5 flex justify-between">
         <AddDrawer
           title="Add recipes"

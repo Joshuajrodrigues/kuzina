@@ -193,7 +193,7 @@ const AddRecipesForm = ({
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {recipeTypes?.map((item) => (
+                    {recipeTypes?.filter((item)=>item.value!=="all")?.map((item) => (
                       <SelectItem value={item.value}>{item.label}</SelectItem>
                     ))}
                   </SelectContent>

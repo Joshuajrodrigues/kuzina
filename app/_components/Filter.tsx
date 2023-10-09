@@ -45,7 +45,7 @@ const Filter: FC<{
       <PopoverTrigger asChild>
         <Button
           size={"sm"}
-          className="h-8 w-fit my-2 border-dashed"
+          className="h-8 w-fit border-dashed mx-10  "
           variant={"outline"}
         >
           {hasSelectedValues ? (
