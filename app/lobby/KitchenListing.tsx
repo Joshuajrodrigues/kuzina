@@ -131,7 +131,7 @@ const KitchenListing = ({ session }: { session: Session | null }) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={()=>setOpenDialog(false)}>Cancel</AlertDialogCancel>
             <AlertDialogAction asChild>
               <Button onClick={daleteKitchen} type="button">
                 Confirm

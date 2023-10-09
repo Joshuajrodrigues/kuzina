@@ -50,14 +50,14 @@ const LobbyKitchenCard = ({
         key={item.id}
         className="h-20 w-full cursor-pointer flex justify-between items-center p-5 my-2 focus:border-double md:w-[340px]"
       >
-        <div className="flex flex-col justify-start">
+        <Link className="flex flex-col justify-start w-full"  href={`/kitchen/${item.id}`}>
           <span>Name : {item.kitchenname}</span>
           <section className="flex justify-between items-center">
             <span className=" text-xs">
               Created on : {format(parseISO(item.created_at as string), "PP")}
             </span>
           </section>
-        </div>
+        </Link>
         {item?.creator === user?.id && (
           <div
           >
