@@ -49,7 +49,7 @@ const LastCard = ({
         title: "Item deleted",
         duration: 2000,
       });
-      mutate([apiToMutate, kitchenId, 0, ""]);
+      mutate([apiToMutate, kitchenId, 0, "","",""]);
     } catch (error) {
       console.log(error);
     } finally {

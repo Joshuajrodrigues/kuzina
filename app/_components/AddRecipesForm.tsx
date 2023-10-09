@@ -37,6 +37,7 @@ import {
   addToRecipe,
   updateRecipeItem,
 } from "@/services/RecipesService";
+//import FastFill from "./FastFill";
 
 
 const AddRecipesForm = ({
@@ -122,7 +123,7 @@ const AddRecipesForm = ({
             duration: 2000,
             className: " bg-green-500",
           });
-          mutate([apiToMutate, kitchenId, 0, ""]);
+          mutate([apiToMutate, kitchenId, 0, "","",""]);
           closeDrawer();
         }
       } else {
@@ -138,7 +139,7 @@ const AddRecipesForm = ({
             duration: 2000,
           });
           try {
-            mutate([apiToMutate, kitchenId, 0, ""]);
+            mutate([apiToMutate, kitchenId, 0, "","",""]);
           } catch (error) {
             console.log(error);
           }
@@ -206,7 +207,7 @@ const AddRecipesForm = ({
             </FormItem>
           )}
         />
-
+       
         <div>
           {ingridientsFields.map((field, index) => (
             <FormField
