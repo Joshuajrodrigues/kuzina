@@ -37,8 +37,7 @@ import {
   addToRecipe,
   updateRecipeItem,
 } from "@/services/RecipesService";
-//import FastFill from "./FastFill";
-
+import FastFill from "./FastFill";
 
 const AddRecipesForm = ({
   closeDrawer,
@@ -123,7 +122,7 @@ const AddRecipesForm = ({
             duration: 2000,
             className: " bg-green-500",
           });
-          mutate([apiToMutate, kitchenId, 0, "","",""]);
+          mutate([apiToMutate, kitchenId, 0, "", "", ""]);
           closeDrawer();
         }
       } else {
@@ -139,7 +138,7 @@ const AddRecipesForm = ({
             duration: 2000,
           });
           try {
-            mutate([apiToMutate, kitchenId, 0, "","",""]);
+            mutate([apiToMutate, kitchenId, 0, "", "", ""]);
           } catch (error) {
             console.log(error);
           }
@@ -194,9 +193,11 @@ const AddRecipesForm = ({
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {recipeTypes?.filter((item)=>item.value!=="all")?.map((item) => (
-                      <SelectItem value={item.value}>{item.label}</SelectItem>
-                    ))}
+                    {recipeTypes
+                      ?.filter((item) => item.value !== "all")
+                      ?.map((item) => (
+                        <SelectItem value={item.value}>{item.label}</SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -207,7 +208,26 @@ const AddRecipesForm = ({
             </FormItem>
           )}
         />
-       
+        {(!prefillData || isEditClicked) && (
+          <FastFill
+            title="ingridients"
+            handleAutoData={(text, isPreserve) => {
+              let value = [];
+              let newValues = text.map((item) => ({
+                value: item,
+              }));
+              if (isPreserve) {
+                const currentValues = form.getValues("ingridients");
+                value = [...currentValues, ...newValues];
+              } else {
+                value = [...newValues];
+              }
+              if (text.length > 0) {
+                form.setValue("ingridients", value);
+              }
+            }}
+          />
+        )}
         <div>
           {ingridientsFields.map((field, index) => (
             <FormField
@@ -260,6 +280,26 @@ const AddRecipesForm = ({
             </Button>
           )}
         </div>
+        {(!prefillData || isEditClicked) && (
+          <FastFill
+            title="steps"
+            handleAutoData={(text, isPreserve) => {
+              let value = [];
+              let newValues = text.map((item) => ({
+                value: item,
+              }));
+              if (isPreserve) {
+                const currentValues = form.getValues("steps");
+                value = [...currentValues, ...newValues];
+              } else {
+                value = [...newValues];
+              }
+              if (text.length > 0) {
+                form.setValue("steps", value);
+              }
+            }}
+          />
+        )}
         <div>
           {stepsFields.map((field, index) => (
             <FormField
