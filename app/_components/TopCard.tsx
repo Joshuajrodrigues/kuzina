@@ -17,7 +17,7 @@ const TopCard:FC<{
             {name}
         </span>
         <span className='flex flex-col text-right'>
-            <h6 className='flex items-center justify-center font-extralight text-sm'><ArchiveIcon className="mr-1"  />{isRecipe? "Type" : "Quantity"} </h6>
+            <h6 className='flex items-center justify-end font-extralight text-sm'><ArchiveIcon className="mr-1"  />{isRecipe? "Type" : "Quantity"} </h6>
             {type || (isRecipe&&'-')} {quantity} {unit}
         </span>
     </div>

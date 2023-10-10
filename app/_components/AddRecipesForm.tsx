@@ -242,8 +242,9 @@ const AddRecipesForm = ({
                   </FormDescription>
                   <div className="flex justify-start">
                     <FormControl>
-                      <Input
-                        className=" w-80 mr-5"
+                      <Textarea
+                    
+                        className=" w-80 mr-5  break-words"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter ingridient ${index + 1}`}
                         {...field}
@@ -315,7 +316,7 @@ const AddRecipesForm = ({
                   <div className="flex justify-start">
                     <FormControl>
                       <Textarea
-                        className=" w-80 mr-5"
+                        className=" w-80 mr-5 h-24"
                         readOnly={!!prefillData ? !isEditClicked : false}
                         placeholder={`Enter step ${index + 1}`}
                         {...field}
