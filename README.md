@@ -39,8 +39,8 @@ It provides three main features: Pantry, Recipes, and Wishlist.
 ```
 
 all you have to do is select "Break on new line" and the app fills out the form for you.
+You also have break on comma and numbers as shown below.
 ![fast fill](/public/kuzina/add.png)
-You also have break on comma and numbers as shown above.
 ---
 
 # Future plans
