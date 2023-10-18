@@ -1,53 +1,50 @@
 # The Problem
 
-2022 was a difficult year and while browsing online I found a lot of books and apps for Cognitive Behavioral Therapy.However these were very expansive and at times unavailable in my region, some of my friends were even paying outrageous amounts for the forms. Some of which would either get misplaced (Physical) or used for ad targeting (applications).
+Often, I find myself too busy to check what's left in the fridge. Some days I plan a recipe but forget the steps or where I had found it. When I do have a recipe, I find out I'm out of a particular ingredient. Sometimes I forget to buy stuff, and some days I find that it's already bought, and I bought it again.
 
 # The Solution
 
-Kognitive is a CBT journaling app designed to make the process of practicing Cognitive Behavioral Therapy more manageable and structured. It provides users with a digital platform to journal their thoughts, feelings, and behaviors, making it easier to recognize patterns and apply CBT techniques for better mental health.
+Kuzina is a kitchen management app designed to be quick and effortless for data entry and viewing. The app comes with collaboration features, so you can be in sync with your family members regarding what needs to be purchased and what has already been purchased.
 
-![dashboard](/kognitive/dash.png)
+![Dashboard](/kuzina/dash.png)
+![pantry](/kuzina/pantry.png)
 # Features
 
-Kognitive offers several key features:
+It provides three main features: Pantry, Recipes, and Wishlist.
 
-- **PWA:** It is a progressive web app, can be installed on your phone like a native app.
+- **Pantry:** Where all your inventory goes, such as salt, sugar, pepper, milk.
+- **Recipes:** Where all your recipes go.
+- **Wishlist:** The items that you are out of and can refer to when you go shopping.
 
-- **Daily checkin:** A general space for users to record their thoughts and emotions, organized by date and time.
-
-- **SMART goal builder:** Users can track their goals and get a clear picture of what they want and how they can archive it.
-
-- **Stress manager:** A feature for recording and analyzing stress, helping users understand how their actions relate to their thoughts and emotions.
-
-- **Worry challenge:** Kognitive offers a form to challenge worry thoughts, to jot them down and to make sense of them.
-
-- **Breakdown argument:** Ever had those arguments that ruin your entire day ? This is for you.
-
-- **History:** Kognitive offers a histroy table where you can view your past entries.
-![history](/kognitive/history.png)
 # Challenges
 
-1. **User Engagement:** Usually you see these apps use gamification tactics and rewards, they are flashy or too bubbly. I persoanlly find this to be a bad design for an app where the user comes in with varid mental states and stresses
+1. **Pantry:** For the pantry (later for recipes and wishlist), I wanted the listing to be mobile-first as mobile is what my mom and I use when we go shopping. A table would be a bad idea as it often shows too much data or too little.
 
-   - **Solution:** Kognitive employs clean and soft ui. It does not force your hand at anything, dont want to wite a step, thats ok. The app stays out of your way and neutral to make sure the user can focus on themselves
-![example](/kognitive/example.png)
-2. **Data Privacy and Security:** Safeguarding sensitive user data and ensuring the privacy of their thoughts and emotions is crucial in a mental health app.
+   - **Solution:** What I finally came up with was a collapsible card stack that "opens" up to reveal more content. This looked cool and was also very challenging to build.
+   ![table](/kuzina/table.png)
 
-   - **Solution:** Konitive is opensource, you can clone host this on your personal supabse db, there are no ads and its free.
+2. **Authentication:** Auth was and is very challenging in this app, mostly as I never dealt with complex authentication on the backend. Not only does Kuzina have a generic user login, it also has a request system where other users can request the kitchen creator to join their kitchen. As a frontend dev, I had to ask for help from my work colleagues on how to actually get this done.
 
-3. **Forms:** The forms provided in kognitive have a slightly complex state mangment system.
+   - **Solution:** I finally cracked it by using row-based security from the database side (Supabase) for the kitchen read-write access.
 
-   - **Solution:** It was made easier by using zustand over redux as it felt like the perfect balance for an app like this
-   
+3. **Data Entry:** Entering data for recipes was tedious, especially if you are like me who just copies recipes from YouTube or websites. To manually add it would be boring.
 
-# Future Plans
-
-Kognitive aims to continue evolving to better serve its users:
+   - **Solution:** This was my favorite. The add/edit recipe drawer gives you a button called fast fill. This opens up a text area, where you paste in your content, and choose how you want the data to be broken up. So let's say the data is:
 
 
-- **Enhanced Analytics:** Improving the app's data analysis capabilities to offer more insights into thought, emotion, and behavior patterns.
+```
+1) milk
+2) bananas
+3) sugar
+```
 
-- **Mood Prediction:** Implementing AI-driven mood prediction to help users anticipate and manage emotional states.
+all you have to do is select "Break on new line" and the app fills out the form for you.
+![fast fill](/kuzina/add.png)
+You also have break on comma and numbers as shown above.
+---
 
-- **Personalized CBT Plans:** Developing personalized CBT plans based on user data, allowing for tailored therapeutic experiences.
+# Future plans
 
+- **Real time:** This app would benefit from real time db a lot.
+- **User management:** Managing users in your kitchen with role based permissions.
+- **Recipe to ingridient tracking:** Check if ingridients are present when viewing the recipe.
